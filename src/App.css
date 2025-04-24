@@ -1,0 +1,286 @@
+/* Root wrapper */
+
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.system-title{
+  padding: 20px;
+}
+
+
+#kt_app_wrapper {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 70px); 
+  overflow: hidden;
+}
+
+/* Sidebar */
+.app-sidebar {
+  width: 250px;
+  background-color: #0d4473;
+  color: white;
+  height: 100%;
+  overflow-y: auto;
+  position: sticky;
+  top: 0;
+}
+
+/* Main content area */
+.main-content {
+  flex-grow: 1;
+  background-color: #f9f9f9;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Toolbar */
+.app-toolbar {
+  background-color: white;
+  border-bottom: 1px solid #e4e6ef;
+}
+.page-flexed{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.page-flexed #kt_app_content{
+  width: 50%;
+}
+.page-flexed .preview{
+  width: 50%;
+  background-color: antiquewhite;
+}
+.page-flexed {
+  display: flex;
+  align-items: stretch; /* This makes children equal height */
+  gap: 2rem;
+  padding: 1rem;
+  background: #f4f6f9;
+  min-height: 700px; /* or set based on your content */
+}
+.tab-pane {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+.card-body {
+  align-items: start !important;
+}
+
+.template,
+.template-settings {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.template {
+  flex: 1;
+  min-width: 760px;
+}
+
+.template-settings {
+  flex: 0 0 350px;
+}
+
+
+.select-pag {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  border-radius: 8px;
+  width: 150px;
+}
+
+.stage {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+/* Bootstrap Tabs Overrides */
+.nav-tabs {
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.nav-tabs .nav-link {
+  border: none;
+  color: #555;
+  padding: 10px 16px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #f1f3f9;
+  border-bottom: 2px solid #3699ff;
+  color: #3699ff;
+}
+
+.tab-content {
+  margin-top: 1rem;
+}
+
+.tab-pane {
+  padding: 1rem;
+  background-color: #fafafa;
+  border-radius: 8px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+}
+
+form input[type="date"] {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button.btn-primary {
+  display: block;
+  margin: 20px auto;
+  width: 150px;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 6px;
+}
+.position-controls{
+  display: flex;
+  flex-direction: column;
+}
+
+.collapsable {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+  max-width: 300px;
+  background-color: transparent;  /* Set the background to transparent */
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  display: block;
+  margin: 10px auto;
+}
+
+.collapsable[open] {
+  background-color: transparent;  /* Maintain transparency when open */
+  border-color: #3b82f6;
+}
+
+.field {
+  font-weight: 600;
+  cursor: pointer;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;  /* Set background to transparent here too */
+  border-bottom: 1px solid #ccc;
+}
+.field::after {
+  content: '▾';
+  font-size: 12px;
+  transition: transform 0.3s ease;
+  margin-left: auto;
+}
+
+.collapsable[open] .field::after {
+  transform: rotate(180deg);
+}
+
+.submenu {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  gap: 8px;
+}
+
+.menu-title {
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.dropdown-toggle{
+  color: white;
+}
+
+
+.menu-title:hover {
+  color: #2563eb;
+}
+
+/* Optional input styles */
+.collapsable input {
+  padding: 6px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+
+
+
+
+
+
+#emp-id,#badges{
+  display: flex;
+  justify-content: center;
+
+  margin-bottom: 30px;
+  perspective: 1000px;
+ 
+}
+
+.id{
+  margin: 50px auto;
+ background-color: #38b6ff;
+ color: black;
+  width: 580px;
+  height:400px ;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  text-align: center;
+  border-radius: 8px;
+  flex-wrap: wrap;
+  transform-style: preserve-3d;
+  transition: all 0.5s ease;
+  position: relative;
+}
+
+.front, .back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    backface-visibility: hidden;
+}
+
+.back{
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.id:hover{
+  transform: rotateY(180deg);
+}
+
+
+.hide{
+  display: none;
+}

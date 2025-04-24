@@ -1,0 +1,222 @@
+import { Link } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { getOrganizationInfo } from "../features/organizationSlice";
+import { useDispatch, useSelector } from "react-redux";
+export default function Sidebar(){
+
+	
+	const [logo,setLogo]=useState();
+	const dispatch=useDispatch();
+	const {organizationInfo}=useSelector((state)=>state.organization);
+
+	useEffect(()=>{
+		dispatch(getOrganizationInfo()).then((data)=>{
+			console.log(data);
+			console.log(data.payload);
+			console.log(data.payload[0]?.en_name)
+			setLogo(data.payload[0]?.logo);
+		})
+	},[organizationInfo]);
+	
+    return(
+        
+            
+					<div id="kt_app_sidebar" className="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="225px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
+						{/*begin::Logo*/}
+						<div className="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
+							{/*begin::Logo image*/}
+							
+							<a href="/">
+							{logo ? (
+								<img src={logo} className="h-25px app-sidebar-logo-default"/>
+							  ) : (
+								<img alt="Logo"  className="h-25px app-sidebar-logo-default" />
+							  )}
+							</a>
+							
+							  
+							
+							{/*end::Logo image*/}
+							{/*begin::Sidebar toggle*/}
+							<div id="kt_app_sidebar_toggle" className="app-sidebar-toggle btn btn-icon btn-shadow btn-sm btn-color-muted btn-active-color-primary body-bg h-30px w-30px position-absolute top-50 start-100 translate-middle rotate active" data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body" data-kt-toggle-name="app-sidebar-minimize">
+								
+								<span className="svg-icon svg-icon-2 rotate-180">
+									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path opacity="0.5" d="M14.2657 11.4343L18.45 7.25C18.8642 6.83579 18.8642 6.16421 18.45 5.75C18.0358 5.33579 17.3642 5.33579 16.95 5.75L11.4071 11.2929C11.0166 11.6834 11.0166 12.3166 11.4071 12.7071L16.95 18.25C17.3642 18.6642 18.0358 18.6642 18.45 18.25C18.8642 17.8358 18.8642 17.1642 18.45 16.75L14.2657 12.5657C13.9533 12.2533 13.9533 11.7467 14.2657 11.4343Z" fill="currentColor" />
+										<path d="M8.2657 11.4343L12.45 7.25C12.8642 6.83579 12.8642 6.16421 12.45 5.75C12.0358 5.33579 11.3642 5.33579 10.95 5.75L5.40712 11.2929C5.01659 11.6834 5.01659 12.3166 5.40712 12.7071L10.95 18.25C11.3642 18.6642 12.0358 18.6642 12.45 18.25C12.8642 17.8358 12.8642 17.1642 12.45 16.75L8.2657 12.5657C7.95328 12.2533 7.95328 11.7467 8.2657 11.4343Z" fill="currentColor" />
+									</svg>
+								</span>
+								
+							</div>
+							{/*end::Sidebar toggle*/}
+						</div>
+						{/*end::Logo*/}
+						{/*begin::sidebar menu*/}
+						<div className="app-sidebar-menu overflow-hidden flex-column-fluid">
+							{/*begin::Menu wrapper*/}
+							<div id="kt_app_sidebar_menu_wrapper" className="app-sidebar-wrapper hover-scroll-overlay-y my-5" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer" data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px" data-kt-scroll-save-state="true">
+								{/*begin::Menu*/}
+								
+								<div className="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
+								<div className="position-relative">
+  <a className="menu-title" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Dashboards
+  </a>
+
+ 
+  <div class="collapse mt-2" id="collapseExample">
+    <div class="d-flex flex-column gap-2 ">
+	<Link className="dropdown-item" to="/home/hrdashboard">
+	<span className="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-30px h-30px me-2">
+                        <span className="svg-icon svg-icon-primary svg-icon-1">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                            </svg>
+                        </span>
+                    </span>HR Dashboard</Link>
+					<Link className="dropdown-item" to="/home/itstaffdashboard">
+	<span className="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-30px h-30px me-2">
+                        <span className="svg-icon svg-icon-primary svg-icon-1">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                            </svg>
+                        </span>
+                    </span>IT Staff Dashboard</Link>
+					<Link className="dropdown-item" to="/home/employeedashboard">
+	<span className="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-30px h-30px me-2">
+                        <span className="svg-icon svg-icon-primary svg-icon-1">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                            </svg>
+                        </span>
+                    </span>Employee Dashboard</Link>
+      
+    </div>
+  </div>
+</div>
+								
+
+									{/*begin:Menu item*/}
+									<div className="menu-item pt-5">
+										{/*begin:Menu content*/}
+										<div className="menu-content">
+											<span className="menu-heading fw-bold text-uppercase fs-7">Pages</span>
+										</div>
+										{/*end:Menu content*/}
+									</div>
+									{/*end:Menu item*/}
+									{/*begin:Menu item*/}
+									<div data-kt-menu-trigger="click" className="menu-item menu-accordion">
+										{/*begin:Menu link*/}
+										<span className="menu-link">
+											<span className="menu-icon">
+												{/*begin::Svg Icon | path: icons/duotune/communication/com005.svg*/}
+												<span className="svg-icon svg-icon-2">
+													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<path d="M20 14H18V10H20C20.6 10 21 10.4 21 11V13C21 13.6 20.6 14 20 14ZM21 19V17C21 16.4 20.6 16 20 16H18V20H20C20.6 20 21 19.6 21 19ZM21 7V5C21 4.4 20.6 4 20 4H18V8H20C20.6 8 21 7.6 21 7Z" fill="currentColor" />
+														<path opacity="0.3" d="M17 22H3C2.4 22 2 21.6 2 21V3C2 2.4 2.4 2 3 2H17C17.6 2 18 2.4 18 3V21C18 21.6 17.6 22 17 22ZM10 7C8.9 7 8 7.9 8 9C8 10.1 8.9 11 10 11C11.1 11 12 10.1 12 9C12 7.9 11.1 7 10 7ZM13.3 16C14 16 14.5 15.3 14.3 14.7C13.7 13.2 12 12 10.1 12C8.10001 12 6.49999 13.1 5.89999 14.7C5.59999 15.3 6.19999 16 7.39999 16H13.3Z" fill="currentColor" />
+													</svg>
+												</span>
+												{/*end::Svg Icon*/}
+											</span>
+                                            <Link to="/usermanagement">
+                                            <span className="menu-title">User Management</span>
+                                            </Link>
+											
+										</span>
+										
+										
+									</div>
+									{/*end:Menu item*/}
+                                    {/*begin:Menu item*/}
+									<div data-kt-menu-trigger="click" className="menu-item menu-accordion">
+										{/*begin:Menu link*/}
+										<span className="menu-link">
+											<span className="menu-icon">
+												{/*begin::Svg Icon | path: icons/duotune/communication/com005.svg*/}
+												<span className="svg-icon svg-icon-2">
+													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<path d="M20 14H18V10H20C20.6 10 21 10.4 21 11V13C21 13.6 20.6 14 20 14ZM21 19V17C21 16.4 20.6 16 20 16H18V20H20C20.6 20 21 19.6 21 19ZM21 7V5C21 4.4 20.6 4 20 4H18V8H20C20.6 8 21 7.6 21 7Z" fill="currentColor" />
+														<path opacity="0.3" d="M17 22H3C2.4 22 2 21.6 2 21V3C2 2.4 2.4 2 3 2H17C17.6 2 18 2.4 18 3V21C18 21.6 17.6 22 17 22ZM10 7C8.9 7 8 7.9 8 9C8 10.1 8.9 11 10 11C11.1 11 12 10.1 12 9C12 7.9 11.1 7 10 7ZM13.3 16C14 16 14.5 15.3 14.3 14.7C13.7 13.2 12 12 10.1 12C8.10001 12 6.49999 13.1 5.89999 14.7C5.59999 15.3 6.19999 16 7.39999 16H13.3Z" fill="currentColor" />
+													</svg>
+												</span>
+												{/*end::Svg Icon*/}
+											</span>
+											<Link to="/employeemanagement">
+                                            <span className="menu-title">Employee Management</span>
+                                            </Link>
+											
+										</span>
+										
+										
+									</div>
+									
+									
+
+									<div data-kt-menu-trigger="click" className="menu-item menu-accordion">
+										{/*begin:Menu link*/}
+										<span className="menu-link">
+											<span className="menu-icon">
+												{/*begin::Svg Icon | path: icons/duotune/communication/com005.svg*/}
+												<span className="svg-icon svg-icon-2">
+													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<path d="M20 14H18V10H20C20.6 10 21 10.4 21 11V13C21 13.6 20.6 14 20 14ZM21 19V17C21 16.4 20.6 16 20 16H18V20H20C20.6 20 21 19.6 21 19ZM21 7V5C21 4.4 20.6 4 20 4H18V8H20C20.6 8 21 7.6 21 7Z" fill="currentColor" />
+														<path opacity="0.3" d="M17 22H3C2.4 22 2 21.6 2 21V3C2 2.4 2.4 2 3 2H17C17.6 2 18 2.4 18 3V21C18 21.6 17.6 22 17 22ZM10 7C8.9 7 8 7.9 8 9C8 10.1 8.9 11 10 11C11.1 11 12 10.1 12 9C12 7.9 11.1 7 10 7ZM13.3 16C14 16 14.5 15.3 14.3 14.7C13.7 13.2 12 12 10.1 12C8.10001 12 6.49999 13.1 5.89999 14.7C5.59999 15.3 6.19999 16 7.39999 16H13.3Z" fill="currentColor" />
+													</svg>
+												</span>
+												{/*end::Svg Icon*/}
+											</span>
+											
+                                            
+											
+											
+										
+<div className="position-relative">
+  <a className="menu-title" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Dynamic Settings
+  </a>
+
+ 
+  <div class="collapse mt-2" id="collapseExample">
+    <div class="d-flex flex-column gap-2 ">
+		<Link to="/iddetails" className="btn btn-outline-secondary menu-title">Edit Template Details</Link>
+		<Link to="/dynamicdetails" className="btn btn-outline-secondary menu-title">Edit Organization Information</Link>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+                                           
+											
+										</span>
+										
+										
+									</div>
+									{/*end:Menu item*/}
+
+									
+								</div>
+								{/*end::Menu*/}
+							</div>
+							{/*end::Menu wrapper*/}
+						</div>
+						{/*end::sidebar menu*/}
+						
+					</div>
+					
+        
+    )
+}
