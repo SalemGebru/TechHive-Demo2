@@ -249,12 +249,15 @@ export default function IdManagement() {
   const [backObj,setBackObj]=useState();
   const [backObjBack,setBackObjBack]=useState();
   const [backObjBadge,setBackObjBadge]=useState();
+  const [imageMaskColor,setImageMaskColor]=useState('black');
+  const [imageCircleDiameter, setImageCircleDiameter] = useState(0);
+  const [imageMaskThickness,setImageMaskThickness]=useState(0);
   
   console.log(Object.keys(localStorage));
   const loadImageWithCORS = (src) => {
     return new Promise((resolve, reject) => {
       const img = new window.Image();
-      img.crossOrigin = 'anonymous'; // Ensure CORS is enabled
+      img.crossOrigin = 'anonymous'; 
       img.onload = () => resolve(img);
       img.onerror = (err) => reject(err);
       img.src = src;
@@ -284,14 +287,20 @@ export default function IdManagement() {
   
   
 
-  useEffect(()=>{
-    const img=localStorage.getItem(`templateCardsback`);
-    console.log(img);
-    const loading=new window.Image();
-    loading.src=img;
-    console.log(loading);
-    setBackObjBack(loading);
-},[selectedTemplate]);
+  useEffect(() => {
+    const img = localStorage.getItem('templateCardsback');
+    if (!img) return;
+  
+    const image = new window.Image();
+    image.src = img;
+  
+    image.onload = () => {
+      console.log('Image loaded:', image);
+      setBackObjBack(image);
+    };
+  }, [selectedTemplate]);
+console.log(backObjBack)
+
 
 useEffect(()=>{
   const img=localStorage.getItem(`templateCardsbadge`);
@@ -302,7 +311,8 @@ useEffect(()=>{
   setBackObjBadge(loading);
 },[selectedTemplate]);
 
-console.log(templates['back'])
+
+
 
   return (
     <>

@@ -85,32 +85,32 @@ export const generateIdBunch = createAsyncThunk(
   'id/bunchIssue',
   async ({ selectedUsers, FormData }, { rejectWithValue }) => {
     try {
-      // Extract the issue and expire dates from FormData
-      const issueDate = FormData.get('id_issue_date');  // Use get() to access form data values
-      const expireDate = FormData.get('id_expire_date');  // Use get() to access form data values
+      
+      const issueDate = FormData.get('id_issue_date');  
+      const expireDate = FormData.get('id_expire_date');  
 
-      // Check if the dates exist
+      
       if (!issueDate || !expireDate) {
         return rejectWithValue('Issue and Expiry dates are required');
       }
 
-      // Update selectedUsers with the issue and expire dates
+      
       const updatedUsers = selectedUsers.map(user => ({
         ...user,
         id_issue_date: issueDate,
         id_expire_date: expireDate,
       }));
 
-      // Retrieve the current list of ID cards from localStorage
-      const storedIds = JSON.parse(localStorage.getItem('idcard')) || [];  // Default to an empty array if null
+      
+      const storedIds = JSON.parse(localStorage.getItem('idcard')) || [];  
 
-      // Add the updated users to the stored IDs
-      storedIds.push(...updatedUsers);  // Use spread to add users individually
+      
+      storedIds.push(...updatedUsers);  
 
-      // Save the updated list back to localStorage
+      
       localStorage.setItem('idcard', JSON.stringify(storedIds));
 
-      // Optionally return the updated users to be used in the UI or further actions
+      
       return updatedUsers;
 
     } catch (error) {
