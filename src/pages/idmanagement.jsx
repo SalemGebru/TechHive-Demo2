@@ -39,84 +39,8 @@ export default function IdManagement() {
   const [id,setId]=useState();
   const [selectedTemplate,setSelectedTemplate]=useState("front");
   const [templates,setTemplates]=useState({
-      front:{
-          photo:{
-            xPosition:30,
-            yPosition:80,
-            image_width:150,
-            image_height:150,
-            has_mask:false,
-            mask_color:'black',
-            mask_thickness:0,
-            is_circle:false,
-            circle_diameter:0,
-            circle_background:null
-          },
-          en_name:{
-              text_positionx:400,
-              text_positiony:80,
-              text_font_size:18,
-              text_font_color:'black',
-              text_font_type:'arial',
-              field_label:'Name',
-              field_name:'en_name',
-              
-          },
-          job_position:{
-              text_positionx:400,
-              text_positiony:100,
-              text_font_size:18,
-              text_font_color:'black',
-              text_font_type:'arial',
-              field_label:'Role',
-              field_name:'job_position',
-              
-          },
-          id_issue_date:{
-              text_positionx:400,
-              text_positiony:120,
-              text_font_size:18,
-              text_font_color:'black',
-              text_font_type:'arial',
-              field_label:'Issue Date',
-              field_name:'id_issue_date',
-              
-          },
-          id_expire_date:{
-              text_positionx:400,
-              text_positiony:140,
-              text_font_size:18,
-              text_font_color:'black',
-              text_font_type:'arial',
-              field_label:'Expire Date',
-              field_name:'id_expire_date',
-              
-          }
-      },
-      back:{
-          phone_number:{
-              text_positionx:400,
-              text_positiony:90,
-              text_font_size:18,
-              text_font_color:'black',
-              text_font_type:'arial',
-              field_label:'Phone',
-              field_name:'phone_number',
-              
-          },
-          address:{
-              text_positionx:400,
-              text_positiony:120,
-              text_font_size:18,
-              text_font_color:'black',
-              text_font_type:'arial',
-              field_label:'Address',
-              field_name:'address',
-              
-          }
-      },
-      badge:{
-          photo:{
+    front:{
+        photo:{
             xPosition:30,
             yPosition:80,
             image_width:150,
@@ -126,29 +50,731 @@ export default function IdManagement() {
             mask_color:'black',
             is_circle:false,
             circle_diameter:0,
-            circle_background:null
-          },
-          en_name:{
-              text_positionx:400,
-              text_positiony:90,
-              text_font_size:18,
-              text_font_color:'black',
-              text_font_type:'arial',
-              field_label:'Name',
-              field_name:'en_name',
-          },
-          job_position:{
-              text_positionx:400,
-              text_positiony:120,
-              text_font_size:18,
-              text_font_color:'black',
-              text_font_type:'arial',
-              field_label:'Role',
-              field_name:'position',
-          },
+            circle_background:null,
+        },
+        en_name:{
+            text_positionx:400,
+            text_positiony:80,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Name',
+            field_name:'en_name',
+            
+        },
+        job_position:{
+            text_positionx:400,
+            text_positiony:100,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Role',
+            field_name:'job_position',
+            
+        },
+        id_issue_date:{
+            text_positionx:400,
+            text_positiony:120,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Issue Date',
+            field_name:'id_issue_date',
+            
+        },
+        id_expire_date:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Expire Date',
+            field_name:'id_expire_date',
+            
+        },
+        title:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Title',
+            field_name:'title',
+        },
+        sex:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Sex',
+            field_name:'sex',
+        },
+        date_of_birth:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Date of Birth',
+            field_name:'date_of_birth',
+        },
+        joined_date:{
+          text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Join Date',
+            field_name:'joined_date',
+        },
+        email:{
+          text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Email',
+            field_name:'email',
+        },
+        phone_number:{
+          text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Phone',
+            field_name:'phone',
+        },
+        organization_unit:{
+          text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Unit',
+            field_name:'organization_unit',
+        },
+        job_position:{
+          text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Position',
+            field_name:'job_position',
+        },
+        job_title_category:{
+          text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Job Category',
+            field_name:'job_title_category',
+        },
+        salary_id:{
+          text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Salary ID',
+            field_name:'salary_id',
+        },
+        marital_status:{
+          text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Marital Status',
+            field_name:'marital_status',
+        },
+        nation:{
+          text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Nation',
+            field_name:'nation',
+        },
+        employment_id:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Employment ID',
+            field_name:'id_expire_date',
+        },
+        job_position_start_date:{
+          text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Position Start Date',
+            field_name:'job_position_start_date',
+        },
+        job_position_end_date:{
+          text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Position End Date',
+            field_name:'job_position_end_date',
+        },
+        address:{
+          text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Address',
+            field_name:'address',
+        },
+        house_number:{
+          text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'House Number',
+            field_name:'house_number',
+        },
+        region:{
+          text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Region',
+            field_name:'region',
+        },
+        zone:{
+          text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Zone',
+            field_name:'zone',
+        },
+        woreda:{
+          text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            field_label:'Woreda',
+            field_name:'woreda',
+        },
+    },
+    back:{
+      photo:{
+        xPosition:30,
+        yPosition:80,
+        image_width:150,
+        image_height:150,
+        has_mask:false,
+        mask_thickness:0,
+        mask_color:'black',
+        is_circle:false,
+        circle_diameter:0,
+        circle_background:null,
+    },
+    en_name:{
+        text_positionx:400,
+        text_positiony:80,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Name',
+        field_name:'en_name',
+        
+    },
+    job_position:{
+        text_positionx:400,
+        text_positiony:100,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Role',
+        field_name:'job_position',
+        
+    },
+    id_issue_date:{
+        text_positionx:400,
+        text_positiony:120,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Issue Date',
+        field_name:'id_issue_date',
+        
+    },
+    id_expire_date:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Expire Date',
+        field_name:'id_expire_date',
+        
+    },
+    title:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Title',
+        field_name:'title',
+    },
+    sex:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Sex',
+        field_name:'sex',
+    },
+    date_of_birth:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Date of Birth',
+        field_name:'date_of_birth',
+    },
+    joined_date:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Join Date',
+        field_name:'joined_date',
+    },
+    email:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Email',
+        field_name:'email',
+    },
+    phone_number:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Phone',
+        field_name:'phone',
+    },
+    organization_unit:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Unit',
+        field_name:'organization_unit',
+    },
+    job_position:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Position',
+        field_name:'job_position',
+    },
+    job_title_category:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Job Category',
+        field_name:'job_title_category',
+    },
+    salary_id:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Salary ID',
+        field_name:'salary_id',
+    },
+    marital_status:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Marital Status',
+        field_name:'marital_status',
+    },
+    nation:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Nation',
+        field_name:'nation',
+    },
+    employment_id:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Employment ID',
+        field_name:'id_expire_date',
+    },
+    job_position_start_date:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Position Start Date',
+        field_name:'job_position_start_date',
+    },
+    job_position_end_date:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Position End Date',
+        field_name:'job_position_end_date',
+    },
+    address:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Address',
+        field_name:'address',
+    },
+    house_number:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'House Number',
+        field_name:'house_number',
+    },
+    region:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Region',
+        field_name:'region',
+    },
+    zone:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Zone',
+        field_name:'zone',
+    },
+    woreda:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Woreda',
+        field_name:'woreda',
+    },
+    },
+    badge:{
+      photo:{
+        xPosition:30,
+        yPosition:80,
+        image_width:150,
+        image_height:150,
+        has_mask:false,
+        mask_thickness:0,
+        mask_color:'black',
+        is_circle:false,
+        circle_diameter:0,
+        circle_background:null,
+    },
+    en_name:{
+        text_positionx:400,
+        text_positiony:80,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Name',
+        field_name:'en_name',
+        
+    },
+    job_position:{
+        text_positionx:400,
+        text_positiony:100,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Role',
+        field_name:'job_position',
+        
+    },
+    id_issue_date:{
+        text_positionx:400,
+        text_positiony:120,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Issue Date',
+        field_name:'id_issue_date',
+        
+    },
+    id_expire_date:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Expire Date',
+        field_name:'id_expire_date',
+        
+    },
+    title:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Title',
+        field_name:'title',
+    },
+    sex:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Sex',
+        field_name:'sex',
+    },
+    date_of_birth:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Date of Birth',
+        field_name:'date_of_birth',
+    },
+    joined_date:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Join Date',
+        field_name:'joined_date',
+    },
+    email:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Email',
+        field_name:'email',
+    },
+    phone_number:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Phone',
+        field_name:'phone',
+    },
+    organization_unit:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Unit',
+        field_name:'organization_unit',
+    },
+    job_position:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Position',
+        field_name:'job_position',
+    },
+    job_title_category:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Job Category',
+        field_name:'job_title_category',
+    },
+    salary_id:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Salary ID',
+        field_name:'salary_id',
+    },
+    marital_status:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Marital Status',
+        field_name:'marital_status',
+    },
+    nation:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Nation',
+        field_name:'nation',
+    },
+    employment_id:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Employment ID',
+        field_name:'id_expire_date',
+    },
+    job_position_start_date:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Position Start Date',
+        field_name:'job_position_start_date',
+    },
+    job_position_end_date:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Position End Date',
+        field_name:'job_position_end_date',
+    },
+    address:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Address',
+        field_name:'address',
+    },
+    house_number:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'House Number',
+        field_name:'house_number',
+    },
+    region:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Region',
+        field_name:'region',
+    },
+    zone:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Zone',
+        field_name:'zone',
+    },
+    woreda:{
+      text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        field_label:'Woreda',
+        field_name:'woreda',
+    },
+    }
+        
+    });
+    const loadFieldState=()=>{
+      const savedFieldState=JSON.parse(localStorage.getItem('enabledFields'));
+      return savedFieldState?savedFieldState :{
+                  en_name:false,
+                  title:false,
+                  sex:false,
+                  date_of_birth:false,
+                  joined_date:false,
+                  email:false,
+                  photo:false,
+                  phone_number:false,
+                  organization_unit:false,
+                  job_position:false,
+                  job_title_category:false,
+                  salary_id:false,
+                  marital_status:false,
+                  nation:false,
+                  employment_id:false,
+                  job_position_start_date:false,
+                  job_position_end_date:false,
+                  address:false,
+                  house_number:false,
+                  region:false,
+                  zone:false,
+                  woreda:false,
+                  status:false,
+                  id_issue_date:false,
+                  id_expire_date:false,
+                  id_status:false
       }
-          
-      });
+    }
+    const [enableField,setEnableField]=useState(loadFieldState);
     const frontRef=useRef();
     const backRef=useRef();
   
@@ -398,26 +1024,31 @@ useEffect(()=>{
     
     {selectedTemplateFields && Object.entries(selectedTemplateFields).length > 0  && (
       
-      <div className="d-flex justify-content-center w-100 mt-5">
-        <Stage className="stage" width={700} height={500}>
+      <div className="d-flex justify-content-center" 
+      style={{ width: '100%', padding: '20px' }}>
+        <Stage className="stage"
+      width={700}
+      height={500}
+      scale={{ x: 0.7, y: 0.7 }}>
           <Layer>
-            <KonvaImage width={700} height={500} image={backObjBadge} />
-            {image && (
+            <KonvaImage width={700} height={500} image={backObjBadge}  />
+            {image &&enableField['badge']?.['photo'] &&(
               <Image
                 x={templates['badge']?.imagePosition?.x || 50}
                 y={templates['badge']?.imagePosition?.y || 50}
                 image={image}
                 width={templates['badge']?.imageDimension?.image_width || 150}
                 height={templates['badge']?.imageDimension?.image_height || 150}
-                stroke={templates[selectedTemplate]?.photo?.mask_color || 'imageMaskColor'}
-                strokeWidth={templates['badge']?.photo?.mask_thickness || 0}
-cornerRadius={templates['badge']?.photo?.circle_diameter || 0}
-
+                stroke={templates['badge']?.imageMaskColor || imageMaskColor}
+                strokeWidth={templates['badge']?.imageMaskThickness || imageMaskThickness}
+                cornerRadius={templates['badge']?.imageCircleDiameter || imageCircleDiameter}
                 rotation={0}
              
               />
             )}
-            {Object.entries(templates['badge'] || {}).map(([key, field]) => {
+            {Object.entries(templates['badge']).filter(([key,field])=>(
+                enableField['badge']?.[key]&&field?.field_label?.trim() !== "" && field?.text_positionx != null
+            )).map(([key, field]) => {
               const fieldValue = userProfile?.[field.field_name] ?? "N/A";
               const displayText = Array.isArray(fieldValue) ? fieldValue[0] : fieldValue;
               const xPos = Number(field.text_positionx || 0);
@@ -460,10 +1091,10 @@ cornerRadius={templates['badge']?.photo?.circle_diameter || 0}
 
         {selectedTemplateFields && Object.entries(selectedTemplateFields).length > 0 && (
           <div style={{ width: '100%', overflow: 'auto' }}>
-            <Stage width={700} height={500} ref={frontRef}>
+            <Stage width={700} height={500} ref={frontRef} scale={{ x: 0.7, y: 0.7 }}>
               <Layer>
                 <KonvaImage width={700} height={500} image={backObj} />
-                {image && (
+                {image &&enableField['front']?.['photo']&& (
                   <>
                  <Circle
                          x={templates[selectedTemplate]?.imagePosition?.x + (templates[selectedTemplate]?.imageDimension?.image_width || 150) / 2}
@@ -486,7 +1117,9 @@ cornerRadius={templates['badge']?.photo?.circle_diameter || 0}
                        />
                      </>
                 )}
-                {Object.entries(templates['front'] || {}).map(([key, field]) => {
+                {Object.entries(templates['front'] ).filter(([key,field])=>(
+                enableField['front']?.[key]&&field?.field_label?.trim() !== "" && field?.text_positionx != null
+            )).map(([key, field]) => {
                   const fieldValue = userProfile?.[field.field_name] ?? "N/A";
                   const displayText = Array.isArray(fieldValue) ? fieldValue[0] : fieldValue;
                   const xPos = Number(field.text_positionx || 0);
@@ -525,11 +1158,35 @@ cornerRadius={templates['badge']?.photo?.circle_diameter || 0}
       <div className="card-header"><h2>Back Template</h2></div>
       {selectedTemplateFields && Object.entries(selectedTemplateFields).length > 0 && (
           <div style={{ width: '100%', overflow: 'auto' }}>
-            <Stage width={700} height={500} ref={backRef}>
+            <Stage width={700} height={500} ref={backRef} scale={{ x: 0.7, y: 0.7 }}>
               <Layer>
                 <KonvaImage width={700} height={500} image={backObjBack} />
-                
-                {Object.entries(templates['back'] || {}).map(([key, field]) => {
+                {image &&enableField['back']?.['photo']&& (
+                  <>
+                 <Circle
+                         x={templates[selectedTemplate]?.imagePosition?.x + (templates[selectedTemplate]?.imageDimension?.image_width || 150) / 2}
+                         y={templates[selectedTemplate]?.imagePosition?.y + (templates[selectedTemplate]?.imageDimension?.image_height || 150) / 2}
+                         radius={(templates[selectedTemplate]?.imageDimension?.image_width || 150) / 2}
+                         fill="white" 
+                       />
+                     
+                       
+                       <Image
+                         x={templates[selectedTemplate]?.imagePosition?.x || 50}
+                         y={templates[selectedTemplate]?.imagePosition?.y || 50}
+                         image={image}
+                         width={templates[selectedTemplate]?.imageDimension?.image_width || 150}
+                         height={templates[selectedTemplate]?.imageDimension?.image_height || 150}
+                         stroke={templates[selectedTemplate]?.imageMaskColor || imageMaskColor}
+                         strokeWidth={templates[selectedTemplate]?.imageMaskThickness || imageMaskThickness}
+                         cornerRadius={templates[selectedTemplate]?.imageCircleDiameter || imageCircleDiameter}
+                         rotation={0}
+                       />
+                     </>
+                )}
+                {Object.entries(templates['back'] ).filter(([key,field])=>(
+                enableField['back']?.[key]&&field?.field_label?.trim() !== "" && field?.text_positionx != null
+            )).map(([key, field]) => {
                   const fieldValue = userProfile?.[field.field_name] ?? "N/A";
                   const displayText = Array.isArray(fieldValue) ? fieldValue[0] : fieldValue;
                   const xPos = Number(field.text_positionx || 0);

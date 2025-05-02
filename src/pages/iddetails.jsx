@@ -45,7 +45,7 @@ export default function IdDetails() {
               mask_color:'black',
               is_circle:false,
               circle_diameter:0,
-              circle_background:null
+              circle_background:null,
           },
           en_name:{
               text_positionx:400,
@@ -86,64 +86,659 @@ export default function IdDetails() {
               field_label:'Expire Date',
               field_name:'id_expire_date',
               
-          }
-      },
-      back:{
-          phone_number:{
+          },
+          title:{
               text_positionx:400,
-              text_positiony:90,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              field_label:'Title',
+              field_name:'title',
+          },
+          sex:{
+              text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              field_label:'Sex',
+              field_name:'sex',
+          },
+          date_of_birth:{
+              text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              field_label:'Date of Birth',
+              field_name:'date_of_birth',
+          },
+          joined_date:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              field_label:'Join Date',
+              field_name:'joined_date',
+          },
+          email:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              field_label:'Email',
+              field_name:'email',
+          },
+          phone_number:{
+            text_positionx:400,
+              text_positiony:140,
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
               field_label:'Phone',
-              field_name:'phone_number',
-              
+              field_name:'phone',
+          },
+          organization_unit:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              field_label:'Unit',
+              field_name:'organization_unit',
+          },
+          job_position:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              field_label:'Position',
+              field_name:'job_position',
+          },
+          job_title_category:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              field_label:'Job Category',
+              field_name:'job_title_category',
+          },
+          salary_id:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              field_label:'Salary ID',
+              field_name:'salary_id',
+          },
+          marital_status:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              field_label:'Marital Status',
+              field_name:'marital_status',
+          },
+          nation:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              field_label:'Nation',
+              field_name:'nation',
+          },
+          employment_id:{
+              text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              field_label:'Employment ID',
+              field_name:'id_expire_date',
+          },
+          job_position_start_date:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              field_label:'Position Start Date',
+              field_name:'job_position_start_date',
+          },
+          job_position_end_date:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              field_label:'Position End Date',
+              field_name:'job_position_end_date',
           },
           address:{
-              text_positionx:400,
-              text_positiony:120,
+            text_positionx:400,
+              text_positiony:140,
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
               field_label:'Address',
               field_name:'address',
-              
-          }
+          },
+          house_number:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              field_label:'House Number',
+              field_name:'house_number',
+          },
+          region:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              field_label:'Region',
+              field_name:'region',
+          },
+          zone:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              field_label:'Zone',
+              field_name:'zone',
+          },
+          woreda:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              field_label:'Woreda',
+              field_name:'woreda',
+          },
+      },
+      back:{
+        photo:{
+          xPosition:30,
+          yPosition:80,
+          image_width:150,
+          image_height:150,
+          has_mask:false,
+          mask_thickness:0,
+          mask_color:'black',
+          is_circle:false,
+          circle_diameter:0,
+          circle_background:null,
+      },
+      en_name:{
+          text_positionx:400,
+          text_positiony:80,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Name',
+          field_name:'en_name',
+          
+      },
+      job_position:{
+          text_positionx:400,
+          text_positiony:100,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Role',
+          field_name:'job_position',
+          
+      },
+      id_issue_date:{
+          text_positionx:400,
+          text_positiony:120,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Issue Date',
+          field_name:'id_issue_date',
+          
+      },
+      id_expire_date:{
+          text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Expire Date',
+          field_name:'id_expire_date',
+          
+      },
+      title:{
+          text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Title',
+          field_name:'title',
+      },
+      sex:{
+          text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Sex',
+          field_name:'sex',
+      },
+      date_of_birth:{
+          text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Date of Birth',
+          field_name:'date_of_birth',
+      },
+      joined_date:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Join Date',
+          field_name:'joined_date',
+      },
+      email:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Email',
+          field_name:'email',
+      },
+      phone_number:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Phone',
+          field_name:'phone',
+      },
+      organization_unit:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Unit',
+          field_name:'organization_unit',
+      },
+      job_position:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Position',
+          field_name:'job_position',
+      },
+      job_title_category:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Job Category',
+          field_name:'job_title_category',
+      },
+      salary_id:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Salary ID',
+          field_name:'salary_id',
+      },
+      marital_status:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Marital Status',
+          field_name:'marital_status',
+      },
+      nation:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Nation',
+          field_name:'nation',
+      },
+      employment_id:{
+          text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Employment ID',
+          field_name:'id_expire_date',
+      },
+      job_position_start_date:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Position Start Date',
+          field_name:'job_position_start_date',
+      },
+      job_position_end_date:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Position End Date',
+          field_name:'job_position_end_date',
+      },
+      address:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Address',
+          field_name:'address',
+      },
+      house_number:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'House Number',
+          field_name:'house_number',
+      },
+      region:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Region',
+          field_name:'region',
+      },
+      zone:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Zone',
+          field_name:'zone',
+      },
+      woreda:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Woreda',
+          field_name:'woreda',
+      },
       },
       badge:{
-          photo:{
-              xPosition:30,
-              yPosition:80,
-              image_width:150,
-              image_height:150,
-              has_mask:false,
-              mask_thickness:0,
-              mask_color:'black',
-              is_circle:false,
-              circle_diameter:0,
-              circle_background:null
-          },
-          en_name:{
-              text_positionx:400,
-              text_positiony:90,
-              text_font_size:18,
-              text_font_color:'black',
-              text_font_type:'arial',
-              field_label:'Name',
-              field_name:'en_name',
-          },
-          job_position:{
-              text_positionx:400,
-              text_positiony:120,
-              text_font_size:18,
-              text_font_color:'black',
-              text_font_type:'arial',
-              field_label:'Role',
-              field_name:'position',
-          },
+        photo:{
+          xPosition:30,
+          yPosition:80,
+          image_width:150,
+          image_height:150,
+          has_mask:false,
+          mask_thickness:0,
+          mask_color:'black',
+          is_circle:false,
+          circle_diameter:0,
+          circle_background:null,
+      },
+      en_name:{
+          text_positionx:400,
+          text_positiony:80,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Name',
+          field_name:'en_name',
+          
+      },
+      job_position:{
+          text_positionx:400,
+          text_positiony:100,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Role',
+          field_name:'job_position',
+          
+      },
+      id_issue_date:{
+          text_positionx:400,
+          text_positiony:120,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Issue Date',
+          field_name:'id_issue_date',
+          
+      },
+      id_expire_date:{
+          text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Expire Date',
+          field_name:'id_expire_date',
+          
+      },
+      title:{
+          text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Title',
+          field_name:'title',
+      },
+      sex:{
+          text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Sex',
+          field_name:'sex',
+      },
+      date_of_birth:{
+          text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Date of Birth',
+          field_name:'date_of_birth',
+      },
+      joined_date:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Join Date',
+          field_name:'joined_date',
+      },
+      email:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Email',
+          field_name:'email',
+      },
+      phone_number:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Phone',
+          field_name:'phone',
+      },
+      organization_unit:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Unit',
+          field_name:'organization_unit',
+      },
+      job_position:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Position',
+          field_name:'job_position',
+      },
+      job_title_category:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Job Category',
+          field_name:'job_title_category',
+      },
+      salary_id:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Salary ID',
+          field_name:'salary_id',
+      },
+      marital_status:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Marital Status',
+          field_name:'marital_status',
+      },
+      nation:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Nation',
+          field_name:'nation',
+      },
+      employment_id:{
+          text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Employment ID',
+          field_name:'id_expire_date',
+      },
+      job_position_start_date:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Position Start Date',
+          field_name:'job_position_start_date',
+      },
+      job_position_end_date:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Position End Date',
+          field_name:'job_position_end_date',
+      },
+      address:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Address',
+          field_name:'address',
+      },
+      house_number:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'House Number',
+          field_name:'house_number',
+      },
+      region:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Region',
+          field_name:'region',
+      },
+      zone:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Zone',
+          field_name:'zone',
+      },
+      woreda:{
+        text_positionx:400,
+          text_positiony:140,
+          text_font_size:18,
+          text_font_color:'black',
+          text_font_type:'arial',
+          field_label:'Woreda',
+          field_name:'woreda',
+      },
       }
           
       });
+      
 
   const [sampleProfile,setSampleProfile]=useState({
     en_name:'John Doe',
@@ -151,6 +746,39 @@ export default function IdDetails() {
     phone_number:231233442,
     address:'NY,USA'
   })
+
+  const loadFieldState=()=>{
+    const savedFieldState=JSON.parse(localStorage.getItem('enabledFields'));
+    return savedFieldState?savedFieldState :{
+                en_name:false,
+                title:false,
+                sex:false,
+                date_of_birth:false,
+                joined_date:false,
+                email:false,
+                photo:false,
+                phone_number:false,
+                organization_unit:false,
+                job_position:false,
+                job_title_category:false,
+                salary_id:false,
+                marital_status:false,
+                nation:false,
+                employment_id:false,
+                job_position_start_date:false,
+                job_position_end_date:false,
+                address:false,
+                house_number:false,
+                region:false,
+                zone:false,
+                woreda:false,
+                status:false,
+                id_issue_date:false,
+                id_expire_date:false,
+                id_status:false
+    }
+  }
+  const [enableField,setEnableField]=useState(loadFieldState);
   const [isViewModalOpen,setIsViewModalOpen]=useState(false);
   const [imagePosition, setImagePosition] = useState({ x: 50, y: 50 });
   const [imageDimension,setImageDimension]=useState({width:150,height:150});
@@ -235,6 +863,36 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
               height: templates[selectedTemplate]?.image_height || 150,
             });
       },[selectedTemplate])
+
+      const handleEnableField=(e)=>{
+     
+        const selectedField=e.target.previousSibling.value;
+
+        setEnableField((prev)=>({
+          ...prev,
+          [selectedTemplate]:{
+            ...(prev[selectedTemplate]||{}),
+            [selectedField]:true
+          }
+        }));
+
+        
+
+      }
+      console.log(enableField)
+
+      const handleDisableField=(key)=>{
+        console.log('deselecting');
+       
+
+        setEnableField((prev)=>({
+          ...prev,
+          [selectedTemplate]:{
+            ...(prev[selectedTemplate]||{}),
+            [key]:false
+          }
+        }));
+      }
 
   
       const handleTemplateChange = (e, fieldKey) => {
@@ -395,12 +1053,16 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
 
       const handleSaveTemplate=(templates)=>{
           console.log('saved');
-          dispatch(saveTemplate({TemplateData:templates}));
+          dispatch(saveTemplate({TemplateData:templates,Enabled:enableField}));
       }
 
       const handleViewTemplate=(id)=>{
         setSelectedTemplate(id);
       }
+
+     
+
+     
 
   return (
     <>
@@ -461,7 +1123,7 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
                                             height={600}
                                             
                                         />
-                                        {image &&selectedTemplate!=='back'&& (
+                                        {image &&enableField[selectedTemplate]?.['photo']&& (
                                           <>
                                           
                                             <Circle
@@ -485,7 +1147,7 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
                                             />
                                           </>
                                         )}
-                                        {Object.entries(selectedTemplateFields).map(([key, field]) => {
+                                        {Object.entries(selectedTemplateFields).filter(([key,field])=>enableField[selectedTemplate]?.[key]).map(([key, field]) => {
                                           
                                             
                                             const fieldValue = sampleProfile?.[field.field_name];
@@ -724,194 +1386,247 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
                                         
                                       </div>
                                       <div className="tab-pane fade" id="kt_tab_pane_5" role="tabpanel">
-                                      <Group className="position-controls">
+                                      <label>Choose fields to include</label>
+                                      <select>
+                                        <option value="photo" name="photo">Image</option>
+                                        <option value="en_name" name="en_name">Name</option>
+                                        <option value="job_position" name="job_position">Role</option>
+                                        <option value="id_issue_date" name="id_issue_date">Issue Date</option>
+                                        <option value="id_expire_date" name="id_expire_date">Expiry Date</option>
+                                        <option value="phone_number" name="phone_number">Phone Number</option>
+                                        <option value="email" name="email">Email Address</option>
+                                        <option value="address" name="address">Address</option>
+                                        <option value="sex" name="sex">Sex</option>
+                                        <option value="title" name="title">Title</option>
+                                        <option value="date_of_birth" name="date_of_birth">Date of Birth</option>
+                                        <option value="joined_date" name="joined_date">Joined Date</option>
+                                        <option value="job_title_category" name="job_title_category">Job Title Category</option>
+                                        <option value="nation" name="nation">Nation</option>
+                                        <option value="region" name="region">Region</option>
+                                        <option value="zone" name="zone">Zone</option>
+                                        <option value="woreda" name="woreda">Woreda</option>
+                                        <option value="house_number" name="house_number">House Number</option>
+                                        <option value="marital_status" name="marital_status">Marital Status</option>
+                                        <option value="salary_id" name="salary_id">Salary ID</option>
+                                        <option value="job_position_start_date" name="job_position_start_date">Job Position Start Date</option>
+                                        <option value="job_position_end_date" name="job_position_end_date">Job Position End Date</option>
+                                        <option value="employment_id" name="employment_id">Employment ID</option>
+                                        <option value="organization_unit" name="organization_unit">Organization Unit</option>
+                                        <option value="motto" name="motto">Motto</option>
+                                        <option value="mission" name="mission">Mission</option>
+                                        <option value="vision" name="vision">Vision</option>
+                                        <option value="core_value" name="core_value">Core Value</option>
+                                        <option value="logo" name="logo">Logo</option>
+                                        <option value="address" name="address">Address</option>
+                                        <option value="website" name="website">Website</option>
+                                        <option value="phone_number" name="phone_number">Phone number</option>
+                                        <option value="fax_number" name="fax_number">Fax number</option>
+                                        <option value="po_box" name="po_box">P.O.Box</option>
+                                        <option value="tin_number" name="tin_number">Tin Number</option>
+                                        <option value="abbreviation" name="abbreviation">Abbreviation</option>
+
+                                      </select>
+                                    <button onClick={(e)=>handleEnableField(e)}>Add Field</button>
+                                        {enableField[selectedTemplate]?.['photo']&&(<Group className="controls">
                                                                               
-                                            <Group>
-                                            <details className="collapsable">
-                                                    <summary className="field">Image</summary>
-
-                                                   
-                                                    <div className="nested-fields">
-                                                    
-                                                    
-                                                    <details className="collapsable">
-                                                        <summary className="field">Image X Position</summary>
-                                                        <input 
-                                                        type="number"
-                                                        name="x"
-                                                        onChange={handlePositionChange} 
-                                                        disabled={!isUpdating}
-                                                        placeholder="x-axis"
-                                                        
-                                                        />
-                                                    </details>
-                                                    <details className="collapsable">
-                                                        <summary className="field">Image Y Position</summary>
-                                                        <input
-                                                        type="number"
-                                                        name="y"
-                                                        onChange={handlePositionChange} 
-                                                        disabled={!isUpdating}
-
-                                                        />
-                                                    </details>
-                                                    
-                                                    <details className="collapsable">
-                                                        <summary className="field">Image Width</summary>
-                                                        <input
-                                                        type="number"
-                                                        name="image_width"
-                                                        onChange={handleDimensionChange} 
-                                                        disabled={!isUpdating}
-                                                        placeholder="width"
-                                                        />
-                                                    </details>
-
-                                                    <details className="collapsable">
-                                                        <summary className="field">Image Height</summary>
-                                                        <input
-                                                        type="number"
-                                                        name="image_height"
-                                                        onChange={handleDimensionChange} 
-                                                        disabled={!isUpdating}
-                                                        placeholder="height"
-                                                        />
-                                                    </details>
-
-                                                    <details className="collapsable">
-                                                        <summary className="field">Mask</summary>
-                                                        <label>
-                                                            <input
-                                                                type="radio"
-                                                                name="has_mask"
-                                                                disabled={!isUpdating}
-                                                                onChange={(e)=>handleMask(e,true)}
-                                                            />
-                                                            Apply
-                                                            </label>
-
-                                                            <label style={{ marginLeft: '1rem' }}>
-                                                            <input
-                                                                type="radio"
-                                                                name="has_mask"
-                                                                disabled={!isUpdating}
-                                                                onChange={(e)=>handleMask(e,false)}
-                                                            />
-                                                            Disable
-                                                            </label>
-
-                                                    </details>
-                                                    <details className="collapsable">
-                                                        <summary className="field">Mask thickness</summary>
-                                                        <input
-                                                        type="number"
-                                                        name="mask_thickness"
-                                                        onChange={handleMaskThickness}
-                                                       
-                                                        disabled={!isUpdating || !templates[selectedTemplate]?.photo?.has_mask}
-                                                       
-                                                        />
-                                                    </details>
-                                                    <details className="collapsable">
-                                                        <summary className="field">Mask color</summary>
-                                                        <input
-                                                        type="color"
-                                                        name="mask_color"
-                                                        onChange={handleMaskColor}
-                                                        disabled={!isUpdating || !templates[selectedTemplate]?.photo?.has_mask}
-                                                       
-                                                        />
-                                                    </details>
-
-                                                    <details className="collapsable">
-                                                        <summary className="field">Circle</summary>
-                                                        <label>
-                                                            <input
-                                                                type="radio"
-                                                                name="is_circle"
-                                                                disabled={!isUpdating}
-                                                                onChange={(e)=>handleCircle(e,true)}
-                                                            />
-                                                            Apply
-                                                            </label>
-
-                                                            <label style={{ marginLeft: '1rem' }}>
-                                                            <input
-                                                                type="radio"
-                                                                name="is_circle"
-                                                                disabled={!isUpdating}
-                                                                onChange={(e)=>handleCircle(e,false)}
-                                                            />
-                                                            Disable
-                                                            </label>
-
-                                                    </details>
-                                                    <details className="collapsable">
-                                                  <summary className="field">Circle Diameter</summary>
-                                                  <input
-                                                    type="number"
-                                                    name="circle_diameter"
-                                                    onChange={handleCircleDiameter}
-                                                    disabled={!isUpdating || !templates[selectedTemplate]?.photo?.is_circle}
-                                                    />
-                                                </details>
-                                                    <details className="collapsable">
-                                                        <summary className="field">Circle Background</summary>
-                                                        <input
-                                                        type="file"
-                                                        name="circle_background"
-                                                        onChange={handleBackgroundUpload}
-                                                        disabled={!isUpdating || !templates[selectedTemplate]?.photo?.is_circle}
-                                                       
-                                                        />
-                                                    </details>
-                                                    </div>
-                                                </details>
-
-                                                
-                                            </Group>
-                                            
-                                        </Group>
-                                    <div className="tempSettings">
-                                    {Object.entries(templates[selectedTemplate]).filter(([_, field]) =>
-                                      field?.field_label?.trim() !== "" && field?.text_positionx != null
+                                                                              <Group>
+                                                                              <details className="collapsable">
+                                                                              <summary className="field" style={{ display: 'flex', alignItems: 'center', padding: '10px', cursor: 'pointer' }}>
+                                        <i className="bi bi-x-lg" onClick={(e) => handleDisableField(key)} style={{ marginRight: '8px' }}></i>
+                                         Image
+                                        </summary>
+                                  
+                                                                                     
+                                                                                      <div className="nested-fields">
+                                                                                      
+                                                                                      
+                                                                                      <details className="collapsable">
+                                                                                          <summary className="field">Image X Position</summary>
+                                                                                          <input 
+                                                                                          type="number"
+                                                                                          name="x"
+                                                                                          onChange={handlePositionChange} 
+                                                                                          
+                                                                                          placeholder="x-axis"
+                                                                                          
+                                                                                          />
+                                                                                      </details>
+                                                                                      <details className="collapsable">
+                                                                                          <summary className="field">Image Y Position</summary>
+                                                                                          <input
+                                                                                          type="number"
+                                                                                          name="y"
+                                                                                          onChange={handlePositionChange} 
+                                                                                          
+                                  
+                                                                                          />
+                                                                                      </details>
+                                                                                      
+                                                                                      <details className="collapsable">
+                                                                                          <summary className="field">Image Width</summary>
+                                                                                          <input
+                                                                                          type="number"
+                                                                                          name="image_width"
+                                                                                          onChange={handleDimensionChange} 
+                                                                                          
+                                                                                          placeholder="width"
+                                                                                          />
+                                                                                      </details>
+                                  
+                                                                                      <details className="collapsable">
+                                                                                          <summary className="field">Image Height</summary>
+                                                                                          <input
+                                                                                          type="number"
+                                                                                          name="image_height"
+                                                                                          onChange={handleDimensionChange} 
+                                                                                          
+                                                                                          placeholder="height"
+                                                                                          />
+                                                                                      </details>
+                                  
+                                                                                      <details className="collapsable">
+                                                                                          <summary className="field">Mask</summary>
+                                                                                          <label>
+                                                                                              <input
+                                                                                                  type="radio"
+                                                                                                  name="has_mask"
+                                                                                                  
+                                                                                                  onChange={(e)=>handleMask(e,true)}
+                                                                                              />
+                                                                                              Apply
+                                                                                              </label>
+                                  
+                                                                                              <label style={{ marginLeft: '1rem' }}>
+                                                                                              <input
+                                                                                                  type="radio"
+                                                                                                  name="has_mask"
+                                                                                                  
+                                                                                                  onChange={(e)=>handleMask(e,false)}
+                                                                                              />
+                                                                                              Disable
+                                                                                              </label>
+                                  
+                                                                                      </details>
+                                                                                      <details className="collapsable">
+                                                                                          <summary className="field">Mask thickness</summary>
+                                                                                          <input
+                                                                                          type="number"
+                                                                                          name="mask_thickness"
+                                                                                          onChange={handleMaskThickness}
+                                                                                         
+                                                                                          disabled={ !templates[selectedTemplate]?.photo?.has_mask}
+                                                                                         
+                                                                                          />
+                                                                                      </details>
+                                                                                      <details className="collapsable">
+                                                                                          <summary className="field">Mask color</summary>
+                                                                                          <input
+                                                                                          type="color"
+                                                                                          name="mask_color"
+                                                                                          onChange={handleMaskColor}
+                                                                                          disabled={ !templates[selectedTemplate]?.photo?.has_mask}
+                                                                                         
+                                                                                          />
+                                                                                      </details>
+                                  
+                                                                                      <details className="collapsable">
+                                                                                          <summary className="field">Circle</summary>
+                                                                                          <label>
+                                                                                              <input
+                                                                                                  type="radio"
+                                                                                                  name="is_circle"
+                                                                                                 
+                                                                                                  onChange={(e)=>handleCircle(e,true)}
+                                                                                              />
+                                                                                              Apply
+                                                                                              </label>
+                                  
+                                                                                              <label style={{ marginLeft: '1rem' }}>
+                                                                                              <input
+                                                                                                  type="radio"
+                                                                                                  name="is_circle"
+                                                                                                 
+                                                                                                  onChange={(e)=>handleCircle(e,false)}
+                                                                                              />
+                                                                                              Disable
+                                                                                              </label>
+                                  
+                                                                                      </details>
+                                                                                      <details className="collapsable">
+                                                                                    <summary className="field">Circle Diameter</summary>
+                                                                                    <input
+                                                                                      type="number"
+                                                                                      name="circle_diameter"
+                                                                                      onChange={handleCircleDiameter}
+                                                                                      disabled={!templates[selectedTemplate]?.photo?.is_circle}
+                                                                                      />
+                                                                                  </details>
+                                                                                      <details className="collapsable">
+                                                                                          <summary className="field">Circle Background</summary>
+                                                                                          <input
+                                                                                          type="file"
+                                                                                          name="circle_background"
+                                                                                          onChange={handleBackgroundUpload}
+                                                                                          disabled={ !templates[selectedTemplate]?.photo?.is_circle}
+                                                                                         
+                                                                                          />
+                                                                                      </details>
+                                                                                      </div>
+                                                                                  </details>
+                                  
+                                                                                  
+                                                                              </Group>
+                                                                              
+                                                                          </Group>)}
+                                    <div className="temp-settings">
+                                    {Object.entries(templates[selectedTemplate]).filter(([key, field]) =>
+                                      enableField[selectedTemplate]?.[key]&&field?.field_label?.trim() !== "" && field?.text_positionx != null
                                           ).map(([key, field]) => (
                                     <div key={key}>
                                         <details className="collapsable">
-                                            <summary className="field">{field.field_label}</summary>
+                                        
+                                        <summary className="field" style={{ display: 'flex', alignItems: 'center', padding: '10px', cursor: 'pointer' }}>
+                                        <i className="bi bi-x-lg" onClick={(e) => handleDisableField(key)} style={{ marginRight: '8px' }}></i>
+                                         {field.field_label}
+                                        </summary>
                                             <input
                                             type="number"
                                             name="text_positionx"
                                             value={field.text_positionx}
                                             onChange={(e) => handleTemplateChange(e, key)}  
-                                            disabled={!isUpdating}
+                                            
                                         />
                                         <input
                                             type="number"
                                             name="text_positiony"
                                             value={field.text_positiony}
                                             onChange={(e) => handleTemplateChange(e, key)}
-                                            disabled={!isUpdating}
+                                            
                                         />
                                         <input
                                             type="number"
                                             name="text_font_size"
                                             value={field.text_font_size}
                                             onChange={(e) => handleTemplateChange(e, key)}
-                                            disabled={!isUpdating}
+                                            
                                         />
+                                        <input 
+                                            type="text"
+                                            name="field_label"
+                                            value={field.field_label}
+                                            onChange={(e)=>handleTemplateChange(e,key)}/>
                                         <input
                                             type="color"
                                             name="text_font_color"
                                             value={field.text_font_color}
                                             onChange={(e) => handleTemplateChange(e, key)}
-                                            disabled={!isUpdating}
+                                            
                                         />
                                         <select
                                             name="text_font_type"
                                             value={field.text_font_type}
                                             onChange={(e) => handleTemplateChange(e, key)}
-                                            disabled={!isUpdating}
+                                            
                                         >
                                             <option value="arial">Arial</option>
                                             <option value="calibri">Calibri</option>
@@ -922,8 +1637,9 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
                                         
                                     </div>
                                 ))}
-                                <button className="btn btn-primary" onClick={isUpdating?()=>{setIsUpdating(false);handleSaveTemplate(templates)}:()=>setIsUpdating(true)}>{isUpdating?"Save":"Update"}</button>
-                            </div>
+                                <button className="btn btn-primary" onClick={()=>handleSaveTemplate(templates)}>Update</button>
+
+                                    </div>
     </div>
     
 </div>

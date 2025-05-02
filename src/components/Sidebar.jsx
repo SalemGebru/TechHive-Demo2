@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { getOrganizationInfo } from "../features/organizationSlice";
 import { useDispatch, useSelector } from "react-redux";
+
 export default function Sidebar(){
 
 	
@@ -59,13 +60,13 @@ export default function Sidebar(){
 								
 								<div className="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
 								<div className="position-relative">
-  <a className="menu-title" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Dashboards
-  </a>
 
- 
-  <div class="collapse mt-2" id="collapseExample">
-    <div class="d-flex flex-column gap-2 ">
+								<div className="dropdown">
+									<a className="menu-title dropdown-toggle" data-bs-toggle="collapse" href="#dashboardlist" role="button" aria-expanded="false" aria-controls="dashboardlist">
+    								Dashboards
+  									</a>
+									<div className="collapse mt-2" id="dashboardlist">
+    <div className="d-flex flex-column gap-2 ">
 	<Link className="dropdown-item" to="/home/hrdashboard">
 	<span className="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-30px h-30px me-2">
                         <span className="svg-icon svg-icon-primary svg-icon-1">
@@ -89,7 +90,7 @@ export default function Sidebar(){
                         </span>
                     </span>IT Staff Dashboard</Link>
 					<Link className="dropdown-item" to="/home/employeedashboard">
-	<span className="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-30px h-30px me-2">
+					<span className="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-30px h-30px me-2">
                         <span className="svg-icon svg-icon-primary svg-icon-1">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                                 <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
@@ -102,6 +103,11 @@ export default function Sidebar(){
       
     </div>
   </div>
+								</div>
+  
+
+ 
+  
 </div>
 								
 
@@ -115,7 +121,7 @@ export default function Sidebar(){
 									</div>
 									{/*end:Menu item*/}
 									{/*begin:Menu item*/}
-									<div data-kt-menu-trigger="click" className="menu-item menu-accordion">
+									<div className="menu-item ">
 										{/*begin:Menu link*/}
 										<span className="menu-link">
 											<span className="menu-icon">
@@ -138,7 +144,7 @@ export default function Sidebar(){
 									</div>
 									{/*end:Menu item*/}
                                     {/*begin:Menu item*/}
-									<div data-kt-menu-trigger="click" className="menu-item menu-accordion">
+									<div  className="menu-item ">
 										{/*begin:Menu link*/}
 										<span className="menu-link">
 											<span className="menu-icon">
@@ -162,7 +168,7 @@ export default function Sidebar(){
 									
 									
 
-									<div data-kt-menu-trigger="click" className="menu-item menu-accordion">
+									<div  className="menu-item ">
 										{/*begin:Menu link*/}
 										<span className="menu-link">
 											<span className="menu-icon">
@@ -178,22 +184,40 @@ export default function Sidebar(){
 											
                                             
 											
+											<div className="dropdown">
+											<div className="position-relative">
+											<a className="menu-title" 
+											data-bs-toggle="collapse" 
+											href="#dynamicsettings" 
+											role="button" 
+											aria-expanded="false" 
+											aria-controls="dynamicsettings">
+											Dynamic Settings 
+											</a>
+
+											<div className="collapse mt-2" id="dynamicsettings">
+											<div className="d-flex flex-column gap-2">
+												<Link to="/iddetails" className="btn btn-outline-secondary menu-title">Edit Template Details</Link>
+												<Link to="/dynamicdetails" className="btn btn-outline-secondary menu-title">Edit Organization Information</Link>
+												<Link to="" className="btn btn-outline-secondary menu-title">Organization Units</Link>
+												<Link to="" className="btn btn-outline-secondary menu-title">Job Positions</Link>
+												<Link to="" className="btn btn-outline-secondary menu-title">Job Title Categories</Link>
+												<Link to="" className="btn btn-outline-secondary menu-title">Salaries</Link>
+												<Link to="" className="btn btn-outline-secondary menu-title">Marital Statuses</Link>
+												<Link to="" className="btn btn-outline-secondary menu-title">Regions</Link>
+												<Link to="" className="btn btn-outline-secondary menu-title">Zones</Link>
+												<Link to="" className="btn btn-outline-secondary menu-title">Woredas</Link>
+											</div>
+											</div>
+										</div>
+											</div>
+							  	<br/>
+								<br/>
+								
+											
 											
 										
-<div className="position-relative">
-  <a className="menu-title" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Dynamic Settings
-  </a>
 
- 
-  <div class="collapse mt-2" id="collapseExample">
-    <div class="d-flex flex-column gap-2 ">
-		<Link to="/iddetails" className="btn btn-outline-secondary menu-title">Edit Template Details</Link>
-		<Link to="/dynamicdetails" className="btn btn-outline-secondary menu-title">Edit Organization Information</Link>
-      
-    </div>
-  </div>
-</div>
 
 
 

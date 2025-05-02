@@ -154,7 +154,7 @@ button.btn-primary {
   font-weight: bold;
   border-radius: 6px;
 }
-.position-controls{
+.controls{
   display: flex;
   flex-direction: column;
 }

@@ -370,7 +370,7 @@ export default function UserManagement() {
                                   <option value="show all">Show All</option>
                                   <option value="employee">Employee</option>
                                   <option value="human resources">HR</option>
-                                  <option value="it manager">IT</option>
+                                  <option value="it assistant">IT</option>
                                 </select>
 
 

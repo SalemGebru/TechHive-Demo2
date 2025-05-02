@@ -95,6 +95,17 @@ useEffect(() => {
 setProfileData(formData);
 
 }, []);
+
+useEffect(() => {
+  if (selectedFilter === "show all") {
+    setFilteredData(profileData);
+  } else {
+    const filtered=Object.entries(profileData).filter((data)=>data.role?.toLowerCase()===selectedFilter.toLowerCase());
+    
+    setFilteredData(filtered);
+  }
+}, [selectedFilter, profileData]);
+
     const [employeeProfile,setEmployeeProfile]=useState([]);
     const [selectedUser,setSelectedUser]=useState({});
     const [searchItem,setSearch]=useState('');
@@ -495,7 +506,7 @@ setProfileData(formData);
 																{/*end::Label*/}
 																{/*begin::Select*/}
 																<select className="form-select form-select-transparent text-graY-800 fs-base lh-1 fw-bold py-0 ps-3 w-auto"
-                                 data-control="select2" data-hide-search="true" data-dropdown-css-classname="w-150px" 
+                                 data-control="select" data-hide-search="true" data-dropdown-css-classname="w-150px" 
                                  data-placeholder="ID status" value={selectedFilter}
                                  onChange={(e) => setSelectedFilter(e.target.value)}>
 																	
@@ -562,6 +573,9 @@ setProfileData(formData);
       const matchFilter =
   selectedFilter === 'show all' ||
   row.id_status?.toLowerCase() === selectedFilter.toLowerCase();
+  console.log(row.id_status)
+  console.log(selectedFilter);
+  console.log(matchFilter)
 
       return matchSearch&&matchFilter
     })

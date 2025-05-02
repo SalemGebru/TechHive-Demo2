@@ -122,13 +122,16 @@ export const generateIdBunch = createAsyncThunk(
 
 export const saveTemplate=createAsyncThunk(
     'template/save',
-    async({TemplateData},{rejectWithValue})=>{
+    async({TemplateData,Enabled},{rejectWithValue})=>{
         try{
           
             console.log('trying');
             localStorage.setItem('templates',JSON.stringify(TemplateData));
+            localStorage.setItem('enabledFields',JSON.stringify(Enabled));
             console.log('template saved');
             console.log(TemplateData)
+            console.log(Enabled);
+            alert('new template saved');
             return TemplateData
         }catch(error){
             console.log(error);
@@ -141,7 +144,8 @@ export const getTemplate = createAsyncThunk(
     'template/get',
     async (_, { rejectWithValue }) => {
       try {
-       
+        
+      
         let storedTemplates = localStorage.getItem('templates');
         
         if (!storedTemplates || storedTemplates.length === 0) {
