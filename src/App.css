@@ -186,7 +186,7 @@ button.btn-primary {
   background-color: transparent;  /* Set background to transparent here too */
   border-bottom: 1px solid #ccc;
 }
-.field::after {
+.collapsable .field::after {
   content: '▾';
   font-size: 12px;
   transition: transform 0.3s ease;

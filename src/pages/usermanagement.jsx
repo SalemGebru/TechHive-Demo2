@@ -262,7 +262,7 @@ export default function UserManagement() {
                   <fieldset>
                       <legend>User Details</legend>
                           <form className="p-5 bg-white rounded shadow-sm">
-                              <div className="field-value">
+                              <div className="field-value mb-3">
                                   <label className="field">Username</label>
                                   <input type="text"
                                   className="value" 
@@ -272,7 +272,7 @@ export default function UserManagement() {
                                   placeholder="Name"></input>
                               </div>
                               <br/>
-                              <div className="field-value">
+                              <div className="field-value mb-3">
                                   <label className="field">Email</label>
                                   <input type="email" 
                                   className="value" 
@@ -282,7 +282,7 @@ export default function UserManagement() {
                                   placeholder="Email"></input>
                               </div>
                               <br/>
-                              <div className="field-value">
+                              <div className="field-value mb-3">
                                   <label className="field">Role</label>
                                   <select name="role" value={formData.role} onChange={handleChange}>
             <option value="Human Resources">Human Resources</option>
@@ -292,7 +292,7 @@ export default function UserManagement() {
                               </div>
                               <br/>
                             
-                              <div className="field-value" >
+                              <div className="field-value mb-3" >
                                   <label className="field">Password</label>
                                   <input type="password"
                                   className="value" 
@@ -302,7 +302,7 @@ export default function UserManagement() {
                                   placeholder="Password"></input>
                               </div>
                               <br/>
-                              <div className="field-value">
+                              <div className="field-value mb-3">
                                   <label className="field">Confirm Password</label>
                                   <input type="password"
                                   name="confPassword" 
