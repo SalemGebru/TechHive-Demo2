@@ -118,6 +118,7 @@ useEffect(() => {
     const lastItemIndex=currentPage*itemsPerPage;
     const firstItemIndex=lastItemIndex-itemsPerPage;
     const currentdata=employeeProfile.slice(firstItemIndex,lastItemIndex);
+    const [extractData,setExtractData]=useState([]);
 
     const nextPage=()=>{
         console.log(currentPage)
@@ -211,7 +212,77 @@ useEffect(() => {
       console.log("Updated Users:", data.payload); 
     });
   };
-  
+  const handleIdChange=(e)=>{
+    setExtractData({...extractData,[e.target.name]:e.target.value})
+    console.log(extractData);
+}
+
+const handleDownload = async () => {
+  if (!frontRef.current || !backRef.current) {
+    console.error("Stage refs not available");
+    return;
+  }
+
+  try {
+    
+    let frontUri = await frontRef.current.toImage({ mimeType: 'image/png', pixelRatio: 2 });
+
+    
+    let backUri = await backRef.current.toImage({ mimeType: 'image/png', pixelRatio: 2 });
+
+
+    if (frontUri instanceof HTMLImageElement || frontUri instanceof HTMLCanvasElement) {
+      const frontCanvas = document.createElement('canvas');
+      const frontCtx = frontCanvas.getContext('2d');
+      frontCanvas.width = frontUri.width || frontUri.naturalWidth;
+      frontCanvas.height = frontUri.height || frontUri.naturalHeight;
+      frontCtx.drawImage(frontUri, 0, 0);
+      frontUri = frontCanvas.toDataURL('image/png');
+    } else if (typeof frontUri === 'string') {
+      frontUri = frontUri.trim();
+    }
+
+   
+    if (backUri instanceof HTMLImageElement || backUri instanceof HTMLCanvasElement) {
+      const backCanvas = document.createElement('canvas');
+      const backCtx = backCanvas.getContext('2d');
+      backCanvas.width = backUri.width || backUri.naturalWidth;
+      backCanvas.height = backUri.height || backUri.naturalHeight;
+      backCtx.drawImage(backUri, 0, 0);
+      backUri = backCanvas.toDataURL('image/png');
+    } else if (typeof backUri === 'string') {
+      backUri = backUri.trim();
+    }
+
+    
+    const frontLink = document.createElement('a');
+    frontLink.download = `${userProfile.en_name}-front.png`;
+    frontLink.href = frontUri;
+    document.body.appendChild(frontLink);
+    frontLink.click();
+    document.body.removeChild(frontLink);
+
+    
+    const backLink = document.createElement('a');
+    backLink.download = `${userProfile.en_name}-back.png`;
+    backLink.href = backUri;
+    document.body.appendChild(backLink);
+    backLink.click();
+    document.body.removeChild(backLink);
+
+  } catch (error) {
+    console.error("Error generating images: ", error);
+  }
+};
+
+const handleCreateId=()=>{
+
+      dispatch(generateIdBunch({selectedUsers:selectedUsers,FormData:extractData}));
+      
+      setIsCreateModalOpen(false)
+      
+  }
+
 
   return (
     <>
@@ -457,22 +528,66 @@ useEffect(() => {
                                     </div>
                                   </div>
                                 )}
-                              <div className={isIdModalOpen?"modal fade":"hide"} tabindex="-1" id="kt_modal_1">
-                                  <div className="modal-dialog">
-                                      <div className="modal-content">
-                                          
 
-                                          <div className="modal-body">
-                                              <p>Modal body text goes here.</p>
-                                          </div>
+{isIdModalOpen && (
+                <div
+                  className="modal fade show"
+                  tabIndex="-1"
+                  id="kt_modal_scrollable_1"
+                  style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}
+                >
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title">Issue Multiple IDs</h5>
+                        
+                      </div>
 
-                                          <div className="modal-footer">
-                                              <button type="button" className="btn btn-light" data-bs-dismiss="modal" onClick={()=>setIsIdModalOpen(false)}>Close</button>
-                                            
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
+                      <form style={{ margin: '20px auto', width: '50%' }}>
+              <div className="mb-3">
+                <label htmlFor="issuedate" className="form-label">Issue Date</label>
+                <input
+                  type="date"
+                  id="issuedate"
+                  className="form-control"
+                  name="id_issue_date"
+                  onChange={handleIdChange}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="expiredate" className="form-label">Expire Date</label>
+                <input
+                  type="date"
+                  id="expiredate"
+                  className="form-control"
+                  name="id_expire_date"
+                  onChange={handleIdChange}
+                />
+              </div>
+            </form>
+                  
+
+                  <div className="modal-footer">
+                    <button
+                      type="button"
+                      className="btn btn-light"
+                      onClick={() => setIsIdModalOpen(false)}
+                    >
+                      Close
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-light"
+                      onClick={() => handleCreateId()}
+                    >
+                      Generate
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+                              
 
 
 

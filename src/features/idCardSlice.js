@@ -85,7 +85,9 @@ export const generateIdBunch = createAsyncThunk(
   'id/bunchIssue',
   async ({ selectedUsers, FormData }, { rejectWithValue }) => {
     try {
-      
+      console.log(selectedUsers);
+      console.log(FormData)
+
       const issueDate = FormData.get('id_issue_date');  
       const expireDate = FormData.get('id_expire_date');  
 
@@ -102,6 +104,8 @@ export const generateIdBunch = createAsyncThunk(
       }));
 
       
+
+      
       const storedIds = JSON.parse(localStorage.getItem('idcard')) || [];  
 
       
@@ -109,7 +113,7 @@ export const generateIdBunch = createAsyncThunk(
 
       
       localStorage.setItem('idcard', JSON.stringify(storedIds));
-
+      alert('generation successful')
       
       return updatedUsers;
 
@@ -145,7 +149,6 @@ export const getTemplate = createAsyncThunk(
     async (_, { rejectWithValue }) => {
       try {
         
-      
         let storedTemplates = localStorage.getItem('templates');
         
         if (!storedTemplates || storedTemplates.length === 0) {

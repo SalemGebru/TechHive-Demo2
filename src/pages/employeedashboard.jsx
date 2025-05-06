@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile } from "../features/profileSlice";
+import { getOrganizationInfo } from "../features/organizationSlice";
 
 
 import { getTemplate} from '../features/idCardSlice'
@@ -15,9 +16,455 @@ export default function EmployeeDashboard() {
     const [backObjBack,setBackObjBack]=useState();
      const [backObjBadge,setBackObjBadge]=useState();
     const [image, setImage] = useState(null);
+    const [orgname,setOrgName]=useState();
+        const [motto,setMotto]=useState();
+        const [mission,setMission]=useState();
+        const [vision,setVision]=useState();
+        const [coreValue,setCoreValue]=useState();
+        const [logo,setLogo]=useState();
+        const [orgAddress,setOrgAddress]=useState();
+        const [website,setWebsite]=useState();
+        const [orgEmail,setOrgEmail]=useState();
+        const [orgPhone,setOrgPhone]=useState();
+        const [fax,setFax]=useState();
+        const [poBox,setPoBox]=useState();
+        const [tin,setTin]=useState();
+        const [abbreviation,setAbbreviation]=useState();
+        
+      
+        useEffect(() => {
+          dispatch(getOrganizationInfo()).then((data) => {
+            const org = data.payload[0];
+            const img=new window.Image();
+            if (org) {
+              setOrgName(org.en_name);
+              setMotto(org.email);
+              setMission(org.mission);
+              setVision(org.vision);
+              setCoreValue(org.core_value);
+              img.src=(org.logo);
+              img.onload = () => {
+                setLogo(img); 
+              };
+              setOrgAddress(org.address);
+              setWebsite(org.website);
+              setOrgEmail(org.email);
+              setOrgPhone(org.phone);
+              setFax(org.fax_number);
+              setPoBox(org.po_box);
+              setTin(org.tin_number);
+              setAbbreviation(org.abbreviation);
+        
+             
+              
+            }
+          });
+        }, []);
     const [templates,setTemplates]=useState({
-      front:{
-          photo:{
+          front:{
+              photo:{
+                  xPosition:30,
+                  yPosition:80,
+                  image_width:150,
+                  image_height:150,
+                  has_mask:false,
+                  mask_thickness:0,
+                  mask_color:'black',
+                  is_circle:false,
+                  circle_diameter:0,
+                  circle_background:null,
+              },
+              en_name:{
+                  text_positionx:400,
+                  text_positiony:80,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Name',
+                  field_name:'en_name',
+                  
+              },
+              job_position:{
+                  text_positionx:400,
+                  text_positiony:100,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Role',
+                  field_name:'job_position',
+                  
+              },
+              id_issue_date:{
+                  text_positionx:400,
+                  text_positiony:120,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Issue Date',
+                  field_name:'id_issue_date',
+                  
+              },
+              id_expire_date:{
+                  text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Expire Date',
+                  field_name:'id_expire_date',
+                  
+              },
+              title:{
+                  text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Title',
+                  field_name:'title',
+              },
+              sex:{
+                  text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Sex',
+                  field_name:'sex',
+              },
+              date_of_birth:{
+                  text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Date of Birth',
+                  field_name:'date_of_birth',
+              },
+              joined_date:{
+                text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Join Date',
+                  field_name:'joined_date',
+              },
+              email:{
+                text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Email',
+                  field_name:'email',
+              },
+              phone_number:{
+                text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Phone',
+                  field_name:'phone_number',
+              },
+              organization_unit:{
+                text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Unit',
+                  field_name:'organization_unit',
+              },
+              job_position:{
+                text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Position',
+                  field_name:'job_position',
+              },
+              job_title_category:{
+                text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Job Category',
+                  field_name:'job_title_category',
+              },
+              salary_id:{
+                text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Salary ID',
+                  field_name:'salary_id',
+              },
+              marital_status:{
+                text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Marital Status',
+                  field_name:'marital_status',
+              },
+              nation:{
+                text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Nation',
+                  field_name:'nation',
+              },
+              employment_id:{
+                  text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Employment ID',
+                  field_name:'id_expire_date',
+              },
+              job_position_start_date:{
+                text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Position Start Date',
+                  field_name:'job_position_start_date',
+              },
+              job_position_end_date:{
+                text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Position End Date',
+                  field_name:'job_position_end_date',
+              },
+              address:{
+                text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Address',
+                  field_name:'address',
+              },
+              house_number:{
+                text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'House Number',
+                  field_name:'house_number',
+              },
+              region:{
+                text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Region',
+                  field_name:'region',
+              },
+              zone:{
+                text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Zone',
+                  field_name:'zone',
+              },
+              woreda:{
+                text_positionx:400,
+                  text_positiony:140,
+                  text_font_size:18,
+                  text_font_color:'black',
+                  text_font_type:'arial',
+                  gap:200,
+                  field_label:'Woreda',
+                  field_name:'woreda',
+              },
+              orgname:{
+                text_positionx:400,
+                text_positiony:140,
+                text_font_size:18,
+                text_font_color:'black',
+                text_font_type:'arial',
+                gap:200,
+                field_label:'Organization Name',
+                field_name:'orgname',
+              },
+              motto:{
+                text_positionx:400,
+                text_positiony:140,
+                text_font_size:18,
+                text_font_color:'black',
+                text_font_type:'arial',
+                gap:200,
+                field_label:'Motto',
+                field_name:'motto',
+              },
+              mission:{
+                text_positionx:400,
+                text_positiony:140,
+                text_font_size:18,
+                text_font_color:'black',
+                text_font_type:'arial',
+                gap:200,
+                field_label:'Mission',
+                field_name:'mission',
+              },
+              vision:{
+                text_positionx:400,
+                text_positiony:140,
+                text_font_size:18,
+                text_font_color:'black',
+                text_font_type:'arial',
+                gap:200,
+                field_label:'Organization Vision',
+                field_name:'vision',
+              },
+              orgEmail:{
+                text_positionx:400,
+                text_positiony:140,
+                text_font_size:18,
+                text_font_color:'black',
+                text_font_type:'arial',
+                gap:200,
+                field_label:'Organization email',
+                field_name:'org_email',
+              },
+              coreValue:{
+                text_positionx:400,
+                text_positiony:140,
+                text_font_size:18,
+                text_font_color:'black',
+                text_font_type:'arial',
+                gap:200,
+                field_label:'Core Value',
+                field_name:'coreValue',
+              },
+              logo:{
+              logo_xPosition:30,
+              logo_yPosition:80,
+              logo_image_width:150,
+              logo_image_height:150,
+              logo_has_mask:false,
+              logo_mask_thickness:0,
+              logo_mask_color:'black',
+              logo_is_circle:false,
+              logo_circle_diameter:0,
+              logo_circle_background:null,
+              },
+              orgAddress:{
+                text_positionx:400,
+                text_positiony:140,
+                text_font_size:18,
+                text_font_color:'black',
+                text_font_type:'arial',
+                gap:200,
+                field_label:'Organization Address',
+                field_name:'orgAddress',
+              },
+              orgPhone:{
+                text_positionx:400,
+                text_positiony:140,
+                text_font_size:18,
+                text_font_color:'black',
+                text_font_type:'arial',
+                gap:200,
+                field_label:'Organization Phone',
+                field_name:'orgPhone',
+              },
+              website:{
+                text_positionx:400,
+                text_positiony:140,
+                text_font_size:18,
+                text_font_color:'black',
+                text_font_type:'arial',
+                gap:200,
+                field_label:'Website',
+                field_name:'website',
+              },
+              fax:{
+                text_positionx:400,
+                text_positiony:140,
+                text_font_size:18,
+                text_font_color:'black',
+                text_font_type:'arial',
+                gap:200,
+                field_label:'Fax number',
+                field_name:'fax',
+              },
+              poBox:{
+                text_positionx:400,
+                text_positiony:140,
+                text_font_size:18,
+                text_font_color:'black',
+                text_font_type:'arial',
+                gap:200,
+                field_label:'P.O.BOX',
+                field_name:'poBox',
+              },
+              tin:{
+                text_positionx:400,
+                text_positiony:140,
+                text_font_size:18,
+                text_font_color:'black',
+                text_font_type:'arial',
+                gap:200,
+                field_label:'Tin Number',
+                field_name:'tin_number',
+              },
+              abbreviation:{
+                text_positionx:400,
+                text_positiony:140,
+                text_font_size:18,
+                text_font_color:'black',
+                text_font_type:'arial',
+                gap:200,
+                field_label:'Organization abbreviation',
+                field_name:'abbreviation',
+              }
+            
+              
+          },
+          back:{
+            photo:{
               xPosition:30,
               yPosition:80,
               image_width:150,
@@ -27,7 +474,7 @@ export default function EmployeeDashboard() {
               mask_color:'black',
               is_circle:false,
               circle_diameter:0,
-              circle_background:null
+              circle_background:null,
           },
           en_name:{
               text_positionx:400,
@@ -35,6 +482,7 @@ export default function EmployeeDashboard() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Name',
               field_name:'en_name',
               
@@ -45,6 +493,7 @@ export default function EmployeeDashboard() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Role',
               field_name:'job_position',
               
@@ -55,6 +504,7 @@ export default function EmployeeDashboard() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Issue Date',
               field_name:'id_issue_date',
               
@@ -65,35 +515,356 @@ export default function EmployeeDashboard() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Expire Date',
               field_name:'id_expire_date',
               
-          }
-      },
-      back:{
-          phone_number:{
+          },
+          title:{
               text_positionx:400,
-              text_positiony:90,
+              text_positiony:140,
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
+              field_label:'Title',
+              field_name:'title',
+          },
+          sex:{
+              text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Sex',
+              field_name:'sex',
+          },
+          date_of_birth:{
+              text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Date of Birth',
+              field_name:'date_of_birth',
+          },
+          joined_date:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Join Date',
+              field_name:'joined_date',
+          },
+          email:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Email',
+              field_name:'email',
+          },
+          phone_number:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
               field_label:'Phone',
               field_name:'phone_number',
-              
           },
-          address:{
-              text_positionx:400,
-              text_positiony:120,
+          organization_unit:{
+            text_positionx:400,
+              text_positiony:140,
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
+              field_label:'Unit',
+              field_name:'organization_unit',
+          },
+          job_position:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Position',
+              field_name:'job_position',
+          },
+          job_title_category:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Job Category',
+              field_name:'job_title_category',
+          },
+          salary_id:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Salary ID',
+              field_name:'salary_id',
+          },
+          marital_status:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Marital Status',
+              field_name:'marital_status',
+          },
+          nation:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Nation',
+              field_name:'nation',
+          },
+          employment_id:{
+              text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Employment ID',
+              field_name:'id_expire_date',
+          },
+          job_position_start_date:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Position Start Date',
+              field_name:'job_position_start_date',
+          },
+          job_position_end_date:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Position End Date',
+              field_name:'job_position_end_date',
+          },
+          address:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
               field_label:'Address',
               field_name:'address',
-              
+          },
+          house_number:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'House Number',
+              field_name:'house_number',
+          },
+          region:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Region',
+              field_name:'region',
+          },
+          zone:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Zone',
+              field_name:'zone',
+          },
+          woreda:{
+              text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Woreda',
+              field_name:'woreda',
+          },
+          orgname:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Organization Name',
+            field_name:'orgname',
+          },
+          motto:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Motto',
+            field_name:'motto',
+          },
+          mission:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Mission',
+            field_name:'mission',
+          },
+          vision:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Organization Vision',
+            field_name:'vision',
+          },
+          orgEmail:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Organization email',
+            field_name:'org_email',
+          },
+          coreValue:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Core Value',
+            field_name:'coreValue',
+          },
+          logo:{
+            logo_xPosition:30,
+            logo_yPosition:80,
+            logo_image_width:150,
+            logo_image_height:150,
+            logo_has_mask:false,
+            logo_mask_thickness:0,
+            logo_mask_color:'black',
+            logo_is_circle:false,
+            logo_circle_diameter:0,
+            logo_circle_background:null,
+            },
+          orgAddress:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Organization Address',
+            field_name:'orgAddress',
+          },
+          orgPhone:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Organization Phone',
+            field_name:'orgPhone',
+          },
+          website:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Website',
+            field_name:'website',
+          },
+          fax:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Fax number',
+            field_name:'fax',
+          },
+          poBox:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'P.O.BOX',
+            field_name:'poBox',
+          },
+          tin:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Tin Number',
+            field_name:'tin',
+          },
+          abbreviation:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Organization abbreviation',
+            field_name:'abbreviation',
           }
-      },
-      badge:{
-          photo:{
+          },
+          badge:{
+            photo:{
               xPosition:30,
               yPosition:80,
               image_width:150,
@@ -103,33 +874,443 @@ export default function EmployeeDashboard() {
               mask_color:'black',
               is_circle:false,
               circle_diameter:0,
-              circle_background:null
+              circle_background:null,
           },
           en_name:{
               text_positionx:400,
-              text_positiony:90,
+              text_positiony:80,
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Name',
               field_name:'en_name',
+              
           },
           job_position:{
+              text_positionx:400,
+              text_positiony:100,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Role',
+              field_name:'job_position',
+              
+          },
+          id_issue_date:{
               text_positionx:400,
               text_positiony:120,
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
-              field_label:'Role',
-              field_name:'position',
+              gap:200,
+              field_label:'Issue Date',
+              field_name:'id_issue_date',
+              
           },
-      }
-          
-      });
+          id_expire_date:{
+              text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Expire Date',
+              field_name:'id_expire_date',
+              
+          },
+          title:{
+              text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Title',
+              field_name:'title',
+          },
+          sex:{
+              text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Sex',
+              field_name:'sex',
+          },
+          date_of_birth:{
+              text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Date of Birth',
+              field_name:'date_of_birth',
+          },
+          joined_date:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Join Date',
+              field_name:'joined_date',
+          },
+          email:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Email',
+              field_name:'email',
+          },
+          phone_number:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Phone',
+              field_name:'phone_number',
+          },
+          organization_unit:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Unit',
+              field_name:'organization_unit',
+          },
+          job_position:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Position',
+              field_name:'job_position',
+          },
+          job_title_category:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Job Category',
+              field_name:'job_title_category',
+          },
+          salary_id:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Salary ID',
+              field_name:'salary_id',
+          },
+          marital_status:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Marital Status',
+              field_name:'marital_status',
+          },
+          nation:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Nation',
+              field_name:'nation',
+          },
+          employment_id:{
+              text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Employment ID',
+              field_name:'id_expire_date',
+          },
+          job_position_start_date:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Position Start Date',
+              field_name:'job_position_start_date',
+          },
+          job_position_end_date:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Position End Date',
+              field_name:'job_position_end_date',
+          },
+          address:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Address',
+              field_name:'address',
+          },
+          house_number:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'House Number',
+              field_name:'house_number',
+          },
+          region:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Region',
+              field_name:'region',
+          },
+          zone:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Zone',
+              field_name:'zone',
+          },
+          woreda:{
+            text_positionx:400,
+              text_positiony:140,
+              text_font_size:18,
+              text_font_color:'black',
+              text_font_type:'arial',
+              gap:200,
+              field_label:'Woreda',
+              field_name:'woreda',
+          },
+          orgname:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Organization Name',
+            field_name:'orgname',
+          },
+          motto:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Motto',
+            field_name:'motto',
+          },
+          mission:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Mission',
+            field_name:'mission',
+          },
+          vision:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Organization Vision',
+            field_name:'vision',
+          },
+          orgEmail:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Organization email',
+            field_name:'org_email',
+          },
+          coreValue:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Core Value',
+            field_name:'coreValue',
+          },
+          logo:{
+            logo_xPosition:30,
+            logo_yPosition:80,
+            logo_image_width:150,
+            logo_image_height:150,
+            logo_has_mask:false,
+            logo_mask_thickness:0,
+            logo_mask_color:'black',
+            logo_is_circle:false,
+            logo_circle_diameter:0,
+            logo_circle_background:null,
+            },
+          orgAddress:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Organization Address',
+            field_name:'orgAddress',
+          },
+          orgPhone:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Organization Phone',
+            field_name:'orgPhone',
+          },
+          website:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Website',
+            field_name:'website',
+          },
+          fax:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Fax number',
+            field_name:'fax',
+          },
+          poBox:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'P.O.BOX',
+            field_name:'poBox',
+          },
+          tin:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Tin Number',
+            field_name:'tin',
+          },
+          abbreviation:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Organization abbreviation',
+            field_name:'abbreviation',
+          }
+          },
+              
+          });
+      
+        const loadFieldState=()=>{
+          const savedFieldState=JSON.parse(localStorage.getItem('enabledFields'));
+          return savedFieldState?savedFieldState :{
+                      en_name:false,
+                      title:false,
+                      sex:false,
+                      date_of_birth:false,
+                      joined_date:false,
+                      email:false,
+                      photo:false,
+                      phone_number:false,
+                      organization_unit:false,
+                      job_position:false,
+                      job_title_category:false,
+                      salary_id:false,
+                      marital_status:false,
+                      nation:false,
+                      employment_id:false,
+                      job_position_start_date:false,
+                      job_position_end_date:false,
+                      address:false,
+                      house_number:false,
+                      region:false,
+                      zone:false,
+                      woreda:false,
+                      status:false,
+                      id_issue_date:false,
+                      id_expire_date:false,
+                      id_status:false,
+                      
+                      
+          }
+        }
+        const [enableField,setEnableField]=useState(loadFieldState);
       
   const [imageMaskThickness,setImageMaskThickness]=useState(0);
 const [imageCircleDiameter, setImageCircleDiameter] = useState(0);
 const [imageMaskColor,setImageMaskColor]=useState('black');
+const [logoPosition, setLogoPosition] = useState({ x: 250, y: 50 });
+  const [logoDimension,setLogoDimension]=useState({width:150,height:150});
+  const [logoMask,setLogoMask]=useState(false);
+  const [logoMaskThickness,setLogoMaskThickness]=useState(0);
+  const [logoCircle, setLogoCircle] = useState({ is_circle: false });
+const [logoCircleDiameter, setLogoCircleDiameter] = useState(0);
+const [logoMaskColor,setLogoMaskColor]=useState('black');
        const [userProfile,setUserProfile]=useState([]);
        
 
@@ -148,7 +1329,7 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
               fallback.src="https://th.bing.com/th/id/OIP.30Yq02E10j8tn6kKBO1qdQHaHa?rs=1&pid=ImgDetMain"
               fallback.onload=()=>setImage(fallback)
           }
-      },[userProfile])
+      },[userProfile]);
 
     useEffect(()=>{
         const img=localStorage.getItem(`templateCardsback`);
@@ -262,34 +1443,95 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
             <Stage width={700} height={500} >
               <Layer>
                 <KonvaImage width={700} height={500} image={backObj} />
-                {image && (
-                  <>
-                 <Circle
-                         x={templates['front']?.imagePosition?.x + (templates['front']?.imageDimension?.image_width || 150) / 2}
-                         y={templates['front']?.imagePosition?.y + (templates['front']?.imageDimension?.image_height || 150) / 2}
-                         radius={(templates['front']?.imageDimension?.image_width || 150) / 2}
-                         fill="white" 
-                       />
-                     
-                       
-                       <Image
-                         x={templates['front']?.imagePosition?.x || 50}
-                         y={templates['front']?.imagePosition?.y || 50}
-                         image={image}
-                         width={templates['front']?.imageDimension?.image_width || 150}
-                         height={templates['front']?.imageDimension?.image_height || 150}
-                         stroke={templates['front']?.imageMaskColor || imageMaskColor}
-                         strokeWidth={templates['front']?.imageMaskThickness || imageMaskThickness}
-                         cornerRadius={templates['front']?.imageCircleDiameter || imageCircleDiameter}
-                         rotation={0}
-                       />
-                     </>
-                )}
-                {Object.entries(templates['front'] || {}).map(([key, field]) => {
-                  const fieldValue = userProfile?.[field.field_name] ?? "N/A";
+                {image &&enableField['front']?.['photo']&& (
+                                  <>
+                                 <Circle
+                                         x={templates['front']?.imagePosition?.x + (templates['front']?.imageDimension?.image_width || 150) / 2}
+                                         y={templates['front']?.imagePosition?.y + (templates['front']?.imageDimension?.image_height || 150) / 2}
+                                         radius={(templates['front']?.imageDimension?.image_width || 150) / 2}
+                                         fill="white" 
+                                       />
+                                     
+                                       
+                                       <Image
+                                         x={templates['front']?.imagePosition?.x || 50}
+                                         y={templates['front']?.imagePosition?.y || 50}
+                                         image={image}
+                                         width={templates['front']?.imageDimension?.image_width || 150}
+                                         height={templates['front']?.imageDimension?.image_height || 150}
+                                         stroke={templates['front']?.imageMaskColor || imageMaskColor}
+                                         strokeWidth={templates['front']?.imageMaskThickness || imageMaskThickness}
+                                         cornerRadius={templates['front']?.imageCircleDiameter || imageCircleDiameter}
+                                         rotation={0}
+                                       />
+                                     </>
+                                )}
+                                {logo &&enableField['front']?.['logo'] &&(
+                                              <Image
+                                                x={templates['front']?.logoPosition?.x || 50}
+                                                y={templates['front']?.logoPosition?.y || 50}
+                                                image={logo}
+                                                width={templates['front']?.logoDimension?.logo_image_width || 150}
+                                                height={templates['front']?.logoDimension?.logo_image_height || 150}
+                                                stroke={templates['front']?.logoMaskColor || logoMaskColor}
+                                                strokeWidth={templates['front']?.logoMaskThickness || logoMaskThickness}
+                                                cornerRadius={templates['front']?.logoCircleDiameter || logoCircleDiameter}
+                                                rotation={0}
+                                             
+                                              />
+                                            )}
+                {Object.entries(templates['front']).filter(([key,field])=>(
+                enableField['front']?.[key]&&field?.field_label?.trim() !== "" && field?.text_positionx != null
+            )).map(([key, field])=> {
+                  let fieldValue = "N/A"; 
+                  switch (field.field_name) {
+                    case "orgname":
+                      fieldValue = orgname;
+                      break;
+                    case "motto":
+                      fieldValue = motto;
+                      break;
+                    case "mission":
+                      fieldValue = mission;
+                      break;
+                    case "vision":
+                      fieldValue = vision;
+                      break;
+                    case "coreValue":
+                      fieldValue = coreValue;
+                      break;
+                    case "orgAddress":
+                      fieldValue=orgAddress;
+                      break;
+                    case "orgPhone":
+                      fieldValue=orgPhone;
+                      break;
+                    case "orgAddress":
+                      fieldValue=orgAddress;
+                      break;
+                    case "website":
+                      fieldValue=website;
+                      break;
+                    case "orgEmail":
+                      fieldValue=orgEmail;
+                      break;
+                    case "fax":
+                      fieldValue=fax;
+                      break;
+                    case "tin":
+                      fieldValue=tin;
+                      break;
+                    case "abbreviation":
+                      fieldValue=abbreviation;
+                      break;
+                    default:
+                      fieldValue = userProfile?.[field.field_name] ?? "N/A";
+                  }
+                
                   const displayText = Array.isArray(fieldValue) ? fieldValue[0] : fieldValue;
                   const xPos = Number(field.text_positionx || 0);
                   const yPos = Number(field.text_positiony || 0);
+                  const gap = Number(field.gap) || 0;
 
                   return (
                     <Group key={key}>
@@ -303,7 +1545,7 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
                         fontStyle="bold"
                       />
                       <Text
-                        x={xPos + 200}
+                        x={xPos + gap}
                         y={yPos}
                         text={displayText}
                         fill={field.text_font_color}
@@ -320,13 +1562,105 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
               <Stage width={700} height={500} >
                             <Layer>
                               <KonvaImage width={700} height={500} image={backObjBack} />
+                              {image &&enableField['back']?.['photo']&& (
+                                                <>
+                                               <Circle
+                                                       x={templates['back']?.imagePosition?.x + (templates['back']?.imageDimension?.image_width || 150) / 2}
+                                                       y={templates['back']?.imagePosition?.y + (templates['back']?.imageDimension?.image_height || 150) / 2}
+                                                       radius={(templates['back']?.imageDimension?.image_width || 150) / 2}
+                                                       fill="white" 
+                                                     />
+                                                   
+                                                     
+                                                     <Image
+                                                       x={templates['back']?.imagePosition?.x || 50}
+                                                       y={templates['back']?.imagePosition?.y || 50}
+                                                       image={image}
+                                                       width={templates['back']?.imageDimension?.image_width || 150}
+                                                       height={templates['back']?.imageDimension?.image_height || 150}
+                                                       stroke={templates['back']?.imageMaskColor || imageMaskColor}
+                                                       strokeWidth={templates['back']?.imageMaskThickness || imageMaskThickness}
+                                                       cornerRadius={templates['back']?.imageCircleDiameter || imageCircleDiameter}
+                                                       rotation={0}
+                                                     />
+                                                   </>
+                                              )}
+                              {logo &&enableField['back']?.['logo']&& (
+                                                <>
+                                               <Circle
+                                                       x={templates['back']?.logoPosition?.x + (templates['back']?.logoDimension?.logo_image_width || 150) / 2}
+                                                       y={templates['back']?.logoPosition?.y + (templates['back']?.logoDimension?.logo_image_height || 150) / 2}
+                                                       radius={(templates['back']?.logoDimension?.logo_image_width || 150) / 2}
+                                                       fill="white" 
+                                                     />
+                                                   
+                                                     
+                                                     <Image
+                                                       x={templates['back']?.logoPosition?.x || 50}
+                                                       y={templates['back']?.logoPosition?.y || 50}
+                                                       image={logo}
+                                                       width={templates['back']?.logoDimension?.logo_image_width || 150}
+                                                       height={templates['back']?.logoDimension?.logo_image_height || 150}
+                                                       stroke={templates['back']?.logoMaskColor || logoMaskColor}
+                                                       strokeWidth={templates['back']?.logoMaskThickness || logoMaskThickness}
+                                                       cornerRadius={templates['back']?.logoCircleDiameter || logoCircleDiameter}
+                                                       rotation={0}
+                                                     />
+                                                   </>
+                                              )}
                               
-                              {Object.entries(templates['back'] || {}).map(([key, field]) => {
-                                const fieldValue = userProfile?.[field.field_name] ?? "N/A";
+                              {Object.entries(templates['back'] ).filter(([key,field])=>(
+                enableField['back']?.[key]&&field?.field_label?.trim() !== "" && field?.text_positionx != null
+            )).map(([key, field]) => {
+              let fieldValue = "N/A"; 
+              switch (field.field_name) {
+                case "orgname":
+                  fieldValue = orgname;
+                  break;
+                case "motto":
+                  fieldValue = motto;
+                  break;
+                case "mission":
+                  fieldValue = mission;
+                  break;
+                case "vision":
+                  fieldValue = vision;
+                  break;
+                case "coreValue":
+                  fieldValue = coreValue;
+                  break;
+                case "orgAddress":
+                  fieldValue=orgAddress;
+                  break;
+                case "orgPhone":
+                  fieldValue=orgPhone;
+                  break;
+                case "orgAddress":
+                  fieldValue=orgAddress;
+                  break;
+                case "website":
+                  fieldValue=website;
+                  break;
+                case "orgEmail":
+                  fieldValue=orgEmail;
+                  break;
+                case "fax":
+                  fieldValue=fax;
+                  break;
+                case "tin":
+                  fieldValue=tin;
+                  break;
+                case "abbreviation":
+                  fieldValue=abbreviation;
+                  break;
+                default:
+                  fieldValue = userProfile?.[field.field_name] ?? "N/A";
+              }
                                 const displayText = Array.isArray(fieldValue) ? fieldValue[0] : fieldValue;
                                 const xPos = Number(field.text_positionx || 0);
                                 const yPos = Number(field.text_positiony || 0);
-              
+                                const gap = Number(field.gap) || 0;
+
                                 return (
                                   <Group key={key}>
                                     <Text
@@ -339,7 +1673,7 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
                                       fontStyle="bold"
                                     />
                                     <Text
-                                      x={xPos + 200}
+                                      x={xPos + gap}
                                       y={yPos}
                                       text={displayText}
                                       fill={field.text_font_color}
@@ -364,26 +1698,85 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
             <Stage className="stage" width={700} height={500}>
                       <Layer>
                         <KonvaImage width={700} height={500} image={backObjBadge} />
-                        {image && (
-                          <Image
-                            x={templates['badge']?.imagePosition?.x || 50}
-                            y={templates['badge']?.imagePosition?.y || 50}
-                            image={image}
-                            width={templates['badge']?.imageDimension?.image_width || 150}
-                            height={templates['badge']?.imageDimension?.image_height || 150}
-                            stroke={templates['badge']?.photo?.mask_color || mask_color}
-                            strokeWidth={templates['badge']?.photo?.mask_thickness || 0}
-                            cornerRadius={templates['badge']?.photo?.circle_diameter || 0}
-            
-                            rotation={0}
-                         
-                          />
-                        )}
-                        {Object.entries(templates['badge'] || {}).map(([key, field]) => {
-                          const fieldValue = userProfile?.[field.field_name] ?? "N/A";
+                         {image &&enableField['badge']?.['photo'] &&(
+                                      <Image
+                                        x={templates['badge']?.imagePosition?.x || 50}
+                                        y={templates['badge']?.imagePosition?.y || 50}
+                                        image={image}
+                                        width={templates['badge']?.imageDimension?.image_width || 150}
+                                        height={templates['badge']?.imageDimension?.image_height || 150}
+                                        stroke={templates['badge']?.imageMaskColor || imageMaskColor}
+                                        strokeWidth={templates['badge']?.imageMaskThickness || imageMaskThickness}
+                                        cornerRadius={templates['badge']?.imageCircleDiameter || imageCircleDiameter}
+                                        rotation={0}
+                                     
+                                      />
+                                    )}
+                        {logo &&enableField['badge']?.['logo'] &&(
+                                      <Image
+                                        x={templates['badge']?.logoPosition?.x || 50}
+                                        y={templates['badge']?.logoPosition?.y || 50}
+                                        image={logo}
+                                        width={templates['badge']?.logoDimension?.logo_image_width || 150}
+                                        height={templates['badge']?.logoDimension?.logo_image_height || 150}
+                                        stroke={templates['badge']?.logoMaskColor || logoMaskColor}
+                                        strokeWidth={templates['badge']?.logoMaskThickness || logoMaskThickness}
+                                        cornerRadius={templates['badge']?.logoCircleDiameter || logoCircleDiameter}
+                                        rotation={0}
+                                     
+                                      />
+                                    )}
+                         {Object.entries(templates['badge']).filter(([key,field])=>(
+                enableField['badge']?.[key]&&field?.field_label?.trim() !== "" && field?.text_positionx != null
+            )).map(([key, field])  => {
+              let fieldValue = "N/A"; 
+              switch (field.field_name) {
+                case "orgname":
+                  fieldValue = orgname;
+                  break;
+                case "motto":
+                  fieldValue = motto;
+                  break;
+                case "mission":
+                  fieldValue = mission;
+                  break;
+                case "vision":
+                  fieldValue = vision;
+                  break;
+                case "coreValue":
+                  fieldValue = coreValue;
+                  break;
+                case "orgAddress":
+                  fieldValue=orgAddress;
+                  break;
+                case "orgPhone":
+                  fieldValue=orgPhone;
+                  break;
+                case "orgAddress":
+                  fieldValue=orgAddress;
+                  break;
+                case "website":
+                  fieldValue=website;
+                  break;
+                case "orgEmail":
+                  fieldValue=orgEmail;
+                  break;
+                case "fax":
+                  fieldValue=fax;
+                  break;
+                case "tin":
+                  fieldValue=tin;
+                  break;
+                case "abbreviation":
+                  fieldValue=abbreviation;
+                  break;
+                default:
+                  fieldValue = userProfile?.[field.field_name] ?? "N/A";
+              }
                           const displayText = Array.isArray(fieldValue) ? fieldValue[0] : fieldValue;
                           const xPos = Number(field.text_positionx || 0);
                           const yPos = Number(field.text_positiony || 0);
+                          const gap = Number(field.gap) || 0;
             
                           return (
                             <Group key={key}>
@@ -397,7 +1790,7 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
                                 fontStyle="bold"
                               />
                               <Text
-                                x={xPos + 200}
+                                x={xPos + gap}
                                 y={yPos}
                                 text={displayText}
                                 fill={field.text_font_color}

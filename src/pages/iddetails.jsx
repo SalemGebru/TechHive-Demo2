@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { Stage,Layer,Text,Image,Circle,Group,Image as KonvaImage } from "react-konva";
 
 
-
+import { getOrganizationInfo } from "../features/organizationSlice";
 import { saveTemplate,getTemplate} from "../features/idCardSlice";
 
 export default function IdDetails() {
@@ -32,6 +32,54 @@ export default function IdDetails() {
   const [image, setImage] = useState(null);
   const backImg=new window.Image();
   backImg.src='https://th.bing.com/th/id/OIP.Rv8GJCOZZhXXpr-MEfSOugAAAA?rs=1&pid=ImgDetMain'
+
+  const [orgname,setOrgName]=useState();
+  const [motto,setMotto]=useState();
+  const [mission,setMission]=useState();
+  const [vision,setVision]=useState();
+  const [coreValue,setCoreValue]=useState();
+  const [logo,setLogo]=useState();
+  const [orgAddress,setOrgAddress]=useState();
+  const [website,setWebsite]=useState();
+  const [orgEmail,setOrgEmail]=useState();
+  const [orgPhone,setOrgPhone]=useState();
+  const [fax,setFax]=useState();
+  const [poBox,setPoBox]=useState();
+  const [tin,setTin]=useState();
+  const [abbreviation,setAbbreviation]=useState();
+  
+
+  useEffect(() => {
+    dispatch(getOrganizationInfo()).then((data) => {
+      const org = data.payload[0];
+      const img=new window.Image();
+      if (org) {
+        setOrgName(org.en_name);
+        setMotto(org.email);
+        setMission(org.mission);
+        setVision(org.vision);
+        setCoreValue(org.core_value);
+        img.src=(org.logo);
+        img.onload = () => {
+          setLogo(img); 
+        };
+        console.log(org.logo)
+        setOrgAddress(org.address);
+        setWebsite(org.website);
+        setOrgEmail(org.email);
+        setOrgPhone(org.phone);
+        setFax(org.fax_number);
+        setPoBox(org.po_box);
+        setTin(org.tin_number);
+        setAbbreviation(org.abbreviation);
+  
+       
+        
+      }
+    });
+  }, []);
+ 
+ 
   
   const [templates,setTemplates]=useState({
       front:{
@@ -53,6 +101,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Name',
               field_name:'en_name',
               
@@ -63,6 +112,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Role',
               field_name:'job_position',
               
@@ -73,6 +123,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Issue Date',
               field_name:'id_issue_date',
               
@@ -83,6 +134,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Expire Date',
               field_name:'id_expire_date',
               
@@ -93,6 +145,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Title',
               field_name:'title',
           },
@@ -102,6 +155,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Sex',
               field_name:'sex',
           },
@@ -111,6 +165,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Date of Birth',
               field_name:'date_of_birth',
           },
@@ -120,6 +175,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Join Date',
               field_name:'joined_date',
           },
@@ -129,6 +185,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Email',
               field_name:'email',
           },
@@ -138,8 +195,9 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Phone',
-              field_name:'phone',
+              field_name:'phone_number',
           },
           organization_unit:{
             text_positionx:400,
@@ -147,6 +205,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Unit',
               field_name:'organization_unit',
           },
@@ -156,6 +215,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Position',
               field_name:'job_position',
           },
@@ -165,6 +225,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Job Category',
               field_name:'job_title_category',
           },
@@ -174,6 +235,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Salary ID',
               field_name:'salary_id',
           },
@@ -183,6 +245,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Marital Status',
               field_name:'marital_status',
           },
@@ -192,6 +255,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Nation',
               field_name:'nation',
           },
@@ -201,6 +265,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Employment ID',
               field_name:'id_expire_date',
           },
@@ -210,6 +275,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Position Start Date',
               field_name:'job_position_start_date',
           },
@@ -219,6 +285,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Position End Date',
               field_name:'job_position_end_date',
           },
@@ -228,6 +295,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Address',
               field_name:'address',
           },
@@ -237,6 +305,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'House Number',
               field_name:'house_number',
           },
@@ -246,6 +315,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Region',
               field_name:'region',
           },
@@ -255,6 +325,7 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Zone',
               field_name:'zone',
           },
@@ -264,9 +335,154 @@ export default function IdDetails() {
               text_font_size:18,
               text_font_color:'black',
               text_font_type:'arial',
+              gap:200,
               field_label:'Woreda',
               field_name:'woreda',
           },
+          orgname:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Organization Name',
+            field_name:'orgname',
+          },
+          motto:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Motto',
+            field_name:'motto',
+          },
+          mission:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Mission',
+            field_name:'mission',
+          },
+          vision:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Organization Vision',
+            field_name:'vision',
+          },
+          orgEmail:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Organization email',
+            field_name:'org_email',
+          },
+          coreValue:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Core Value',
+            field_name:'coreValue',
+          },
+          logo:{
+          logo_xPosition:30,
+          logo_yPosition:80,
+          logo_image_width:150,
+          logo_image_height:150,
+          logo_has_mask:false,
+          logo_mask_thickness:0,
+          logo_mask_color:'black',
+          logo_is_circle:false,
+          logo_circle_diameter:0,
+          logo_circle_background:null,
+          },
+          orgAddress:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Organization Address',
+            field_name:'orgAddress',
+          },
+          orgPhone:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Organization Phone',
+            field_name:'orgPhone',
+          },
+          website:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Website',
+            field_name:'website',
+          },
+          fax:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Fax number',
+            field_name:'fax',
+          },
+          poBox:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'P.O.BOX',
+            field_name:'poBox',
+          },
+          tin:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Tin Number',
+            field_name:'tin_number',
+          },
+          abbreviation:{
+            text_positionx:400,
+            text_positiony:140,
+            text_font_size:18,
+            text_font_color:'black',
+            text_font_type:'arial',
+            gap:200,
+            field_label:'Organization abbreviation',
+            field_name:'abbreviation',
+          }
+        
+          
       },
       back:{
         photo:{
@@ -287,6 +503,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Name',
           field_name:'en_name',
           
@@ -297,6 +514,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Role',
           field_name:'job_position',
           
@@ -307,6 +525,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Issue Date',
           field_name:'id_issue_date',
           
@@ -317,6 +536,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Expire Date',
           field_name:'id_expire_date',
           
@@ -327,6 +547,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Title',
           field_name:'title',
       },
@@ -336,6 +557,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Sex',
           field_name:'sex',
       },
@@ -345,6 +567,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Date of Birth',
           field_name:'date_of_birth',
       },
@@ -354,6 +577,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Join Date',
           field_name:'joined_date',
       },
@@ -363,6 +587,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Email',
           field_name:'email',
       },
@@ -372,8 +597,9 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Phone',
-          field_name:'phone',
+          field_name:'phone_number',
       },
       organization_unit:{
         text_positionx:400,
@@ -381,6 +607,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Unit',
           field_name:'organization_unit',
       },
@@ -390,6 +617,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Position',
           field_name:'job_position',
       },
@@ -399,6 +627,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Job Category',
           field_name:'job_title_category',
       },
@@ -408,6 +637,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Salary ID',
           field_name:'salary_id',
       },
@@ -417,6 +647,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Marital Status',
           field_name:'marital_status',
       },
@@ -426,6 +657,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Nation',
           field_name:'nation',
       },
@@ -435,6 +667,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Employment ID',
           field_name:'id_expire_date',
       },
@@ -444,6 +677,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Position Start Date',
           field_name:'job_position_start_date',
       },
@@ -453,6 +687,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Position End Date',
           field_name:'job_position_end_date',
       },
@@ -462,6 +697,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Address',
           field_name:'address',
       },
@@ -471,6 +707,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'House Number',
           field_name:'house_number',
       },
@@ -480,6 +717,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Region',
           field_name:'region',
       },
@@ -489,18 +727,162 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Zone',
           field_name:'zone',
       },
       woreda:{
-        text_positionx:400,
+          text_positionx:400,
           text_positiony:140,
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Woreda',
           field_name:'woreda',
       },
+      orgname:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Organization Name',
+        field_name:'orgname',
+      },
+      motto:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Motto',
+        field_name:'motto',
+      },
+      mission:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Mission',
+        field_name:'mission',
+      },
+      vision:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Organization Vision',
+        field_name:'vision',
+      },
+      orgEmail:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Organization email',
+        field_name:'org_email',
+      },
+      coreValue:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Core Value',
+        field_name:'coreValue',
+      },
+      logo:{
+        logo_xPosition:30,
+        logo_yPosition:80,
+        logo_image_width:150,
+        logo_image_height:150,
+        logo_has_mask:false,
+        logo_mask_thickness:0,
+        logo_mask_color:'black',
+        logo_is_circle:false,
+        logo_circle_diameter:0,
+        logo_circle_background:null,
+        },
+      orgAddress:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Organization Address',
+        field_name:'orgAddress',
+      },
+      orgPhone:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Organization Phone',
+        field_name:'orgPhone',
+      },
+      website:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Website',
+        field_name:'website',
+      },
+      fax:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Fax number',
+        field_name:'fax',
+      },
+      poBox:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'P.O.BOX',
+        field_name:'poBox',
+      },
+      tin:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Tin Number',
+        field_name:'tin',
+      },
+      abbreviation:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Organization abbreviation',
+        field_name:'abbreviation',
+      }
       },
       badge:{
         photo:{
@@ -521,6 +903,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Name',
           field_name:'en_name',
           
@@ -531,6 +914,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Role',
           field_name:'job_position',
           
@@ -541,6 +925,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Issue Date',
           field_name:'id_issue_date',
           
@@ -551,6 +936,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Expire Date',
           field_name:'id_expire_date',
           
@@ -561,6 +947,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Title',
           field_name:'title',
       },
@@ -570,6 +957,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Sex',
           field_name:'sex',
       },
@@ -579,6 +967,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Date of Birth',
           field_name:'date_of_birth',
       },
@@ -588,6 +977,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Join Date',
           field_name:'joined_date',
       },
@@ -597,6 +987,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Email',
           field_name:'email',
       },
@@ -606,8 +997,9 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Phone',
-          field_name:'phone',
+          field_name:'phone_number',
       },
       organization_unit:{
         text_positionx:400,
@@ -615,6 +1007,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Unit',
           field_name:'organization_unit',
       },
@@ -624,6 +1017,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Position',
           field_name:'job_position',
       },
@@ -633,6 +1027,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Job Category',
           field_name:'job_title_category',
       },
@@ -642,6 +1037,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Salary ID',
           field_name:'salary_id',
       },
@@ -651,6 +1047,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Marital Status',
           field_name:'marital_status',
       },
@@ -660,6 +1057,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Nation',
           field_name:'nation',
       },
@@ -669,6 +1067,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Employment ID',
           field_name:'id_expire_date',
       },
@@ -678,6 +1077,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Position Start Date',
           field_name:'job_position_start_date',
       },
@@ -687,6 +1087,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Position End Date',
           field_name:'job_position_end_date',
       },
@@ -696,6 +1097,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Address',
           field_name:'address',
       },
@@ -705,6 +1107,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'House Number',
           field_name:'house_number',
       },
@@ -714,6 +1117,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Region',
           field_name:'region',
       },
@@ -723,6 +1127,7 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Zone',
           field_name:'zone',
       },
@@ -732,13 +1137,162 @@ export default function IdDetails() {
           text_font_size:18,
           text_font_color:'black',
           text_font_type:'arial',
+          gap:200,
           field_label:'Woreda',
           field_name:'woreda',
       },
+      orgname:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Organization Name',
+        field_name:'orgname',
+      },
+      motto:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Motto',
+        field_name:'motto',
+      },
+      mission:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Mission',
+        field_name:'mission',
+      },
+      vision:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Organization Vision',
+        field_name:'vision',
+      },
+      orgEmail:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Organization email',
+        field_name:'org_email',
+      },
+      coreValue:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Core Value',
+        field_name:'coreValue',
+      },
+      logo:{
+        logo_xPosition:30,
+        logo_yPosition:80,
+        logo_image_width:150,
+        logo_image_height:150,
+        logo_has_mask:false,
+        logo_mask_thickness:0,
+        logo_mask_color:'black',
+        logo_is_circle:false,
+        logo_circle_diameter:0,
+        logo_circle_background:null,
+        },
+      orgAddress:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Organization Address',
+        field_name:'orgAddress',
+      },
+      orgPhone:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Organization Phone',
+        field_name:'orgPhone',
+      },
+      website:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Website',
+        field_name:'website',
+      },
+      fax:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Fax number',
+        field_name:'fax',
+      },
+      poBox:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'P.O.BOX',
+        field_name:'poBox',
+      },
+      tin:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Tin Number',
+        field_name:'tin',
+      },
+      abbreviation:{
+        text_positionx:400,
+        text_positiony:140,
+        text_font_size:18,
+        text_font_color:'black',
+        text_font_type:'arial',
+        gap:200,
+        field_label:'Organization abbreviation',
+        field_name:'abbreviation',
       }
+      },
           
       });
-      
+
+
+  
+
+  
+
+  
 
   const [sampleProfile,setSampleProfile]=useState({
     en_name:'John Doe',
@@ -775,9 +1329,12 @@ export default function IdDetails() {
                 status:false,
                 id_issue_date:false,
                 id_expire_date:false,
-                id_status:false
+                id_status:false,
+                
+                
     }
   }
+  
   const [enableField,setEnableField]=useState(loadFieldState);
   const [isViewModalOpen,setIsViewModalOpen]=useState(false);
   const [imagePosition, setImagePosition] = useState({ x: 50, y: 50 });
@@ -788,13 +1345,30 @@ export default function IdDetails() {
 const [imageCircleDiameter, setImageCircleDiameter] = useState(0);
 const [imageMaskColor,setImageMaskColor]=useState('black');
   const [imageCircleBackground,setImageCircleBackground]=useState();
+  const [logoPosition, setLogoPosition] = useState({ x: 250, y: 50 });
+  const [logoDimension,setLogoDimension]=useState({width:150,height:150});
+  const [logoMask,setLogoMask]=useState(false);
+  const [logoMaskThickness,setLogoMaskThickness]=useState(0);
+  const [logoCircle, setLogoCircle] = useState({ is_circle: false });
+const [logoCircleDiameter, setLogoCircleDiameter] = useState(0);
+const [logoMaskColor,setLogoMaskColor]=useState('black');
+
   const [isUpdating,setIsUpdating]=useState(false);
   const [selectedTemplate,setSelectedTemplate]=useState("front");
+  const selectedTemplateFields = templates[selectedTemplate] || {};
+
+ 
+  Object.entries(selectedTemplateFields).filter(([key,field])=>enableField[selectedTemplate]?.[key]).map(([key,field])=>{
+    console.log(key)
+  })
  
   useEffect(()=>{
       const img=new window.Image();
       img.src="https://th.bing.com/th/id/OIP.30Yq02E10j8tn6kKBO1qdQHaHa?rs=1&pid=ImgDetMain";
       img.onload=()=>setImage(img);
+      img.onerror = () => {
+        console.error("Image failed to load.");
+      };
       
       
   },[]);
@@ -813,7 +1387,7 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
         }, []);
     
   
-      const selectedTemplateFields = templates[selectedTemplate] || {};
+  
       const [backObj,setBackObj]=useState();
   
       const handleTemplateImageUpload = (e) => {
@@ -907,6 +1481,7 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
               return { ...prevTemplates, [selectedTemplate]: selectedTemplateCopy };
           });
       };
+      console.log(templates)
 
       const handleDimensionChange = (e) => {
           const { name, value } = e.target;
@@ -925,6 +1500,30 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
                 ...(prevTemplates[selectedTemplate]?.imageDimension || {
                   image_width: 150,
                   image_height: 150,
+                }),
+                [name]: numericValue, 
+              },
+            },
+          }));
+        };
+
+        const handleLogoDimensionChange = (e) => {
+          const { name, value } = e.target;
+          const numericValue = parseInt(value, 10);
+        
+          setLogoDimension((prev) => ({
+            ...prev,
+            [name]: numericValue, 
+          }));
+        
+          setTemplates((prevTemplates) => ({
+            ...prevTemplates,
+            [selectedTemplate]: {
+              ...prevTemplates[selectedTemplate],
+              logoDimension: {
+                ...(prevTemplates[selectedTemplate]?.logoDimension || {
+                  logo_image_width: 150,
+                  logo_image_height: 150,
                 }),
                 [name]: numericValue, 
               },
@@ -953,6 +1552,26 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
           
       };
 
+      const handleLogoPositionChange = (e) => {
+        const { name, value } = e.target;
+        setLogoPosition((prevPosition) => ({
+            ...prevPosition,
+            [name]: parseInt(value, 10), 
+        }));
+
+        setTemplates((prevTemplates) => ({
+            ...prevTemplates,
+            [selectedTemplate]: {
+                ...prevTemplates[selectedTemplate],
+                logoPosition: {
+                    ...(prevTemplates[selectedTemplate]?.logoPosition || { x: 50, y: 50 }), 
+                    [name]: parseInt(value, 10),
+                },
+            },
+        }));
+        
+    };
+
       const handleMask=(e,maskVal)=>{
         setImageMask((prevMask) => ({
           ...prevMask,
@@ -971,6 +1590,25 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
         }));
       }
 
+      const handleLogoMask=(e,maskVal)=>{
+        setLogoMask((prevMask) => ({
+          ...prevMask,
+          logo_has_mask: maskVal,
+        }));
+      
+        setTemplates((prevTemplates) => ({
+          ...prevTemplates,
+          [selectedTemplate]: {
+            ...prevTemplates[selectedTemplate],
+            logo: {
+              ...(prevTemplates[selectedTemplate]?.logo || {}),
+              logo_has_mask: maskVal,
+            },
+          },
+        }));
+      }
+
+
       const handleMaskThickness=(e)=>{
         const { value } = e.target;
       
@@ -986,6 +1624,23 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
         }));
       }
 
+      const handleLogoMaskThickness=(e)=>{
+        const { value } = e.target;
+      
+        
+        setLogoMaskThickness(Number(value));
+      
+        setTemplates((prevTemplates) => ({
+          ...prevTemplates,
+          [selectedTemplate]: {
+            ...prevTemplates[selectedTemplate],
+            logoMaskThickness: Number(value), 
+          },
+        }));
+      }
+
+      
+
       const handleCircle = (e, maskVal) => {
         setImageCircle((prevMask) => ({
           ...prevMask,
@@ -999,6 +1654,24 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
             photo: {
               ...(prevTemplates[selectedTemplate]?.photo || {}),
               is_circle: maskVal,
+            },
+          },
+        }));
+      };
+
+      const handleLogoCircle = (e, maskVal) => {
+        setLogoCircle((prevMask) => ({
+          ...prevMask,
+          logo_is_circle: maskVal,
+        }));
+      
+        setTemplates((prevTemplates) => ({
+          ...prevTemplates,
+          [selectedTemplate]: {
+            ...prevTemplates[selectedTemplate],
+            logo: {
+              ...(prevTemplates[selectedTemplate]?.logo || {}),
+              logo_is_circle: maskVal,
             },
           },
         }));
@@ -1020,6 +1693,22 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
         }));
       };
 
+      const handleLogoCircleDiameter = (e) => {
+        const { value } = e.target;
+      
+     
+        setLogoCircleDiameter(Number(value));
+      
+        setTemplates((prevTemplates) => ({
+          ...prevTemplates,
+          [selectedTemplate]: {
+            ...prevTemplates[selectedTemplate],
+            logoCircleDiameter: Number(value), 
+          },
+        }));
+      };
+
+
       const handleBackgroundUpload=()=>{
         const file = e.target.files[0];
     if (!file) return;
@@ -1040,6 +1729,20 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
       const handleMaskColor=(e)=>{
         const {value}=e.target;
         setImageMaskColor(value)
+      
+        setTemplates((prevTemplates) => ({
+          ...prevTemplates,
+          [selectedTemplate]: {
+            ...prevTemplates[selectedTemplate],
+            imageMaskColor: value, 
+          },
+        }));
+      
+      }
+
+      const handleLogoMaskColor=(e)=>{
+        const {value}=e.target;
+        setLogoMaskColor(value)
       
         setTemplates((prevTemplates) => ({
           ...prevTemplates,
@@ -1138,8 +1841,8 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
                                               x={templates[selectedTemplate]?.imagePosition?.x || 50}
                                               y={templates[selectedTemplate]?.imagePosition?.y || 50}
                                               image={image}
-                                              width={templates[selectedTemplate]?.imageDimension?.image_width || 150}
-                                              height={templates[selectedTemplate]?.imageDimension?.image_height || 150}
+                                              width={templates[selectedTemplate]?.logoDimension?.image_width || 150}
+                                              height={templates[selectedTemplate]?.logoD?.image_height || 150}
                                               stroke={templates[selectedTemplate]?.imageMaskColor || imageMaskColor}
                                               strokeWidth={templates[selectedTemplate]?.imageMaskThickness || imageMaskThickness}
                                               cornerRadius={templates[selectedTemplate]?.imageCircleDiameter || imageCircleDiameter}
@@ -1147,16 +1850,86 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
                                             />
                                           </>
                                         )}
+                                        
+                                              
+                                              {logo &&enableField[selectedTemplate]?.['logo']&& (
+                                          <>
+                                          
+                                            <Circle
+                                              x={templates[selectedTemplate]?.logoPosition?.x + (templates[selectedTemplate]?.logoDimension?.logo_image_width || 150) / 2}
+                                              y={templates[selectedTemplate]?.logoPosition?.y + (templates[selectedTemplate]?.logoDimension?.logo_image_height || 150) / 2}
+                                              radius={(templates[selectedTemplate]?.logoDimension?.logo_image_width || 150) / 2}
+                                              fill="white" 
+                                            />
+                                          
+                                            
+                                            <Image
+                                              x={templates[selectedTemplate]?.logoPosition?.x || 250}
+                                              y={templates[selectedTemplate]?.logoPosition?.y || 50}
+                                              image={logo}
+                                              width={templates[selectedTemplate]?.logoDimension?.logo_image_width || 150}
+                                              height={templates[selectedTemplate]?.logoDimension?.logo_image_height || 150}
+                                              stroke={templates[selectedTemplate]?.logoMaskColor || logoMaskColor}
+                                              strokeWidth={templates[selectedTemplate]?.logoMaskThickness || logoMaskThickness}
+                                              cornerRadius={templates[selectedTemplate]?.logoCircleDiameter || logoCircleDiameter}
+                                              rotation={0}
+                                            />
+                                          </>
+                                        )}
                                         {Object.entries(selectedTemplateFields).filter(([key,field])=>enableField[selectedTemplate]?.[key]).map(([key, field]) => {
                                           
                                             
-                                            const fieldValue = sampleProfile?.[field.field_name];
+                                          let fieldValue = "N/A"; 
+                                          switch (field.field_name) {
+                                            case "orgname":
+                                              fieldValue = orgname;
+                                              break;
+                                            case "motto":
+                                              fieldValue = motto;
+                                              break;
+                                            case "mission":
+                                              fieldValue = mission;
+                                              break;
+                                            case "vision":
+                                              fieldValue = vision;
+                                              break;
+                                            case "coreValue":
+                                              fieldValue = coreValue;
+                                              break;
+                                            case "orgAddress":
+                                              fieldValue=orgAddress;
+                                              break;
+                                            case "orgPhone":
+                                              fieldValue=orgPhone;
+                                              break;
+                                            case "orgAddress":
+                                              fieldValue=orgAddress;
+                                              break;
+                                            case "website":
+                                              fieldValue=website;
+                                              break;
+                                            case "orgEmail":
+                                              fieldValue=orgEmail;
+                                              break;
+                                            case "fax":
+                                              fieldValue=fax;
+                                              break;
+                                            case "tin":
+                                              fieldValue=tin;
+                                              break;
+                                            case "abbreviation":
+                                              fieldValue=abbreviation;
+                                              break;
+                                            default:
+                                              fieldValue = sampleProfile?.[field.field_name] ?? "N/A";
+                                          }
                                             const displayText = Array.isArray(fieldValue)
                                                 ? fieldValue[0]
                                                 : (fieldValue || "N/A");
                             
                                             const xPos = field.text_positionx ? Number(field.text_positionx) : 0;
                                             const yPos = field.text_positiony ? Number(field.text_positiony) : 0;
+                                            const gap = Number(field.gap) || 0;
                                             return (
                                                     <Group key={key}>
                                                     <Text
@@ -1169,7 +1942,7 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
                                                         fontStyle="bold"
                                                     />
                                                     <Text
-                                                         x={xPos + 200}
+                                                         x={xPos + gap}
                                                          y={yPos}
                                                          text={displayText}
                                                          fill={field.text_font_color}
@@ -1182,6 +1955,8 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
                                                         </Layer>
                                                     </Stage>
                                                     )}
+
+                                                  
                                         </div>
                                           <div className="template-settings">
                                           <ul className="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
@@ -1412,17 +2187,18 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
                                         <option value="job_position_end_date" name="job_position_end_date">Job Position End Date</option>
                                         <option value="employment_id" name="employment_id">Employment ID</option>
                                         <option value="organization_unit" name="organization_unit">Organization Unit</option>
+                                        <option value="orgname" name="orgname">Organization Name</option>
                                         <option value="motto" name="motto">Motto</option>
                                         <option value="mission" name="mission">Mission</option>
                                         <option value="vision" name="vision">Vision</option>
-                                        <option value="core_value" name="core_value">Core Value</option>
+                                        <option value="coreValue" name="coreValue">Core Value</option>
                                         <option value="logo" name="logo">Logo</option>
-                                        <option value="address" name="address">Address</option>
+                                        <option value="orgAddress" name="orgAddress"> Organization Address</option>
                                         <option value="website" name="website">Website</option>
-                                        <option value="phone_number" name="phone_number">Phone number</option>
-                                        <option value="fax_number" name="fax_number">Fax number</option>
-                                        <option value="po_box" name="po_box">P.O.Box</option>
-                                        <option value="tin_number" name="tin_number">Tin Number</option>
+                                        <option value="orgPhone" name="orgPhone">Organization Phone</option>
+                                        <option value="fax" name="fax">Fax number</option>
+                                        <option value="poBox" name="poBox">P.O.Box</option>
+                                        <option value="tin" name="tin">Tin Number</option>
                                         <option value="abbreviation" name="abbreviation">Abbreviation</option>
 
                                       </select>
@@ -1432,7 +2208,7 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
                                                                               <Group>
                                                                               <details className="collapsable">
                                                                               <summary className="field" style={{ display: 'flex', alignItems: 'center', padding: '10px', cursor: 'pointer' }}>
-                                        <i className="bi bi-x-lg" onClick={(e) => handleDisableField(key)} style={{ marginRight: '8px' }}></i>
+                                        <i className="bi bi-x-lg" onClick={(e) => handleDisableField('photo')} style={{ marginRight: '8px' }}></i>
                                          Image
                                         </summary>
                                   
@@ -1561,16 +2337,8 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
                                                                                       disabled={!templates[selectedTemplate]?.photo?.is_circle}
                                                                                       />
                                                                                   </details>
-                                                                                      <details className="collapsable">
-                                                                                          <summary className="field">Circle Background</summary>
-                                                                                          <input
-                                                                                          type="file"
-                                                                                          name="circle_background"
-                                                                                          onChange={handleBackgroundUpload}
-                                                                                          disabled={ !templates[selectedTemplate]?.photo?.is_circle}
-                                                                                         
-                                                                                          />
-                                                                                      </details>
+                                                                                      
+                                                                                      
                                                                                       </div>
                                                                                   </details>
                                   
@@ -1578,6 +2346,150 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
                                                                               </Group>
                                                                               
                                                                           </Group>)}
+
+                                                                          {enableField[selectedTemplate]?.['logo']&&(<Group className="controls">
+                                                                              
+                                                                              <Group>
+                                                                              <details className="collapsable">
+                                                                              <summary className="field" style={{ display: 'flex', alignItems: 'center', padding: '10px', cursor: 'pointer' }}>
+                                        <i className="bi bi-x-lg" onClick={(e) => handleDisableField('logo')} style={{ marginRight: '8px' }}></i>
+                                         Logo
+                                        </summary>
+                                  
+                                                                                     
+                                                                                      <div className="nested-fields">
+                                                                                      
+                                                                                      
+                                                                                      <details className="collapsable">
+                                                                                          <summary className="field">Logo X Position</summary>
+                                                                                          <input 
+                                                                                          type="number"
+                                                                                          name="x"
+                                                                                          onChange={handleLogoPositionChange} 
+                                                                                          
+                                                                                          placeholder="x-axis"
+                                                                                          
+                                                                                          />
+                                                                                      </details>
+                                                                                      <details className="collapsable">
+                                                                                          <summary className="field">Logo Y Position</summary>
+                                                                                          <input
+                                                                                          type="number"
+                                                                                          name="y"
+                                                                                          onChange={handleLogoPositionChange} 
+                                                                                          
+                                  
+                                                                                          />
+                                                                                      </details>
+                                                                                      
+                                                                                      <details className="collapsable">
+                                                                                          <summary className="field">Logo Width</summary>
+                                                                                          <input
+                                                                                          type="number"
+                                                                                          name="logo_image_width"
+                                                                                          onChange={handleLogoDimensionChange} 
+                                                                                          
+                                                                                          placeholder="width"
+                                                                                          />
+                                                                                      </details>
+                                  
+                                                                                      <details className="collapsable">
+                                                                                          <summary className="field">Logo Height</summary>
+                                                                                          <input
+                                                                                          type="number"
+                                                                                          name="logo_image_height"
+                                                                                          onChange={handleLogoDimensionChange} 
+                                                                                          
+                                                                                          placeholder="height"
+                                                                                          />
+                                                                                      </details>
+                                  
+                                                                                      <details className="collapsable">
+                                                                                          <summary className="field">Mask</summary>
+                                                                                          <label>
+                                                                                              <input
+                                                                                                  type="radio"
+                                                                                                  name="logo_has_mask"
+                                                                                                  
+                                                                                                  onChange={(e)=>handleLogoMask(e,true)}
+                                                                                              />
+                                                                                              Apply
+                                                                                              </label>
+                                  
+                                                                                              <label style={{ marginLeft: '1rem' }}>
+                                                                                              <input
+                                                                                                  type="radio"
+                                                                                                  name="logo_has_mask"
+                                                                                                  
+                                                                                                  onChange={(e)=>handleLogoMask(e,false)}
+                                                                                              />
+                                                                                              Disable
+                                                                                              </label>
+                                  
+                                                                                      </details>
+                                                                                      <details className="collapsable">
+                                                                                          <summary className="field">Mask thickness</summary>
+                                                                                          <input
+                                                                                          type="number"
+                                                                                          name="logo_mask_thickness"
+                                                                                          onChange={handleLogoMaskThickness}
+                                                                                         
+                                                                                          disabled={ !templates[selectedTemplate]?.logo?.logo_has_mask}
+                                                                                         
+                                                                                          />
+                                                                                      </details>
+                                                                                      <details className="collapsable">
+                                                                                          <summary className="field">Mask color</summary>
+                                                                                          <input
+                                                                                          type="color"
+                                                                                          name="logo_mask_color"
+                                                                                          onChange={handleLogoMaskColor}
+                                                                                          disabled={ !templates[selectedTemplate]?.logo?.logo_has_mask}
+                                                                                         
+                                                                                          />
+                                                                                      </details>
+                                  
+                                                                                      <details className="collapsable">
+                                                                                          <summary className="field">Circle</summary>
+                                                                                          <label>
+                                                                                              <input
+                                                                                                  type="radio"
+                                                                                                  name="logo_is_circle"
+                                                                                                 
+                                                                                                  onChange={(e)=>handleLogoCircle(e,true)}
+                                                                                              />
+                                                                                              Apply
+                                                                                              </label>
+                                  
+                                                                                              <label style={{ marginLeft: '1rem' }}>
+                                                                                              <input
+                                                                                                  type="radio"
+                                                                                                  name="logo_is_circle"
+                                                                                                 
+                                                                                                  onChange={(e)=>handleLogoCircle(e,false)}
+                                                                                              />
+                                                                                              Disable
+                                                                                              </label>
+                                  
+                                                                                      </details>
+                                                                                      <details className="collapsable">
+                                                                                    <summary className="field">Circle Diameter</summary>
+                                                                                    <input
+                                                                                      type="number"
+                                                                                      name="logo_circle_diameter"
+                                                                                      onChange={handleLogoCircleDiameter}
+                                                                                      disabled={!templates[selectedTemplate]?.logo?.logo_is_circle}
+                                                                                      />
+                                                                                  </details>
+                                                                                      
+                                                                                      </div>
+                                                                                  </details>
+                                  
+                                                                                  
+                                                                              </Group>
+                                                                              
+                                                                          </Group>)}
+                                                                          
                                     <div className="temp-settings">
                                     {Object.entries(templates[selectedTemplate]).filter(([key, field]) =>
                                       enableField[selectedTemplate]?.[key]&&field?.field_label?.trim() !== "" && field?.text_positionx != null
@@ -1622,6 +2534,11 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
                                             onChange={(e) => handleTemplateChange(e, key)}
                                             
                                         />
+                                        <input 
+                                          type="number"
+                                          name="gap"
+                                          value={field.gap}
+                                          onChange={(e)=>handleTemplateChange(e,key)}/>
                                         <select
                                             name="text_font_type"
                                             value={field.text_font_type}
@@ -1632,6 +2549,7 @@ const [imageMaskColor,setImageMaskColor]=useState('black');
                                             <option value="calibri">Calibri</option>
                                             <option value="gothic">Gothic</option>
                                         </select>
+
                                         </details>
                                         
                                         
