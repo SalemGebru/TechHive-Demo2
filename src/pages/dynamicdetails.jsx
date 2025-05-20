@@ -88,25 +88,40 @@ export default function DynamicDetails(){
         reader.readAsDataURL(file);
     }
 }
+
+const validateForm=(formData)=>{
+
+      if(formData.email&&!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)){
+          alert('Email format is incorrect');
+          return false;
+      }
+      else if(formData.phone_number&&!/^\+?(\d{1,3})?[-.\s]?(\(?\d{1,4}\)?)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(formData.phone_number)){
+        alert('Phone format is incorrect');
+          return false;
+      }
+      else return true;
+    }
   
 
     const handleCreateInformation=(e)=>{
         e.preventDefault();
-        console.log('creating')
-        dispatch(createOrganizationInfo({FormData:formData[0]}));
+        
+        if(validateForm(formData[0])){
+          dispatch(createOrganizationInfo({FormData:formData[0]}));
+        }
+        
         
     }
     return(
-        <>
-        <div className="d-flex flex-column flex-root app-root" id="kt_app_root">
-            <div className="app-page flex-column flex-column-fluid" id="kt_app_page">
-            
+        <div id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" className="app-default">
+              <div className="d-flex flex-column flex-root app-root" id="kt_app_root">
+              <div className="app-page flex-column flex-column-fluid" id="kt_app_page">
+                <Header/>
             <div className="app-wrapper" id="kt_app_wrapper">
                 <Sidebar />
-                
-                        <div className="main-content">
-                        <Header />
-                        <div id="kt_app_toolbar" className="app-toolbar py-3 py-lg-6">
+                <div className="app-main flex-column flex-row-fluid" id="kt_app_main">
+                    <div className="d-flex flex-column flex-column-fluid">
+                      <div id="kt_app_toolbar" className="app-toolbar py-3 py-lg-6">
                     <div
                       id="kt_app_toolbar_container"
                       className="app-container container-xxl d-flex flex-stack"
@@ -132,9 +147,10 @@ export default function DynamicDetails(){
                         </div>
                     </div>
                     </div>
-                    <div id="kt_app_content" className="app-content flex-column-fluid">
-                    <div id="kt_app_content_container " className="app-container container-xxl d-flex justify-space-between align-items-center gap-5">
-                    <form className="p-5 bg-white rounded shadow-sm">
+                     <div id="kt_app_content" className="app-content flex-column-fluid">
+          <div id="kt_app_content_container" className="app-container container-xxl">
+            <div className="row g-5 g-xl-10">
+                <form className="p-5 bg-white rounded shadow-sm">
   <div className="row g-4">
     {/* Organization name */}
     <div className="col-md-6">
@@ -219,16 +235,18 @@ export default function DynamicDetails(){
   <button type="button" className="btn btn-primary" onClick={(e)=>handleCreateInformation(e)}>Update</button>
   </div>
 </form>
-
-        
+            </div>
                     </div>
                     </div>
-                  <Footer/>
-                        </div>
+                
+                        
         
                 </div>
                 </div>
                 </div>
-        </>
+        </div>
+        </div>
+        <Footer/>
+        </div>
     )
 }

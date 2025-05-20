@@ -37,13 +37,7 @@ useEffect(() => {
     if (logged && role) {
         const lowerRole = String(role).toLowerCase();
 
-        if (lowerRole === "employee") {
-            navigate("/home/employeedashboard");
-        } else if (lowerRole === "it assistant") {
-            navigate("/home/itstaffdashboard");
-        } else if (lowerRole === "human resources") {
-            navigate("/home/hrdashboard");
-        }
+        navigate("/dashboard");
     }
 }, [logged, role, navigate]);
 

@@ -15,21 +15,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Stage,Layer,Text,Image,Group,Image as KonvaImage,Circle} from 'react-konva'
 
 export default function IdManagement() {
-    useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "/assets/js/scripts.bundle.js";
-    script.async = true;
-    script.onload = () => {
-      if (window.KTApp && typeof window.KTApp.init === "function") {
-        window.KTApp.init();
-      }
-    };
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script); // clean up
-    };
-  }, []);
+   
 
   const dispatch=useDispatch()
   const { idCards } = useSelector((state) => state.idCard);
@@ -1329,6 +1315,7 @@ export default function IdManagement() {
     const [enableField,setEnableField]=useState(loadFieldState);
     const frontRef=useRef();
     const backRef=useRef();
+    const badgeRef=useRef();
   
   useEffect(()=>{
       if(userProfile&&userProfile.photo){
@@ -1388,7 +1375,7 @@ export default function IdManagement() {
     
 
     const handleDownload = async () => {
-      if (!frontRef.current || !backRef.current) {
+      if (!frontRef.current || !backRef.current || !badgeRef.current ) {
         console.error("Stage refs not available");
         return;
       }
@@ -1399,6 +1386,8 @@ export default function IdManagement() {
     
         
         let backUri = await backRef.current.toImage({ mimeType: 'image/png', pixelRatio: 2 });
+
+        let badgeUri= await badgeRef.current.toImage({mimeType:'image/png',pixelRatio:2});
     
   
         if (frontUri instanceof HTMLImageElement || frontUri instanceof HTMLCanvasElement) {
@@ -1423,6 +1412,17 @@ export default function IdManagement() {
         } else if (typeof backUri === 'string') {
           backUri = backUri.trim();
         }
+
+        if (badgeUri instanceof HTMLImageElement || badgeUri instanceof HTMLCanvasElement) {
+          const backCanvas = document.createElement('canvas');
+          const backCtx = backCanvas.getContext('2d');
+          backCanvas.width = badgeUri.width || badgeUri.naturalWidth;
+          backCanvas.height = badgeUri.height || badgeUri.naturalHeight;
+          backCtx.drawImage(badgeUri, 0, 0);
+          badgeUri = backCanvas.toDataURL('image/png');
+        } else if (typeof badgeUri === 'string') {
+          badgeUri = badgeUri.trim();
+        }
     
         
         const frontLink = document.createElement('a');
@@ -1439,6 +1439,13 @@ export default function IdManagement() {
         document.body.appendChild(backLink);
         backLink.click();
         document.body.removeChild(backLink);
+
+        const badgeLink = document.createElement('a');
+        badgeLink.download = `${userProfile.en_name}-badge.png`;
+        badgeLink.href = badgeUri;
+        document.body.appendChild(badgeLink);
+        badgeLink.click();
+        document.body.removeChild(badgeLink);
     
       } catch (error) {
         console.error("Error generating images: ", error);
@@ -1544,17 +1551,15 @@ useEffect(()=>{
 
 
   return (
-    <>
-    <div className="d-flex flex-column flex-root app-root" id="kt_app_root">
-    <div className="app-page flex-column flex-column-fluid" id="kt_app_page">
-    
-    <div className="app-wrapper" id="kt_app_wrapper">
-        <Sidebar />
-
-        <div className="main-content">
+    <div id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" className="app-default">
+                  <div className="d-flex flex-column flex-root app-root" id="kt_app_root">
+                  <div className="app-page flex-column flex-column-fluid" id="kt_app_page">
         <Header />
-          {/* Toolbar */}
-          <div id="kt_app_toolbar" className="app-toolbar py-3 py-lg-6">
+        <div className="app-wrapper" id="kt_app_wrapper">
+            <Sidebar />
+             <div className="app-main flex-column flex-row-fluid" id="kt_app_main">
+                    <div className="d-flex flex-column flex-column-fluid">
+                      <div id="kt_app_toolbar" className="app-toolbar py-3 py-lg-6">
             <div
               id="kt_app_toolbar_container"
               className="app-container container-xxl d-flex flex-stack"
@@ -1585,10 +1590,10 @@ useEffect(()=>{
             </div>
           </div>
 
-          {/* Page content goes here */}
-  <div id="kt_app_content" className="app-content flex-column-fluid">
-  <div id="kt_app_content_container" className="app-container container-xxl">
-  <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6 d-flex">
+          <div id="kt_app_content" className="app-content flex-column-fluid">
+          <div id="kt_app_content_container" className="app-container container-xxl">
+            <div className="row g-5 g-xl-10">
+              <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6 d-flex">
     <li class="nav-item">
         <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">Employee Information</a>
     </li>
@@ -1597,7 +1602,6 @@ useEffect(()=>{
     </li>
     
 </ul>
-
 <div class="tab-content" id="myTabContent">
 <div className="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
   <div className="d-flex justify-content-between align-items-start">
@@ -1632,7 +1636,8 @@ useEffect(()=>{
         <Stage className="stage"
       width={700}
       height={600}
-      scale={{ x: 0.9, y: 1}}>
+      scale={{ x: 0.9, y: 1}}
+      ref={badgeRef}>
           <Layer>
             <KonvaImage width={700} height={600} scale={{ x: 0.9, y: 1}} image={backObjBadge}  />
             {image &&enableField['badge']?.['photo'] &&(
@@ -2057,18 +2062,14 @@ useEffect(()=>{
 
     
 </div>
-    
-    
 
-   
-    
-  </div>
-
-  
-</div>
-
-         <Footer/>
-        </div>
+            </div>
+            </div>
+            </div>
+                    </div>
+                    <Footer/>
+                    </div>
+        
 						
 						
       </div>
@@ -2077,6 +2078,6 @@ useEffect(()=>{
     </div>
       
       
-    </>
+    </div>
   );
 }

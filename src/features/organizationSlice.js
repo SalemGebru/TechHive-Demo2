@@ -5,7 +5,7 @@ export const createOrganizationInfo = createAsyncThunk(
     'organization/create',
     async ({ FormData }, { rejectWithValue }) => {
       try {
-        
+        let organizationInfoId;
         console.log(FormData);
         
         let storedOrganizationInfo = JSON.parse(localStorage.getItem('organizationInfo')) || [];
@@ -14,8 +14,24 @@ export const createOrganizationInfo = createAsyncThunk(
         if (!Array.isArray(storedOrganizationInfo)) {
           storedOrganizationInfo = [storedOrganizationInfo];
         }
-  
+  if (storedOrganizationInfo.length === 0) {
+                let lastOrganizationInfoId=0;
+                organizationInfoId=lastOrganizationInfoId+1;
+            } else {
+                const lastOrganizationInfo = storedOrganizationInfo.pop();
+                if (lastOrganizationInfo && lastOrganizationInfo.id) {
+                    let lastOrganizationInfoId = lastOrganizationInfo.id;
+                     lastOrganizationInfoId=parseInt(lastOrganizationInfoId,10);
+                      organizationInfoId=lastOrganizationInfoId+1;
+                      
+                } else {
+                    let lastOrganizationInfoId=0;
+                    organizationInfoId=lastOrganizationInfoId+1;
+                }
+                storedOrganizationInfo.push(lastOrganizationInfo);
+            }
         const newOrg = {
+          id:organizationInfoId,
           en_name: FormData?.en_name || storedOrganizationInfo[0]?.en_name,
           motto: FormData?.motto || storedOrganizationInfo[0]?.motto,
           mission: FormData?.mission || storedOrganizationInfo[0]?.mission,
@@ -33,11 +49,11 @@ export const createOrganizationInfo = createAsyncThunk(
         };
   
         if (storedOrganizationInfo.length === 0) {
-          // If no organization exists, add the new one
+          
           storedOrganizationInfo.push(newOrg);
           console.log('saved ');
         } else {
-          // Update the first organization in the array
+         
           storedOrganizationInfo[0] = newOrg;
           console.log(' updated');
         }

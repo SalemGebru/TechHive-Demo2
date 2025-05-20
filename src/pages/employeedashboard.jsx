@@ -1387,20 +1387,19 @@ const [logoMaskColor,setLogoMaskColor]=useState('black');
     console.log(userProfile)
 
     return (
-        <>
-            
-                <div className="d-flex flex-column flex-root app-root" id="kt_app_root">
-                    <div className="app-page flex-column flex-column-fluid" id="kt_app_page">
+        <div id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" className="app-default">
+                      <div className="d-flex flex-column flex-root app-root" id="kt_app_root">
+                      <div className="app-page flex-column flex-column-fluid" id="kt_app_page">
+            <Header />
                         <div className="app-wrapper" id="kt_app_wrapper">
                             <Sidebar />
-                            <div className="main-content">
-                                <Header />
-                                {/* Toolbar */}
-                                <div id="kt_app_toolbar" className="app-toolbar py-3 py-lg-6">
+                            <div className="app-main flex-column flex-row-fluid" id="kt_app_main">
+                    <div className="d-flex flex-column flex-column-fluid">
+                      <div id="kt_app_toolbar" className="app-toolbar py-3 py-lg-6">
                                     <div className="app-container container-xxl d-flex flex-stack">
                                         <div className="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                                             <h1 className="page-heading text-dark fw-bold fs-3 my-0">
-                                                Employee Dashboard
+                                                 Dashboard
                                             </h1>
                                             <ul className="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                                                 <li className="breadcrumb-item text-muted">
@@ -1409,16 +1408,16 @@ const [logoMaskColor,setLogoMaskColor]=useState('black');
                                                 <li className="breadcrumb-item">
                                                     <span className="bullet bg-gray-400 w-5px h-2px"></span>
                                                 </li>
-                                                <li className="breadcrumb-item text-muted">Employee Dashboard</li>
+                                                <li className="breadcrumb-item text-muted"> Dashboard</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* Content */}
-                                <div id="kt_app_content" className="app-content flex-column-fluid">
-                                {logged && String(role).toLowerCase() === "employee" ? (
-  <div className="app-container container-xxl">
+                        <div id="kt_app_content" className="app-content flex-column-fluid">
+          
+            {logged && String(role).toLowerCase() === "employee" ? (
+  <div id="kt_app_content_container" className="app-container container-xxl">
+            <div className="row g-5 g-xl-10">
     
     <ul className="nav nav-tabs nav-line-tabs mb-5 fs-6" id="myTab" role="tablist">
       <li className="nav-item" role="presentation">
@@ -1806,17 +1805,21 @@ const [logoMaskColor,setLogoMaskColor]=useState('black');
         </div>
       </div>
     </div>
-
-                                </div>):( <h1>Log in as employee</h1>)}
- 
 </div>
-
-                                <Footer />
-                            </div>
+                                </div>):String(role).toLowerCase()==='human resources'?( <div id="kt_app_content" className="app-content flex-column-fluid">
+                    <h1>Welcome to HR Dashboard</h1>
+                </div>):(<div id="kt_app_content" className="app-content flex-column-fluid">
+                    <h1>Welcome to IT Staff Dashboard</h1>
+                </div>)}
+            </div>
+            </div>
+            </div>
+                    </div>
+                    <Footer/>
+                    </div>
+                            
                         </div>
                     </div>
-                </div>
-            
-        </>
+               
     );
 }

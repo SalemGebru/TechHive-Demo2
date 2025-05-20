@@ -40,6 +40,7 @@ export default function EmployeeManagement() {
     const [isIdModalOpen,setIsIdModalOpen]=useState(false);
 
     const [formData,setFormData]=useState({
+                id:'',
                 en_name:'',
                 title:'',
                 sex:'',
@@ -68,6 +69,7 @@ export default function EmployeeManagement() {
                 id_status:''
     })
 	const[profileData,setProfileData]=useState({
+    id:'',
 		en_name:FormData?.en_name || "",
 		title:FormData?.title || "",
 		sex:FormData?.sex || "",
@@ -177,9 +179,35 @@ useEffect(() => {
         }
     }
 
+    const validateForm=(formData)=>{
+
+      if(formData.email&&!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)){
+          alert('Email format is incorrect');
+          return false;
+      }
+      else if(formData.phone_number&&!/^\+?(\d{1,3})?[-.\s]?(\(?\d{1,4}\)?)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(formData.phone_number)){
+        alert('Phone format is incorrect');
+          return false;
+      }
+      
+      else return true;
+    }
+
     const handleCreateProfile=()=>{
+      if(!formData.employment_id ){
+        alert('Employment ID is required');
+        return;
+      }
+      if(!formData.email){
+        alert('Employee email is required');
+        return;
+      }
+      if(validateForm(formData)){
         dispatch(createProfile(formData));
-        setIsCreateModalOpen(false);
+         setIsCreateModalOpen(false);
+      }
+        
+       
     }
 
     const handleUpdateProfile=(id)=>{
@@ -194,17 +222,43 @@ useEffect(() => {
     }
 
     const handleSelectedRows = (rowId) => {
-      setSelectedUsers((prev) => {
-          const updatedSelection = {
-              ...prev,
-              [rowId]: !prev[rowId], 
-          };
-      const hasSelectedRows = Object.values(updatedSelection).some((isSelected) => isSelected);
+        setSelectedUsers((prev) => {
+            const updatedSelection = {
+                ...prev,
+                [rowId]: !prev[rowId], 
+            };
+        const hasSelectedRows = Object.values(updatedSelection).some((isSelected) => isSelected);
 
-      setStartSelection(hasSelectedRows); 
+        setStartSelection(hasSelectedRows); 
+        if (!updatedSelection[rowId]) {
+      delete updatedSelection[rowId];
+    }
 
-      return updatedSelection;
-  })};
+    
+    if (Object.keys(updatedSelection).length === 0) {
+      return {};
+    }
+
+        return updatedSelection;
+    })};
+
+  const handleSelectAll = () => {
+  if (Object.keys(selectedUsers).length === employeeProfile.length) {
+    
+    setSelectedUsers({});
+    setStartSelection({});
+  } else {
+    
+    const newSelected = {};
+    employeeProfile.forEach((user) => {
+      newSelected[user.id] = true; 
+    });
+    setSelectedUsers(newSelected);
+    setStartSelection(newSelected)
+  }
+};
+
+
 
   const handleDeleteBunch = () => {
     console.log(selectedUsers); 
@@ -285,17 +339,16 @@ const handleCreateId=()=>{
 
 
   return (
-    <>
-    <div className="d-flex flex-column flex-root app-root" id="kt_app_root">
-    <div className="app-page flex-column flex-column-fluid" id="kt_app_page">
-    
+    <div id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" className="app-default">
+              <div className="d-flex flex-column flex-root app-root" id="kt_app_root">
+              <div className="app-page flex-column flex-column-fluid" id="kt_app_page">
+    <Header />
     <div className="app-wrapper" id="kt_app_wrapper">
         <Sidebar />
 
-        <div className="main-content">
-        <Header />
-          {/* Toolbar */}
-          <div id="kt_app_toolbar" className="app-toolbar py-3 py-lg-6">
+        <div className="app-main flex-column flex-row-fluid" id="kt_app_main">
+                    <div className="d-flex flex-column flex-column-fluid">
+                      <div id="kt_app_toolbar" className="app-toolbar py-3 py-lg-6">
             <div
               id="kt_app_toolbar_container"
               className="app-container container-xxl d-flex flex-stack"
@@ -335,14 +388,20 @@ const handleCreateId=()=>{
                 </a>
                 <a
                   href="#"
-                  className={startSelection?"btn btn-sm fw-bold bg-body btn-color-gray-700 btn-active-color-primary":"hide"}
+                  className={Object.keys(selectedUsers).length > 0
+    ? "btn btn-sm fw-bold bg-body btn-color-gray-700 btn-active-color-primary"
+    : "hide"
+}
                   onClick={handleDeleteBunch}
                 >
                   Delete Employees
                 </a>
                 <a
                   href="#"
-                  className={startSelection?"btn btn-sm fw-bold bg-body btn-color-gray-700 btn-active-color-primary":"hide"}
+                  className={Object.keys(selectedUsers).length > 0
+      ? "btn btn-sm fw-bold bg-body btn-color-gray-700 btn-active-color-primary"
+      : "hide"
+}
 				  onClick={(e) => {
 					e.preventDefault();
 					setIsIdModalOpen(true);
@@ -386,7 +445,7 @@ const handleCreateId=()=>{
                                     {/* Sex */}
                                     <div className="col-md-6">
                                       <label className="form-label fw-semibold">Sex</label>
-                                      <select className="form-select" name="gender" onChange={handleChange}>
+                                      <select className="form-select" name="sex" onChange={handleChange}>
                                         <option value="">Select...</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
@@ -460,7 +519,7 @@ const handleCreateId=()=>{
 
                                     {/* Employment ID */}
                                     <div className="col-md-6">
-                                      <label className="form-label fw-semibold">Employment ID</label>
+                                      <label className="form-label fw-semibold required">Employment ID</label>
                                       <input type="text" name="employment_id" className="form-control" onChange={handleChange} required />
                                     </div>
 
@@ -593,15 +652,10 @@ const handleCreateId=()=>{
 
             </div>
           </div>
-
-          {/* Page content goes here */}
           <div id="kt_app_content" className="app-content flex-column-fluid">
           <div id="kt_app_content_container" className="app-container container-xxl">
-         
-                                            
-          </div>
-          {/*begin::Table Widget 4*/}
-          <div className="card card-flush h-xl-100">
+            <div className="row g-5 g-xl-10">
+                <div className="card card-flush h-xl-100">
 												{/*begin::Card header*/}
 												<div className="card-header pt-7">
 													{/*begin::Title*/}
@@ -658,21 +712,38 @@ const handleCreateId=()=>{
 												{/*begin::Card body*/}
 												<div className="card-body pt-2">
 													{/*begin::Table*/}
-													<table className="table align-middle table-responsive table-row-dashed fs-6 gy-3" id="kt_table_widget_4_table">
+													<table className="table  table-striped  fs-6 gy-7 gs-7" id="kt_table_widget_4_table">
 														{/*begin::Table head*/}
 														<thead>
 															{/*begin::Table row*/}
 															<tr className="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                <th className="min-w-100px">
+  {Object.keys(selectedUsers).length !== employeeProfile.length ? (
+    <i
+      className="bi bi-circle"
+      onClick={handleSelectAll}
+      style={{ cursor: 'pointer' }}
+      title="Select All"
+    ></i>
+  ) : (
+    <i
+      className="bi bi-check-circle-fill"
+      onClick={handleSelectAll}
+      style={{ cursor: 'pointer' }}
+      title="Deselect All"
+    ></i>
+  )}
+</th>
 																<th className="min-w-100px">#</th>
-                                <th className="text-end min-w-100px">Profile Picture</th>
-																<th className="text-end min-w-100px">Name</th>
-																<th className="text-end min-w-125px">Employment ID</th>
-																<th className="text-end min-w-100px">Sex</th>
-                                <th className="text-end min-w-100px">Phone Number</th>
-                                <th className="text-end min-w-100px">Organization Unit</th>
-                                <th className="text-end min-w-100px">Job Position</th>
-                                <th className="text-end min-w-100px">ID Status</th>
-                                <th className="text-end min-w-100px">Actions</th>
+                                <th className="text-start min-w-100px">Profile Picture</th>
+																<th className="text-start min-w-100px">Name</th>
+																<th className="text-start min-w-125px">Employment ID</th>
+																<th className="text-start min-w-100px">Sex</th>
+                                <th className="text-start min-w-100px">Phone Number</th>
+                                <th className="text-start min-w-100px">Organization Unit</th>
+                                <th className="text-start min-w-100px">Job Position</th>
+                                <th className="text-start min-w-100px">ID Status</th>
+                                <th className="text-start min-w-100px">Actions</th>
 																
 															</tr>
 															{/*end::Table row*/}
@@ -698,33 +769,50 @@ const handleCreateId=()=>{
         
         return (
           <tr key={index} data-kt-table-widget-4="subtable_template">
-            <td>{!selectedUsers[row.employment_id]?<i className="bi bi-circle" onClick={()=>{handleSelectedRows(row.employment_id)}}></i>:
-                                    <i className="bi bi-check-circle-fill" onClick={()=>{handleSelectedRows(row.employment_id)}}></i>     }</td>
-			<td><img width={"100px"} height={"100px"} src={row.photo} style={{borderRadius:'50%', objectFit:'cover'}}/></td>
+            <td >
+                                    {console.log(row.id)}
+                                      {!selectedUsers[row.id]?<i className="bi bi-circle" onClick={()=>{handleSelectedRows(row.id)}}></i>:
+                                        <i className="bi bi-check-circle-fill" onClick={()=>{handleSelectedRows(row.id)}}></i>     }
+                                    </td>
+      <td className="text-start">
+              {index+1}
+            </td>
+			<td className="text-start pe-4">
+    <img
+      src={row.photo}
+      width="100"
+      height="100"
+      alt="User"
+      style={{
+        borderRadius: '50%',
+        objectFit: 'cover'
+      }}
+    />
+  </td>
             
-            <td className="text-end">
+            <td className="text-start">
               {row.en_name}
             </td>
-            <td className="text-end">
+            <td className="text-start">
               {row.employment_id}
             </td>
-            <td className="text-end">
+            <td className="text-start">
               {row.sex}
             </td>
-			<td className="text-end">
+			<td className="text-start">
               {row.phone_number}
             </td>
-			<td className="text-end">
+			<td className="text-start">
               {row.organization_unit}
             </td>
-			<td className="text-end">
+			<td className="text-start">
               {row.job_position}
             </td>
 			
-			<td className="text-end">
+			<td className="text-start">
               {row.id_status}
             </td>
-            <td className="text-end">
+            <td className="text-start">
             <span className="badge py-3 px-4 fs-7 badge-light-primary" onClick={()=>window.open(`http://localhost:5173/idmanagement?data=${row.employment_id}`,'_blank')}> <i className="bi bi-eye-fill"></i></span>
 
             
@@ -734,221 +822,268 @@ const handleCreateId=()=>{
     className="modal fade show"
     tabIndex="-1"
     id="kt_modal_scrollable_1"
-    style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}
+    style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.1)' }}
   >
     <div className="modal-dialog">
       <div className="modal-content">
         <div className="modal-header">
-          <h5 className="modal-title">Add User</h5>
+          <h5 className="modal-title">Edit Profile</h5>
           
         </div>
 
         <fieldset>
-            <legend>Edit Details</legend>
-                <form className="p-5 bg-white rounded shadow-sm">
-				<img src={formData.image}/>
-				<input type="file" onChange={imageUploader}></input>
-				<div className="field-value">
-                    <label className="field">Name</label>
-                    <input
+            <legend className="text-start">Profile Details</legend>
+                <form className="p-5 bg-white rounded shadow-sm text-start">
+                  <div className="row g-4">
+    {/* Image Preview and Upload */}
+                    <div className="col-12 text-center">
+                      {formData.image && <img src={formData.image} alt="Preview" className="img-thumbnail mb-3" />}
+                      <input type="file" onChange={imageUploader} className="form-control" />
+                    </div>
+
+                    {/* Name */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Name</label>
+                      <input
                         type="text"
-                        className="value"
+                        className="form-control"
                         name="en_name"
-                        onChange={(e)=>handleChange(e)}
-                    />
-                </div>
-                <div className="field-value">
-                    <label className="field">Title</label>
-                    <input
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+
+                    {/* Title */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Title</label>
+                      <input
                         type="text"
-                        className="value"
+                        className="form-control"
                         name="title"
-                        onChange={(e)=>handleChange(e)}
-                        
-                    />
-                </div>
-                <div className="field-value">
-                    <label className="field">Sex</label>
-                    <select
-                        className="value"
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Gender */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Sex</label>
+                      <select
+                        className="form-select"
                         name="gender"
-                        onClick={(e)=>handleChange(e)}
-                    >
+                        onChange={handleChange}
+                      >
+                        <option value="">Select</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
-                    </select>
-                </div>
-                <div className="field-value">
-                    <label className="field">Date of birth</label>
-                    <input
+                      </select>
+                    </div>
+
+                    {/* Date of Birth */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Date of Birth</label>
+                      <input
                         type="date"
-                        className="value"
+                        className="form-control"
                         name="date_of_birth"
-                        onChange={(e)=>handleChange(e)}
-                    />
-                </div>
-                <div className="field-value">
-                    <label className="field">Joined Date</label>
-                    <input
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Joined Date */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Joined Date</label>
+                      <input
                         type="date"
-                        className="value"
+                        className="form-control"
                         name="joined_date"
-                        onChange={(e)=>handleChange(e)}
-                    />
-                </div>
+                        onChange={handleChange}
+                      />
+                    </div>
 
-                <div className="field-value">
-                    <label className="field">Email</label>
-                    <input
-                        type="date"
-                        className="value"
+                    {/* Email */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Email</label>
+                      <input
+                        type="email"
+                        className="form-control"
                         name="email"
-                        onChange={(e)=>handleChange(e)}
-                    />
-                </div>
+                        onChange={handleChange}
+                      />
+                    </div>
 
-                <div className="field-value">
-                    <label className="field">Phone Number</label>
-                    <input
+                    {/* Phone Number */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Phone Number</label>
+                      <input
                         type="tel"
-                        className="value"
+                        className="form-control"
                         name="phone_number"
-                        onChange={(e)=>handleChange(e)}
-                    />
-                </div>
-                <div className="field-value">
-                    <label className="field">Organization unit</label>
-                    <input
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Organization Unit */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Organization Unit</label>
+                      <input
                         type="text"
-                        className="value"
+                        className="form-control"
                         name="organization_unit"
-                        onChange={(e)=>handleChange(e)}
-                    />
-                </div>
-                <div className="field-value">
-                    <label className="field">Job Position</label>
-                    <input
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Job Position */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Job Position</label>
+                      <input
                         type="text"
-                        className="value"
+                        className="form-control"
                         name="job_position"
-                        onChange={(e)=>handleChange(e)}
-                    />
-                </div>
-                <div className="field-value">
-                    <label className="field">Job title category</label>
-                    <input
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Job Title Category */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Job Title Category</label>
+                      <input
                         type="text"
-                        className="value"
+                        className="form-control"
                         name="job_title_category"
-                        onChange={(e)=>handleChange(e)}
-                    />
-                </div>
-                <div className="field-value">
-                    <label className="field">Salary ID</label>
-                    <input
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Salary ID */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Salary ID</label>
+                      <input
                         type="text"
-                        className="value"
+                        className="form-control"
                         name="salary_id"
-                        onChange={(e)=>handleChange(e)}
-                    />
-                </div>
-                <div className="field-value">
-                    <label className="field">Marital Status</label>
-                    <select
-                    className="value"
-                    name="marital_status"
-                    onChange={(e)=>handleChange(e)}
-                    >
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Marital Status */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Marital Status</label>
+                      <select
+                        className="form-select"
+                        name="marital_status"
+                        onChange={handleChange}
+                      >
+                        <option value="">Select</option>
                         <option value="single">Single</option>
                         <option value="married">Married</option>
                         <option value="divorced">Divorced</option>
                         <option value="widowed">Widowed</option>
-                    </select>
-                    
-                </div>
-                <div className="field-value">
-                    <label className="field">Nation</label>
-                    <input
+                      </select>
+                    </div>
+
+                    {/* Nation */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Nation</label>
+                      <input
                         type="text"
-                        className="value"
+                        className="form-control"
                         name="nation"
-                        onChange={(e)=>handleChange(e)}
-                    />
-                </div>
-                <div className="field-value">
-                    <label className="field">Employment ID</label>
-                    <input
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Employment ID */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Employment ID</label>
+                      <input
                         type="text"
-                        className="value"
+                        className="form-control"
                         name="employment_id"
-                        onChange={(e)=>handleChange(e)}
+                        onChange={handleChange}
                         required
-                    />
-                </div>
-                <div className="field-value">
-                    <label className="field">Job Position Start Date</label>
-                    <input
+                      />
+                    </div>
+
+                    {/* Job Position Start Date */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Job Position Start Date</label>
+                      <input
                         type="date"
-                        className="value"
+                        className="form-control"
                         name="job_position_start_date"
-                        onChange={(e)=>handleChange(e)}
-                    />
-                </div>
-                <div className="field-value">
-                    <label className="field">Job Position End Date</label>
-                    <input
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Job Position End Date */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Job Position End Date</label>
+                      <input
                         type="date"
-                        className="value"
+                        className="form-control"
                         name="job_position_end_date"
-                        onChange={(e)=>handleChange(e)}
-                    />
-                </div>
-                <div className="field-value">
-                    <label className="field">Address</label>
-                    <input
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Address */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Address</label>
+                      <input
                         type="text"
-                        className="value"
+                        className="form-control"
                         name="address"
-                        onChange={(e)=>handleChange(e)}
-                    />
-                </div>
-                <div className="field-value">
-                    <label className="field">House Number</label>
-                    <input
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* House Number */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">House Number</label>
+                      <input
                         type="text"
-                        className="value"
+                        className="form-control"
                         name="house_number"
-                        onChange={(e)=>handleChange(e)}
-                    />
-                </div>
-                <div className="field-value">
-                    <label className="field">Region</label>
-                    <input
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Region */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Region</label>
+                      <input
                         type="text"
-                        className="value"
+                        className="form-control"
                         name="region"
-                        onChange={(e)=>handleChange(e)}
-                    />
-                </div>
-                <div className="field-value">
-                    <label className="field">Zone</label>
-                    <input
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Zone */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Zone</label>
+                      <input
                         type="text"
-                        className="value"
+                        className="form-control"
                         name="zone"
-                        onChange={(e)=>handleChange(e)}
-                    />
-                </div>
-                <div className="field-value">
-                    <label className="field">Woreda</label>
-                    <input
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Woreda */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Woreda</label>
+                      <input
                         type="text"
-                        className="value"
+                        className="form-control"
                         name="woreda"
-                        onChange={(e)=>handleChange(e)}
-                    />
-                </div>
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
                 </form>
+
                     
         </fieldset>
 
@@ -960,7 +1095,7 @@ const handleCreateId=()=>{
           >
             Close
           </button>
-          <button type="button" className="btn btn-primary" onClick={()=>handleUpdateProfile(selectedUser.employment_id)}>
+          <button type="button" className="btn btn-primary" onClick={()=>handleUpdateProfile(selectedUser.id)}>
             Save changes
           </button>
         </div>
@@ -970,59 +1105,59 @@ const handleCreateId=()=>{
 )}
             <span className="badge py-3 px-4 fs-7 badge-light-danger" onClick={()=>{setSelectedUser(row),setIsDeleteModalOpen(true)}}><i className="bi bi-trash"></i></span>
             {isDeleteModalOpen && (
-  <div
-    className="modal fade show"
-    tabIndex="-1"
-    id="kt_modal_scrollable_1"
-    style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}
-  >
-    <div className="modal-dialog">
-      <div className="modal-content" style={{textAlign:'center'}}>
-        <div className="modal-header">
-          
-          
-        </div>
+              <div
+                className="modal fade show"
+                tabIndex="-1"
+                id="kt_modal_scrollable_1"
+                style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.1)' }}
+              >
+                <div className="modal-dialog">
+                  <div className="modal-content" style={{textAlign:'center'}}>
+                    <div className="modal-header">
+                      
+                      
+                    </div>
 
-        <fieldset>
-            <legend>User Details</legend>
-            <p>Delete User?</p>
-                    
-        </fieldset>
+                    <fieldset>
+                        <legend>Employee Details</legend>
+                        <p>Delete Employee?</p>
+                                
+                    </fieldset>
 
-        <div className="modal-footer">
-        <button
-            type="button"
-            className="btn btn-light"
-            onClick={() => handleDeleteProfile(selectedUser.employment_id)}
-          >
-            Delete
-          </button>
+                    <div className="modal-footer">
+                    <button
+                        type="button"
+                        className="btn btn-light"
+                        onClick={() => handleDeleteProfile(selectedUser.id)}
+                      >
+                        Delete
+                      </button>
 
-          <button
-            type="button"
-            className="btn btn-light"
-            onClick={() => setIsDeleteModalOpen(false)}
-          >
-            Close
-          </button>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-)}
-            </td>
-          </tr>
+                      <button
+                        type="button"
+                        className="btn btn-light"
+                        onClick={() => setIsDeleteModalOpen(false)}
+                      >
+                        Close
+                      </button>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </td>
+        </tr>
         );
       })
-  ) : (
-    <tr><td colSpan="8">No data available</td></tr>
-  )
-) : (
-  <tr>
-    <td colSpan="8">No users found</td>
-  </tr>
-)}
+      ) : (
+        <tr><td colSpan="8">No data available</td></tr>
+      )
+      ) : (
+        <tr>
+          <td colSpan="8">No users found</td>
+        </tr>
+      )}
 														</tbody>
 														{/*end::Table body*/}
 													</table>
@@ -1030,10 +1165,8 @@ const handleCreateId=()=>{
 												</div>
 												{/*end::Card body*/}
 											</div>
-											{/*end::Table Widget 4*/}
-
-          </div>
-          <ul className="pagination pagination-circle">
+            </div>
+            <ul className="pagination pagination-circle">
     <button onClick={prevPage} disabled={currentPage === 1}>
                             <i className="bi bi-chevron-double-left"></i>
                             </button>
@@ -1042,16 +1175,33 @@ const handleCreateId=()=>{
                             <i className="bi bi-chevron-double-right"></i>
                             </button>
 </ul>
-          <Footer/>
+            </div>
+            </div>
+                      </div>
+                      <Footer/>   
+                      </div>
+        
+          {/* Toolbar */}
+          
+
+          {/* Page content goes here */}
+          
+         
+                                            
+          </div>
+          {/*begin::Table Widget 4*/}
+          
+											{/*end::Table Widget 4*/}
+
+          </div>
+          
+         
         </div>
+                      
                         
-                        
-      </div>
+      
+      
       
     </div>
-    </div>
-      
-      
-    </>
   );
 }

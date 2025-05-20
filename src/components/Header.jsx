@@ -4,7 +4,11 @@ import { useEffect,useState } from "react"
 import { getOrganizationInfo } from "../features/organizationSlice";
 import { useDispatch, useSelector } from "react-redux";
 export default function Header(){
- 
+ useEffect(() => {
+  if (window.KTDrawer) {
+    window.KTDrawer.createInstances();
+  }
+}, []);
   const [logo,setLogo]=useState();
 	const dispatch=useDispatch();
 	const {organizationInfo}=useSelector((state)=>state.organization);

@@ -5,21 +5,7 @@ import Footer from "../components/Footer"
 import { useEffect } from "react";
 
 export default function ItStaffDashboard(){
-    useEffect(() => {
-        const script = document.createElement("script");
-        script.src = "/assets/js/scripts.bundle.js";
-        script.async = true;
-        script.onload = () => {
-          if (window.KTApp && typeof window.KTApp.init === "function") {
-            window.KTApp.init();
-          }
-        };
-        document.body.appendChild(script);
     
-        return () => {
-          document.body.removeChild(script); 
-        };
-      }, []);
     return(
         <>
         <div className="d-flex flex-column flex-root app-root" id="kt_app_root">

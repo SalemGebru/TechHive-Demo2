@@ -4,13 +4,30 @@ export const createProfile=createAsyncThunk(
     'create/profile',
     async(FormData,{rejectWithValue})=>{
         try{
-            
+            let profileId;
             let storedProfiles=JSON.parse(localStorage.getItem('profile'))||[];
             if(!Array.isArray(storedProfiles)){
                 storedProfiles=[]
             }
             console.log(storedProfiles);
+            if (storedProfiles.length === 0) {
+                let lastProfileId=0;
+                profileId=lastProfileId+1;
+            } else {
+                const lastProfile = storedProfiles.pop();
+                if (lastProfile && lastProfile.id) {
+                    let lastProfileId = lastProfile.id;
+                     lastProfileId=parseInt(lastProfileId,10);
+                      profileId=lastProfileId+1;
+                      
+                } else {
+                    let lastProfileId=0;
+                    profileId=lastProfileId+1;
+                }
+                storedProfiles.push(lastProfile);
+            }
             const newProfile={
+                id:profileId,
                 en_name:FormData?.en_name,
                 title:FormData?.title,
                 sex:FormData?.sex,
@@ -90,7 +107,7 @@ export const updateProfile=createAsyncThunk(
             }
             console.log(Id);
             const userIndex=storedProfiles.findIndex(storedProfile=>{
-                return String(storedProfile.employment_id).toLowerCase().trim()===String(Id).toLowerCase().trim()
+                return String(storedProfile.id).toLowerCase().trim()===String(Id).toLowerCase().trim()
             })
             if(userIndex==-1){
                 alert('Match not found');
@@ -149,15 +166,9 @@ export const deleteProfile=createAsyncThunk(
                 storedProfiles=[];
             }
             console.log(Id);
-            const userIndex=storedProfiles.findIndex(storedProfile=>{
-                return String(storedProfile.employment_id).toLowerCase().trim()===String(Id).toLowerCase().trim()
-            })
-            if(userIndex==-1){
-                alert('Match not found');
-                return;
-            }
+            
             storedProfiles=storedProfiles.filter(storedProfile=>{
-               return String(storedProfile.employment_id).toLowerCase().trim()!==String(Id).toLowerCase().trim()
+               return String(storedProfile.id).toLowerCase().trim()!==String(Id).toLowerCase().trim()
             })
             if(!storedProfiles){
                 console.log('delete unsuccessful');
@@ -186,7 +197,7 @@ export const deleteProfileBunch = createAsyncThunk(
           console.log(userIdsToRemove)
 
           storedUsers = storedUsers.filter((user) => {
-            const employmentId = String(user.employment_id); 
+            const employmentId = String(user.id); 
             const isSelected = userIdsToRemove.includes(employmentId); 
             console.log(`Checking user: ${employmentId}, selected: ${isSelected}`); 
             return !isSelected; 
@@ -226,7 +237,7 @@ export const deleteProfileBunch = createAsyncThunk(
         
   
         if (!matchedProfile) {
-          alert('Match not found');
+          
           return rejectWithValue('No profile matched the email.');
         }
         console.log(matchedProfile)

@@ -39,10 +39,27 @@ export const generateId=createAsyncThunk(
     'id/create',
     async({Id,UserInfo,FormData},{rejectWithValue})=>{
         try{
+          let idCardId;
             console.log('trying')
             let storedProfiles=JSON.parse(localStorage.getItem('profile'))||[];
             if(!Array.isArray(storedProfiles)){
                 storedProfiles=[]
+            }
+            if (storedProfiles.length === 0) {
+                let lastIdCardId=0;
+                idCardId=lastIdCardId+1;
+            } else {
+                const lastIdCard = storedProfiles.pop();
+                if (lastIdCard && lastIdCard.id) {
+                    let lastIdCardId = lastIdCard.id;
+                     lastIdCardId=parseInt(lastIdCardId,10);
+                      idCardId=lastIdCardId+1;
+                      
+                } else {
+                    let lastIdCardId=0;
+                    idCardId=lastIdCardId+1;
+                }
+                storedProfiles.push(lastIdCard);
             }
             const userIndex=storedProfiles.findIndex((storedProfile)=>{
                 return String(storedProfile.employment_id).toLowerCase().trim()===String(Id).toLowerCase().trim()
@@ -56,6 +73,7 @@ export const generateId=createAsyncThunk(
             }
             console.log(updatedProfile);
             const newId={
+                id:idCardId,
                 en_name:UserInfo?.en_name,
                 job_position:UserInfo?.job_position,
                 id_expire_date:FormData?.id_expire_date,
@@ -88,28 +106,34 @@ export const generateIdBunch = createAsyncThunk(
       console.log(selectedUsers);
       console.log(FormData)
 
-      const issueDate = FormData.get('id_issue_date');  
-      const expireDate = FormData.get('id_expire_date');  
+      const issueDate = FormData.id_issue_date;  
+      const expireDate = FormData.id_expire_date;  
+      console.log(issueDate)
+
+      console.log(FormData.id_issue_date);
+      
 
       
       if (!issueDate || !expireDate) {
+        console.log('Issue and Expiry dates are required')
         return rejectWithValue('Issue and Expiry dates are required');
       }
-
+      console.log('ok')
       
-      const updatedUsers = selectedUsers.map(user => ({
-        ...user,
-        id_issue_date: issueDate,
-        id_expire_date: expireDate,
-      }));
-
+      const updatedUsers={
+        ...selectedUsers,
+        id_issue_date:FormData.id_issue_date,
+        id_expire_date:FormData.id_expire_date
+      }
+      console.log(updatedUsers)
       
 
       
       const storedIds = JSON.parse(localStorage.getItem('idcard')) || [];  
-
+console.log(storedIds)
       
       storedIds.push(...updatedUsers);  
+      console.log(storedIds)
 
       
       localStorage.setItem('idcard', JSON.stringify(storedIds));

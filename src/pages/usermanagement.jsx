@@ -11,21 +11,7 @@ import { addUser,deleteUser,updateUser,getUser,deleteBunch } from "../features/u
 
 export default function UserManagement() {
 
-    useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "/assets/js/scripts.bundle.js";
-    script.async = true;
-    script.onload = () => {
-      if (window.KTApp && typeof window.KTApp.init === "function") {
-        window.KTApp.init();
-      }
-    };
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script); 
-    };
-  }, []);
+    
 
   const dispatch=useDispatch();
     const {users}=useSelector((state=>state.user));
@@ -74,9 +60,7 @@ export default function UserManagement() {
         });
     }, [dispatch, users]);
 
-    useEffect(() => {
-      console.log('userdata type check:', Array.isArray(userdata), userdata);
-    }, [userdata]);
+    
 
     const [currentPage,setCurrentPage]=useState(1);
     const itemsPerPage=5;
@@ -135,19 +119,36 @@ export default function UserManagement() {
         return now.toISOString().split('T')[0]
     }
 
+    const validateForm=(formData)=>{
+
+      if(!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)){
+          alert('Email format is incorrect');
+          return false;
+      }
+      else if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^])[A-Za-z\d@$!%*?&#^]{8,}$/.test(formData.password)){
+        alert('Password must be at least 8 characters and include uppercase, lowercase, number, and special character.');
+          return false;
+      }
+      else return true;
+    }
+
     const handleSaveUser = () => {    
         if (!formData.name || !formData.email || !formData.image || !formData.password) {
             alert('There are missing fields');
             return;
         } else {
             if (formData.password== confPassword) {
+              if(validateForm(formData)){
                 dispatch(addUser({ FormData: formData, Date: getDate() }));
+                setIsModalOpen(false);
+              }
+                
             } else {
                 alert('Password mismatch');
                 return;
             }
         }
-        setIsModalOpen(false);
+        
     }
 
     const handleUpdateUser=(Id)=>{
@@ -171,14 +172,40 @@ export default function UserManagement() {
         const hasSelectedRows = Object.values(updatedSelection).some((isSelected) => isSelected);
 
         setStartSelection(hasSelectedRows); 
+         if (!updatedSelection[rowId]) {
+      delete updatedSelection[rowId];
+    }
+
+    
+    if (Object.keys(updatedSelection).length === 0) {
+      return {};
+    }
 
         return updatedSelection;
     })};
+
+    const handleSelectAll = () => {
+  if (Object.keys(selectedUsers).length === userdata.length) {
+    
+    setSelectedUsers({});
+    setStartSelection({});
+  } else {
+    
+    const newSelected = {};
+    userdata.forEach((user) => {
+      newSelected[user.id] = true; 
+    });
+    setSelectedUsers(newSelected);
+    setStartSelection(newSelected)
+  }
+};
 
     const handleDeleteBunch=()=>{
         console.log(selectedUsers);
         dispatch(deleteBunch(selectedUsers));
     }
+
+    
 
     const handleChange=(e)=>{
       setFormData({...formData,[e.target.name]:e.target.value});
@@ -187,17 +214,15 @@ export default function UserManagement() {
 
 
   return (
-    <>
+    <div id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" className="app-default">
               <div className="d-flex flex-column flex-root app-root" id="kt_app_root">
               <div className="app-page flex-column flex-column-fluid" id="kt_app_page">
-              
+              <Header/>
               <div className="app-wrapper" id="kt_app_wrapper">
                   <Sidebar />
-
-                  <div className="main-content">
-                  <Header />
-                    {/* Toolbar */}
-                    <div id="kt_app_toolbar" className="app-toolbar py-3 py-lg-6">
+                  <div className="app-main flex-column flex-row-fluid" id="kt_app_main">
+                    <div className="d-flex flex-column flex-column-fluid">
+                        <div id="kt_app_toolbar" className="app-toolbar py-3 py-lg-6">
                       <div
                         id="kt_app_toolbar_container"
                         className="app-container container-xxl d-flex flex-stack"
@@ -238,7 +263,10 @@ export default function UserManagement() {
 
                 <a
                   href="#"
-                  className={startSelection?"btn btn-sm fw-bold bg-body btn-color-gray-700 btn-active-color-primary":"hide"}
+                  className={Object.keys(selectedUsers).length > 0
+    ? "btn btn-sm fw-bold bg-body btn-color-gray-700 btn-active-color-primary"
+    : "hide"
+}
                   onClick={handleDeleteBunch}
                 >
                   Delete Users
@@ -260,57 +288,62 @@ export default function UserManagement() {
                       </div>
 
                   <fieldset>
-                      <legend>User Details</legend>
-                          <form className="p-5 bg-white rounded shadow-sm">
-                              <div className="field-value mb-3">
-                                  <label className="field">Username</label>
+                      <legend className="text-start">User Details</legend>
+                          <form className="p-5 bg-white rounded shadow-sm text-start">
+                            <div className="row g-4">
+                              <div className="col-md-6">
+                                <input type="file" onChange={imageUploader}></input>
+                                  <label className="form-label fw-semibold required">Username</label>
                                   <input type="text"
-                                  className="value" 
+                                  className="form-control" 
                                   name="name"
                                   onChange={(e)=>handleChange(e)}
                                   required
                                   placeholder="Name"></input>
                               </div>
                               <br/>
-                              <div className="field-value mb-3">
-                                  <label className="field">Email</label>
+                              <div className="col-md-6">
+                                  <label className="form-label fw-semibold required">Email</label>
                                   <input type="email" 
-                                  className="value" 
+                                  className="form-control" 
                                   name="email" 
                                   onChange={(e)=>handleChange(e)} 
                                   required 
                                   placeholder="Email"></input>
                               </div>
                               <br/>
-                              <div className="field-value mb-3">
-                                  <label className="field">Role</label>
-                                  <select name="role" value={formData.role} onChange={handleChange}>
-            <option value="Human Resources">Human Resources</option>
-            <option value="IT Assistant">IT Assistant</option>
-            <option value="Employee">Employee</option>
-          </select>
+                              <div className="col-md-6">
+                                  <label className="form-label fw-semibold required">Role</label>
+                                  <select className="form-select" name="role" value={formData.role} onChange={handleChange}>
+                                    <option value="">Select</option>
+                                    <option value="Human Resources">Human Resources</option>
+                                    <option value="IT Assistant">IT Assistant</option>
+                                    <option value="Employee">Employee</option>
+                                  </select>
                               </div>
                               <br/>
                             
-                              <div className="field-value mb-3" >
-                                  <label className="field">Password</label>
+                              <div className="col-md-6" >
+                                  <label className="form-label fw-semibold required">Password</label>
                                   <input type="password"
-                                  className="value" 
+                                  className="form-control" 
                                   name="password" 
                                   onChange={(e)=>handleChange(e)} 
                                   required
                                   placeholder="Password"></input>
                               </div>
                               <br/>
-                              <div className="field-value mb-3">
-                                  <label className="field">Confirm Password</label>
+                              <div className="col-md-6">
+                                  <label className="form-label fw-semibold required">Confirm Password</label>
                                   <input type="password"
                                   name="confPassword" 
-                                  className="value" 
+                                  className="form-control" 
                                   onChange={(e)=>setConfPassword(e.target.value)}
                                   required 
                                   placeholder="Confirm Password"></input>
                               </div>
+                            </div>
+                              
                           </form>
                               
                   </fieldset>
@@ -334,16 +367,10 @@ export default function UserManagement() {
 
             </div>
           </div>
-
-          {/* Page content goes here */}
-          <div id="kt_app_content" className="app-content flex-column-fluid">
+              <div id="kt_app_content" className="app-content flex-column-fluid">
           <div id="kt_app_content_container" className="app-container container-xxl">
-
-          </div>
-          <div className="table-responsive">
-																
-        {/*begin::Table Widget 4*/}
-        <div className="card card-flush h-xl-100">
+            <div className="row g-5 g-xl-10">
+               <div className="card card-flush h-xl-100">
 												{/*begin::Card header*/}
 												<div className="card-header pt-7">
 													{/*begin::Title*/}
@@ -400,16 +427,33 @@ export default function UserManagement() {
 												{/*begin::Card body*/}
 												<div className="card-body pt-2">
 													{/*begin::Table*/}
-													<table className="table align-middle table-row-dashed fs-6 gy-3" id="kt_table_widget_4_table">
+													<table className="table table-striped gy-7 gs-7" id="kt_table_widget_4_table">
 														{/*begin::Table head*/}
 														<thead>
 															{/*begin::Table row*/}
 															<tr className="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                <th className="min-w-100px">
+  {Object.keys(selectedUsers).length !== userdata.length ? (
+    <i
+      className="bi bi-circle"
+      onClick={handleSelectAll}
+      style={{ cursor: 'pointer' }}
+      title="Select All"
+    ></i>
+  ) : (
+    <i
+      className="bi bi-check-circle-fill"
+      onClick={handleSelectAll}
+      style={{ cursor: 'pointer' }}
+      title="Deselect All"
+    ></i>
+  )}
+</th>
 																<th className="min-w-100px">#</th>
-																<th className="text-end min-w-100px">Name</th>
-																<th className="text-end min-w-125px">Email</th>
-																<th className="text-end min-w-100px">Role</th>
-																<th className="text-end min-w-100px">Action</th>
+																<th className="text-start min-w-100px">Name</th>
+																<th className="text-start min-w-125px">Email</th>
+																<th className="text-start min-w-100px">Role</th>
+																<th className="text-start min-w-100px">Action</th>
 																
 															</tr>
 															{/*end::Table row*/}
@@ -435,21 +479,24 @@ export default function UserManagement() {
                                       {!selectedUsers[row.id]?<i className="bi bi-circle" onClick={()=>{handleSelectedRows(row.id)}}></i>:
                                                                             <i className="bi bi-check-circle-fill" onClick={()=>{handleSelectedRows(row.id)}}></i>     }
                                     </td>
-                                    <td className="text-end">
+                                    <td className="text-start">
+                                              {index+1}
+                                            </td>
+                                    <td className="text-start">
                                       {row.name}
                                     </td>
-                                    <td className="text-end">
+                                    <td className="text-start">
                                       {row.email}
                                     </td>
-                                    <td className="text-end">
+                                    <td className="text-start">
                                       {row.role}
                                     </td>
-                                    <td className="text-end">
+                                    <td className="text-start">
                                     <span className="badge py-3 px-4 fs-7 badge-light-primary" onClick={()=>{setIsShowModalOpen(true),setSelectedUser(row)}}> <i className="bi bi-eye-fill"></i></span>
 
                                     {isShowModalOpen && (
                           
-                          <div className="modal fade show d-block" tabIndex="-1" role="dialog">
+                          <div className="modal fade show d-block" tabIndex="-1" role="dialog" style={{backgroundColor: 'rgba(0,0,0,0.1)' }} >
                           <div className="modal-dialog modal-dialog-centered" role="document">
                             <div className="modal-content p-5 bg-white rounded shadow-sm">
                             <fieldset>
@@ -489,70 +536,78 @@ export default function UserManagement() {
             <span className="badge py-3 px-4 fs-7 badge-light-warning" onClick={()=>{setIsEditModalOpen(true),setSelectedUser(row)}}><i className="bi bi-pencil-fill"></i></span>
                                                       {isEditModalOpen && (
                                             <div
-                                              className="modal fade show"
-                                              tabIndex="-1"
-                                              id="kt_modal_scrollable_1"
-                                              style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}
+                                              className="modal fade show d-block"
+                                                          tabIndex="-1"
+                                                          id="kt_modal_scrollable_1"
+                                                         style={{backgroundColor: 'rgba(0,0,0,0.1)' }}
+                                              
                                             >
                                               <div className="modal-dialog">
                                                 <div className="modal-content">
                                                   <div className="modal-header">
-                                                    <h5 className="modal-title">Add User</h5>
+                                                    <h5 className="modal-title">Edit User</h5>
                                                     
                                                   </div>
 
                                                   <fieldset>
-                                                      <legend>Edit Details</legend>
-                                                          <form className="p-5 bg-white rounded shadow-sm">
-                                                              <div className="field-value">
-                                                                  <label className="field">Username</label>
+                                                      <legend className="text-start">Edit Details</legend>
+                                                          <form className="p-5 bg-white rounded shadow-sm text-start">
+                                                            <div className="row g-4">
+                                                                <div className="col-md-6">
+                                                                  <input type="file" onChange={imageUploader}></input>
+                                                                  <label className="fw-semibold">Username</label>
                                                                   <input type="text"
-                                                                  className="value" 
+                                                                  className="form-control" 
                                                                   name="name"
                                                                   onChange={(e)=>handleChange(e)}
                                                                   required
                                                                   placeholder="Name"></input>
                                                               </div>
                                                               <br/>
-                                                              <div className="field-value">
-                                                                  <label className="field">Email</label>
+                                                              <div className="col-md-6">
+                                                                  <label className="fw-semibold">Email</label>
                                                                   <input type="email" 
-                                                                  className="value" 
+                                                                  className="form-control" 
                                                                   name="email" 
                                                                   onChange={(e)=>handleChange(e)} 
                                                                   required 
-                                                                  placeholder="Email"></input>
+                                                                  ></input>
                                                               </div>
                                                               <br/>
-                                                              <div className="field-value">
-                                                                  <label className="field">Role</label>
-                                                                  <select name="role" value={formData.role} onChange={handleChange}>
-                                            <option value="Human Resources">Human Resources</option>
-                                            <option value="IT Assistant">IT Assistant</option>
-                                            <option value="Employee">Employee</option>
-                                          </select>
+                                                              <div className="col-md-6">
+                                                                  <label className="fw-semibold">Role</label>
+                                                                  <select className="form-select" name="role" value={formData?.role || ""} onChange={handleChange}>
+                                                                    <option value="">Select</option>
+                                                                    <option value="Human Resources">Human Resources</option>
+                                                                    <option value="IT Assistant">IT Assistant</option>
+                                                                    <option value="Employee">Employee</option>
+                                                                  </select>
                                                               </div>
                                                               <br/>
                                                             
-                                                              <div className="field-value" >
-                                                                  <label className="field">Password</label>
+                                                              <div className="col-md-6" >
+                                                                  <label className="fw-semibold">Password</label>
                                                                   <input type="password"
-                                                                  className="value" 
+                                                                  className="form-control" 
                                                                   name="password" 
                                                                   onChange={(e)=>handleChange(e)} 
                                                                   required
-                                                                  placeholder="Password"></input>
+                                                                  ></input>
                                                               </div>
                                                               <br/>
-                                                              <div className="field-value">
-                                                                  <label className="field">Confirm Password</label>
+                                                              <div className="col-md-6">
+                                                                  <label className="fw-semibold">Confirm Password</label>
                                                                   <input type="password"
                                                                   name="confPassword" 
-                                                                  className="value" 
+                                                                  className="form-control"
                                                                   onChange={(e)=>setConfPassword(e.target.value)}
                                                                   required 
                                                                   placeholder="Confirm Password"></input>
                                                               </div>
+                                                            </div>
+                                                              
+                                                              
+                                                              
                                                           </form>
                                                               
                                                   </fieldset>
@@ -576,10 +631,11 @@ export default function UserManagement() {
             <span className="badge py-3 px-4 fs-7 badge-light-danger" onClick={()=>{setSelectedUser(row),setIsDeleteModalOpen(true)}}><i className="bi bi-trash"></i></span>
                                                                   {isDeleteModalOpen && (
                                                         <div
-                                                          className="modal fade show"
+                                                          className="modal fade show d-block"
                                                           tabIndex="-1"
                                                           id="kt_modal_scrollable_1"
-                                                          style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}
+                                                          style={{backgroundColor: 'rgba(0,0,0,0.1)' }}
+                                                          
                                                         >
                                                           <div className="modal-dialog ">
                                                             <div className="modal-content " style={{textAlign:'center'}}>
@@ -640,29 +696,46 @@ export default function UserManagement() {
 												</div>
 												{/*end::Card body*/}
 											</div>
-											{/*end::Table Widget 4*/}
-                                                                        </div>
-
-          </div>
-          <div className="pagination">
-                            <button onClick={prevPage} disabled={currentPage === 1}>
+            </div>
+            
+    <ul className="pagination pagination-circle">
+    <button onClick={prevPage} disabled={currentPage === 1}>
                             <i className="bi bi-chevron-double-left"></i>
                             </button>
                             <span> Page {currentPage} of {totalPages} </span>
                             <button onClick={nextPage} disabled={currentPage === totalPages}>
                             <i className="bi bi-chevron-double-right"></i>
                             </button>
-                        </div>
-         <Footer/>
+</ul>
+                      
+          </div>
+          
+
+          </div>
+
+
+                    </div>
+                    <Footer/>
+                  </div>
+
+                 
+                  
+                    {/* Toolbar */}
+                    
+
+          {/* Page content goes here */}
+          
+          
+         
         </div>
 						
 						
       </div>
       
     </div>
+    
+      
+      
     </div>
-      
-      
-    </>
   );
 }
