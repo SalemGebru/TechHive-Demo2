@@ -1439,9 +1439,9 @@ const [logoMaskColor,setLogoMaskColor]=useState('black');
             
           <div className="id" >
             <div className="front">
-            <Stage width={700} height={500} >
+            <Stage width={700} height={600} >
               <Layer>
-                <KonvaImage width={700} height={500} image={backObj} />
+                <KonvaImage width={700} height={600} image={backObj} />
                 {image &&enableField['front']?.['photo']&& (
                                   <>
                                  <Circle
@@ -1558,9 +1558,9 @@ const [logoMaskColor,setLogoMaskColor]=useState('black');
             </Stage>
             </div>
             <div className="back">
-              <Stage width={700} height={500} >
+              <Stage width={700} height={600} >
                             <Layer>
-                              <KonvaImage width={700} height={500} image={backObjBack} />
+                              <KonvaImage width={700} height={600} image={backObjBack} />
                               {image &&enableField['back']?.['photo']&& (
                                                 <>
                                                <Circle
@@ -1694,9 +1694,9 @@ const [logoMaskColor,setLogoMaskColor]=useState('black');
         <div id="badges">
           <div className="badge">
             
-            <Stage className="stage" width={700} height={500}>
+            <Stage className="stage" width={700} height={600}>
                       <Layer>
-                        <KonvaImage width={700} height={500} image={backObjBadge} />
+                        <KonvaImage width={700} height={600} image={backObjBadge} />
                          {image &&enableField['badge']?.['photo'] &&(
                                       <Image
                                         x={templates['badge']?.imagePosition?.x || 50}

@@ -43,7 +43,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Login/>}/>
-        <Route path="usermanagement" element={<UserManagement/>}/>
+        <Route path="/usermanagement" element={<UserManagement/>}/>
         <Route path="/employeemanagement" element={<EmployeeManagement/>}/>
         <Route path="/idmanagement" element={<IdManagement/>}/>
         <Route path="/iddetails" element={<IdDetails/>}/>

@@ -70,7 +70,7 @@ export default function IdDetails() {
   const [templates,setTemplates]=useState({
       front:{
           photo:{
-              xPosition:30,
+              xPosition:20,
               yPosition:80,
               image_width:150,
               image_height:150,
@@ -1734,7 +1734,7 @@ const [logoMaskColor,setLogoMaskColor]=useState('black');
           ...prevTemplates,
           [selectedTemplate]: {
             ...prevTemplates[selectedTemplate],
-            imageMaskColor: value, 
+            logoMaskColor: value, 
           },
         }));
       
@@ -1801,7 +1801,7 @@ const [logoMaskColor,setLogoMaskColor]=useState('black');
                             <option value="badge">Badge</option>
           </select>
           {selectedTemplateFields && Object.entries(selectedTemplateFields).length > 0 && (
-                                <Stage className="stage"width={700} height={600}>
+                                <Stage className="stage" width={700} height={600}>
                                     <Layer>
                                         <KonvaImage
                                            image={backObj|| backImg}
@@ -1825,7 +1825,7 @@ const [logoMaskColor,setLogoMaskColor]=useState('black');
                                               y={templates[selectedTemplate]?.imagePosition?.y || 50}
                                               image={image}
                                               width={templates[selectedTemplate]?.logoDimension?.image_width || 150}
-                                              height={templates[selectedTemplate]?.logoD?.image_height || 150}
+                                              height={templates[selectedTemplate]?.logoDimension?.image_height || 150}
                                               stroke={templates[selectedTemplate]?.imageMaskColor || imageMaskColor}
                                               strokeWidth={templates[selectedTemplate]?.imageMaskThickness || imageMaskThickness}
                                               cornerRadius={templates[selectedTemplate]?.imageCircleDiameter || imageCircleDiameter}
@@ -1977,7 +1977,7 @@ const [logoMaskColor,setLogoMaskColor]=useState('black');
                                       handleViewTemplate('front');
                                     }}
                                   ></i>
-                                </td>
+                                
 
                                 <div
                                   className={`modal fade ${isViewModalOpen ? 'show' : ''}`}
@@ -2008,6 +2008,7 @@ const [logoMaskColor,setLogoMaskColor]=useState('black');
                                   </div>
                                 </div>
                               </div>
+                              </td>
 
                                                            <td>
                                                                <label htmlFor="template-front">
@@ -2034,7 +2035,7 @@ const [logoMaskColor,setLogoMaskColor]=useState('black');
                                                           handleViewTemplate('back');
                                                         }}
                                                       ></i>
-                                                    </td>
+                                                    
 
                                                     <div
                                                       className={`modal fade ${isViewModalOpen ? 'show' : ''}`}
@@ -2065,6 +2066,7 @@ const [logoMaskColor,setLogoMaskColor]=useState('black');
                                                         </div>
                                                       </div>
                                                     </div>
+                                                    </td>
 
                                                            <td>
                                                            <label htmlFor="template-back">
@@ -2091,7 +2093,7 @@ const [logoMaskColor,setLogoMaskColor]=useState('black');
                                                               handleViewTemplate('badge');
                                                             }}
                                                           ></i>
-                                                        </td>
+                                                        
 
                                                         <div
                                                           className={`modal fade ${isViewModalOpen ? 'show' : ''}`}
@@ -2122,6 +2124,7 @@ const [logoMaskColor,setLogoMaskColor]=useState('black');
                                                             </div>
                                                           </div>
                                                         </div>
+                                                        </td>
 
                                                            <td>
                                                            <label htmlFor="template-badge">

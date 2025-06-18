@@ -755,7 +755,12 @@ const handleCreateId=()=>{
 														{Array.isArray(employeeProfile) ? (
   currentdata.length > 0 ? (
     currentdata.filter((row)=>{
-      const matchSearch=searchItem.toLowerCase()===''?row:String(row.name).toLowerCase().includes(searchItem);
+      console.log(row);
+      const matchSearch = searchItem.toLowerCase() === '' 
+  ? true 
+  : String(row.en_name).toLowerCase().includes(searchItem.toLowerCase());
+
+      console.log(matchSearch)
       const matchFilter =
   selectedFilter === 'show all' ||
   row.id_status?.toLowerCase() === selectedFilter.toLowerCase();

@@ -58,12 +58,10 @@ export const getUser=createAsyncThunk(
     async(_,{rejectWithValue})=>{
         try{
             const userData = JSON.parse(localStorage.getItem('userdata'));
-
             if (!userData) {
                 return rejectWithValue('No user found in localStorage');
             }
-            else{
-               
+            else{     
                 return userData;
             }
         }catch(error){
