@@ -2188,7 +2188,7 @@ const [logoMaskColor,setLogoMaskColor]=useState('black');
                                         <option value="abbreviation" name="abbreviation">Abbreviation</option>
 
                                       </select>
-                                    <button onClick={(e)=>handleEnableField(e)}>Add Field</button>
+                                    <button className="btn btn-primary" onClick={(e)=>handleEnableField(e)}>Add Field</button>
                                         {enableField[selectedTemplate]?.['photo']&&(<Group className="controls">
                                                                               
                                                                               <Group>
